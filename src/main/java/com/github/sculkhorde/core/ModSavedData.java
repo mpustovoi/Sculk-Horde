@@ -1524,6 +1524,7 @@ public class ModSavedData extends SavedData {
 
         private boolean isVessel = false;
         private boolean isActiveVessel = false;
+        private int nodesDestroyed = 0;
 
         private static final int MAX_RELATIONSHIP_VALUE = 1000;
         private static final int MIN_RELATIONSHIP_VALUE = -1;
@@ -1533,12 +1534,13 @@ public class ModSavedData extends SavedData {
             this.playerUUID = playerIn.getUUID();
         }
 
-        public PlayerProfileEntry(UUID playerIn, int relationshipToTheHordeIn, boolean isVesselIn, boolean isActiveVesselIn)
+        public PlayerProfileEntry(UUID playerIn, int relationshipToTheHordeIn, boolean isVesselIn, boolean isActiveVesselIn, int nodesDestroyed)
         {
             this.playerUUID = playerIn;
             this.relationshipToTheHorde = relationshipToTheHordeIn;
             this.isVessel = isVesselIn;
             this.isActiveVessel = isActiveVesselIn;
+            this.nodesDestroyed = nodesDestroyed;
         }
 
         public Optional<Player> getPlayer()
@@ -1593,6 +1595,12 @@ public class ModSavedData extends SavedData {
             return isVessel && isActiveVessel;
         }
 
+        public int getNodesDestroyed() { return nodesDestroyed; }
+
+        public void setNodesDestroyed(int value) { nodesDestroyed = value; }
+
+        public void incrementNodesDestroyed() { setNodesDestroyed(getNodesDestroyed() + 1);}
+
         /**
          * Making nbt to be stored in memory
          * @return The nbt with our data
@@ -1604,6 +1612,7 @@ public class ModSavedData extends SavedData {
             nbt.putInt("relationshipToTheHorde", relationshipToTheHorde);
             nbt.putBoolean("isVessel", isVessel);
             nbt.putBoolean("isActiveVessel", isActiveVessel);
+            nbt.putInt("nodesDestroyed", nodesDestroyed);
             return nbt;
         }
 
@@ -1613,7 +1622,25 @@ public class ModSavedData extends SavedData {
          */
         public static PlayerProfileEntry serialize(CompoundTag nbt)
         {
-            return new PlayerProfileEntry(nbt.getUUID("playerUUID"), nbt.getInt("relationshipToTheHorde"), nbt.getBoolean("isVessel"), nbt.getBoolean("isActiveVessel"));
+            return new PlayerProfileEntry(
+                    nbt.getUUID("playerUUID"),
+                    nbt.getInt("relationshipToTheHorde"),
+                    nbt.getBoolean("isVessel"),
+                    nbt.getBoolean("isActiveVessel"),
+                    nbt.getInt("nodesDestroyed")
+            );
+        }
+
+        @Override
+        public String toString() {
+            return "PlayerProfileEntry{" +
+                    "playerUUID=" + playerUUID +
+                    ", username=" + (getPlayer().isEmpty() ? "N/A" : getPlayer().get().getName().getString()) +
+                    ", relationshipToTheHorde=" + relationshipToTheHorde +
+                    ", isVessel=" + isVessel +
+                    ", isActiveVessel=" + isActiveVessel +
+                    ", nodesDestroyed=" + nodesDestroyed +
+                    '}';
         }
     }
 }
