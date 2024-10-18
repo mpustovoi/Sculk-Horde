@@ -24,6 +24,7 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -449,6 +450,31 @@ public class EntityAlgorithms {
     public static void announceToAllPlayers(ServerLevel level, Component message)
     {
         level.players().forEach((player) -> player.displayClientMessage(message, false));
+    }
+
+    public static double getHeightOffGround(Entity entity) {
+        // Starting point of the ray (entity's position)
+        Vec3 startPos = entity.position();
+
+        // Ending point of the ray (directly below the entity)
+        Vec3 endPos = startPos.subtract(0, entity.getY() + 256, 0); // 256 blocks down should be enough
+
+        // Perform the ray trace
+        HitResult hitResult = entity.level().clip(new ClipContext(
+                startPos,
+                endPos,
+                ClipContext.Block.COLLIDER,
+                ClipContext.Fluid.NONE,
+                entity
+        ));
+
+        // Calculate the distance from the entity to the hit point
+        if (hitResult.getType() == HitResult.Type.BLOCK) {
+            return startPos.y - hitResult.getLocation().y;
+        } else {
+            // If no block is hit, return a large number indicating the entity is very high off the ground
+            return Double.MAX_VALUE;
+        }
     }
 
     public static class DelayedHurtScheduler
