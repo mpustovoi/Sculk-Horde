@@ -2,6 +2,7 @@ package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper;
 
 import com.github.sculkhorde.common.entity.projectile.AbstractProjectileEntity;
 import com.github.sculkhorde.core.ModEntities;
+import com.github.sculkhorde.util.ParticleUtil;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
@@ -10,6 +11,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -46,7 +48,13 @@ public class SoulBreezeProjectileEntity extends AbstractProjectileEntity impleme
 
     @Override
     public void trailParticles() {
-
+        float spawnX = (float) (getX() + level().getRandom().nextFloat());
+        float spawnY = (float) (getY() + level().getRandom().nextFloat());
+        float spawnZ = (float) (getX() + level().getRandom().nextFloat());
+        Vector3f spawn = new Vector3f(spawnX, spawnY, spawnZ);
+        Vector3f deltaMovement = new Vector3f(0, 0, 0);
+        String breezeColor = "958DD3";
+        ParticleUtil.spawnColoredDustParticle(level(), breezeColor, 0.8F, spawn, deltaMovement);
     }
 
     @Override

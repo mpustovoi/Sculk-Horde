@@ -1,6 +1,6 @@
 package com.github.sculkhorde.common.effect;
 
-import com.github.sculkhorde.util.ColorConverter;
+import com.github.sculkhorde.util.ColorUtil;
 import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class SoulDisruptionEffect extends MobEffect {
 
-    public static int liquidColor = ColorConverter.hexToRGB("29DFEB");
+    public static int liquidColor = ColorUtil.hexToRGB("29DFEB");
     public static MobEffectCategory effectType = MobEffectCategory.NEUTRAL;
     public long COOLDOWN = TickUnits.convertSecondsToTicks(2);
     public long cooldownTicksRemaining = COOLDOWN;
