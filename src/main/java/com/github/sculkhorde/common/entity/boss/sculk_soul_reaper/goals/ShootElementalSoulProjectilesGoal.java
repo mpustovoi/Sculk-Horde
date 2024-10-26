@@ -7,7 +7,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;
 
-public class ShootSoulsAttackGoal extends Goal
+public class ShootElementalSoulProjectilesGoal extends Goal
 {
     private final SculkSoulReaperEntity mob;
     protected int maxAttackDuration = 0;
@@ -20,7 +20,7 @@ public class ShootSoulsAttackGoal extends Goal
     protected int minDifficulty = 0;
     protected int maxDifficulty = 0;
 
-    public ShootSoulsAttackGoal(SculkSoulReaperEntity mob, int durationInTicks, int minDifficulty, int maxDifficulty) {
+    public ShootElementalSoulProjectilesGoal(SculkSoulReaperEntity mob, int durationInTicks, int minDifficulty, int maxDifficulty) {
         this.mob = mob;
         maxAttackDuration = durationInTicks;
         this.minDifficulty = minDifficulty;
