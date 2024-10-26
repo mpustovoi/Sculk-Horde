@@ -132,18 +132,17 @@ public abstract class AbstractProjectileEntity extends Projectile {
 
     @Override
     public void tick() {
-        super.tick();
         if (tickCount > EXPIRE_TIME) {
             discard();
             return;
         }
-        if (level().isClientSide) {
+        if (!level().isClientSide) {
             trailParticles();
         }
         handleHitDetection();
         faceDirectionOfTravel();
         travel();
-
+        super.tick();
     }
 
     protected void faceDirectionOfTravel()

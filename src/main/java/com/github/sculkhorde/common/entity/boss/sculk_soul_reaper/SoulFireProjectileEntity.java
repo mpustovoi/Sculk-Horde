@@ -2,13 +2,15 @@ package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper;
 
 import com.github.sculkhorde.common.entity.projectile.AbstractProjectileEntity;
 import com.github.sculkhorde.core.ModEntities;
-import net.minecraft.core.particles.ParticleTypes;
+import com.github.sculkhorde.util.ParticleUtil;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
+import org.joml.Vector3f;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -38,8 +40,9 @@ public class SoulFireProjectileEntity extends AbstractProjectileEntity implement
     public void trailParticles() {
         float spawnX = (float) (getX() + level().getRandom().nextFloat());
         float spawnY = (float) (getY() + level().getRandom().nextFloat());
-        float spawnZ = (float) (getX() + level().getRandom().nextFloat());
-        level().addParticle(ParticleTypes.FLAME, spawnX, spawnY, spawnZ, 0, 0, 0);
+        float spawnZ = (float) (getZ() + level().getRandom().nextFloat());
+        Vector3f spawn = new Vector3f(spawnX, spawnY, spawnZ);
+        ParticleUtil.spawnFlameParticle((ServerLevel) level(), spawn, new Vector3f(0,0,0));
     }
 
     @Override

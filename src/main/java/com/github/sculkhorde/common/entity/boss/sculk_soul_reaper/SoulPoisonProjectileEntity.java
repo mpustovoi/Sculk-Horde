@@ -5,6 +5,7 @@ import com.github.sculkhorde.core.ModEntities;
 import com.github.sculkhorde.util.ColorUtil;
 import com.github.sculkhorde.util.ParticleUtil;
 import com.github.sculkhorde.util.TickUnits;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -43,10 +44,10 @@ public class SoulPoisonProjectileEntity extends AbstractProjectileEntity impleme
     public void trailParticles() {
         float spawnX = (float) (getX() + level().getRandom().nextFloat());
         float spawnY = (float) (getY() + level().getRandom().nextFloat());
-        float spawnZ = (float) (getX() + level().getRandom().nextFloat());
+        float spawnZ = (float) (getZ() + level().getRandom().nextFloat());
         Vector3f spawn = new Vector3f(spawnX, spawnY, spawnZ);
         Vector3f deltaMovement = new Vector3f(0, 0, 0);
-        ParticleUtil.spawnColoredDustParticle(level(), ColorUtil.getRandomHexAcidColor(level().getRandom()), 0.8F, spawn, deltaMovement);
+        ParticleUtil.spawnColoredDustParticle((ServerLevel) level(), ColorUtil.getRandomHexAcidColor(level().getRandom()), 0.8F, spawn, deltaMovement);
     }
 
     @Override
