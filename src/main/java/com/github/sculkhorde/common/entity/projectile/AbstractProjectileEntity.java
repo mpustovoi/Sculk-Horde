@@ -48,8 +48,20 @@ public abstract class AbstractProjectileEntity extends Projectile {
         super(pEntityType, pLevel);
     }
 
-    public void shoot(Vec3 rotation) {
-        setDeltaMovement(rotation.scale(getSpeed()));
+    public void shoot(Vec3 deltaMovement) {
+        setDeltaMovement(deltaMovement.scale(getSpeed()));
+
+        // Calculate yaw and pitch
+        double dx = deltaMovement.x;
+        double dy = deltaMovement.y;
+        double dz = deltaMovement.z;
+
+        float yaw = (float) (Math.atan2(dz, dx) * (180 / Math.PI)) - 90;
+        float pitch = (float) -(Math.atan2(dy, Math.sqrt(dx * dx + dz * dz)) * (180 / Math.PI));
+
+        // Set the entity's rotation
+        //this.setYRot(yaw);
+        //this.setXRot(pitch);
     }
 
     public void setDamage(float damage) {

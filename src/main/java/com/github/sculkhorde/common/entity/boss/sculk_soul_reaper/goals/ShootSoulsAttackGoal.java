@@ -1,8 +1,6 @@
 package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.goals;
 
-import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SculkSoulReaperEntity;
-import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SoulFireProjectileEntity;
-import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SoulPoisonProjectileEntity;
+import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.*;
 import com.github.sculkhorde.common.entity.projectile.AbstractProjectileEntity;
 import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.sounds.SoundEvents;
@@ -21,8 +19,6 @@ public class ShootSoulsAttackGoal extends Goal
     protected int projectileType = 0;
     protected int minDifficulty = 0;
     protected int maxDifficulty = 0;
-
-
 
     public ShootSoulsAttackGoal(SculkSoulReaperEntity mob, int durationInTicks, int minDifficulty, int maxDifficulty) {
         this.mob = mob;
@@ -85,7 +81,7 @@ public class ShootSoulsAttackGoal extends Goal
         super.start();
         getEntity().triggerAnim("attack_controller", "fireball_sky_summon_animation");
         getEntity().triggerAnim("twitch_controller", "fireball_sky_twitch_animation");
-        projectileType = getRandomIntInRange(0,1);
+        projectileType = mob.level().getRandom().nextInt(4);
     }
 
     @Override
@@ -108,17 +104,14 @@ public class ShootSoulsAttackGoal extends Goal
     {
         return min + (mob.getRandom().nextFloat() * (max + min));
     }
-    public int getRandomIntInRange(int min, int max)
-    {
-        return min + (mob.getRandom().nextInt() * (max + min));
-    }
 
     public AbstractProjectileEntity getProjectile()
     {
-
         return switch (projectileType) {
             case 0 -> new SoulFireProjectileEntity(mob.level(), mob, 2.5F);
             case 1 -> new SoulPoisonProjectileEntity(mob.level(), mob, 2.5F);
+            case 2 -> new SoulIceProjectileEntity(mob.level(), mob, 2.5F);
+            case 3 -> new SoulBreezeProjectileEntity(mob.level(), mob, 2.5F);
             default -> new SoulFireProjectileEntity(mob.level(), mob, 2.5F);
         };
     }
