@@ -78,6 +78,8 @@ public class ClientModEventSubscriber {
 
         event.registerEntityRenderer(ModEntities.SOUL_FIRE_PROJECTILE.get(), SoulFireProjectileRenderer::new);
         event.registerEntityRenderer(ModEntities.SOUL_POISON_PROJECTILE.get(), SoulPoisonProjectileRenderer::new);
+        event.registerEntityRenderer(ModEntities.SOUL_ICE_PROJECTILE.get(), SoulIceProjectileRenderer::new);
+        event.registerEntityRenderer(ModEntities.SOUL_BREEZE_PROJECTILE.get(), SoulBreezeProjectileRenderer::new);
         event.registerEntityRenderer(ModEntities.SOUL_SPEAR_PROJECTILE.get(), SoulSpearProjectileRenderer::new);
         event.registerEntityRenderer(ModEntities.SOUL_FLY_SWATTER_PROJECTILE.get(), SoulFlySwatterProjectileRenderer::new);
         event.registerEntityRenderer(ModEntities.FLOOR_SOUL_SPEARS.get(), FloorSoulSpearsRenderer::new);
