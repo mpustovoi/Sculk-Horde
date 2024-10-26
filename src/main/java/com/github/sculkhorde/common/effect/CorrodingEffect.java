@@ -1,30 +1,22 @@
 package com.github.sculkhorde.common.effect;
 
-import com.github.sculkhorde.core.*;
+import com.github.sculkhorde.core.ModMobEffects;
+import com.github.sculkhorde.util.ColorUtil;
 import com.github.sculkhorde.util.EntityAlgorithms;
+import com.github.sculkhorde.util.ParticleUtil;
 import com.github.sculkhorde.util.TickUnits;
-import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
+import org.joml.Vector3f;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 public class CorrodingEffect extends MobEffect {
 
-    public static int liquidColor = 338997;
+    public static int liquidColor = ColorUtil.hexToRGB(ColorUtil.sculkAcidColor1);
     public static MobEffectCategory effectType = MobEffectCategory.HARMFUL;
     public long COOLDOWN = TickUnits.convertSecondsToTicks(1);
     public long cooldownTicksRemaining = COOLDOWN;
@@ -66,9 +58,9 @@ public class CorrodingEffect extends MobEffect {
         victim.addEffect(new MobEffectInstance(effect, duration, 0));
     }
 
-    public double getNextDoubleBetweenInclusive(RandomSource rng, double min, double max)
+    public float getNextFloatBetweenInclusive(RandomSource rng, float min, float max)
     {
-        return (rng.nextDouble() * (max-min)) + min;
+        return (rng.nextFloat() * (max-min)) + min;
     }
 
 
@@ -76,8 +68,8 @@ public class CorrodingEffect extends MobEffect {
     public void applyEffectTick(LivingEntity victimEntity, int amp) {
         if(victimEntity.level().isClientSide())
         {
-            double spawnWidth = victimEntity.getBbWidth() / 2;
-            double spawnHeight = victimEntity.getBbHeight() / 2;
+            float spawnWidth = victimEntity.getBbWidth() / 2;
+            float spawnHeight = victimEntity.getBbHeight() / 2;
             spawnRandomParticle(victimEntity, spawnWidth, spawnHeight);
             spawnRandomParticle(victimEntity, spawnWidth, spawnHeight);
             spawnRandomParticle(victimEntity, spawnWidth, spawnHeight);
@@ -95,12 +87,17 @@ public class CorrodingEffect extends MobEffect {
         }
     }
 
-    private void spawnRandomParticle(LivingEntity victimEntity, double maxWidthOffset, double maxHeightOffset)
+    private void spawnRandomParticle(LivingEntity victimEntity, float maxWidthOffset, float maxHeightOffset)
     {
-        double randomX = victimEntity.getX() + getNextDoubleBetweenInclusive(victimEntity.getRandom(), -maxWidthOffset, maxWidthOffset);
-        double randomY = victimEntity.getY() + getNextDoubleBetweenInclusive(victimEntity.getRandom(),-maxHeightOffset, maxHeightOffset) + maxHeightOffset;
-        double randomZ = victimEntity.getZ() + getNextDoubleBetweenInclusive(victimEntity.getRandom(),-maxWidthOffset, maxWidthOffset);
-        victimEntity.level().addParticle(new DustParticleOptions(Vec3.fromRGB24(2726783).toVector3f(), 2.0F), randomX, randomY, randomZ, 0.0D, victimEntity.getRandom().nextDouble() * - 1, 0.0D);
+        float randomX = (float) (victimEntity.getX() + getNextFloatBetweenInclusive(victimEntity.getRandom(), -maxWidthOffset, maxWidthOffset));
+        float randomY = (float) (victimEntity.getY() + getNextFloatBetweenInclusive(victimEntity.getRandom(),-maxHeightOffset, maxHeightOffset) + maxHeightOffset);
+        float randomZ = (float) (victimEntity.getZ() + getNextFloatBetweenInclusive(victimEntity.getRandom(),-maxWidthOffset, maxWidthOffset));
+        //victimEntity.level().addParticle(new DustParticleOptions(Vec3.fromRGB24(2726783).toVector3f(), 2.0F), randomX, randomY, randomZ, 0.0D, victimEntity.getRandom().nextDouble() * - 1, 0.0D);
+        ParticleUtil.spawnColoredDustParticle(victimEntity.level(),
+                ColorUtil.getRandomHexAcidColor(victimEntity.getRandom()),
+                0.8F,
+                new Vector3f(randomX, randomY, randomZ),
+                new Vector3f(0, victimEntity.getRandom().nextFloat() * - 1, 0));
     }
 
 
