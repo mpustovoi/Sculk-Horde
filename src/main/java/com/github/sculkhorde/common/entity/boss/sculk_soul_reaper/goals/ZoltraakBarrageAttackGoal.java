@@ -1,9 +1,16 @@
 package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.goals;
 
 import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SculkSoulReaperEntity;
+import com.github.sculkhorde.util.EntityAlgorithms;
 import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.phys.AABB;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class ZoltraakBarrageAttackGoal extends Goal
 {
@@ -16,6 +23,7 @@ public class ZoltraakBarrageAttackGoal extends Goal
     protected int attackkIntervalCooldown = 0;
     protected int minDifficulty = 0;
     protected int maxDifficulty = 0;
+    ArrayList<LivingEntity> targets = new ArrayList<>();
 
 
     public ZoltraakBarrageAttackGoal(SculkSoulReaperEntity mob, int durationInTicks, int minDifficulty, int maxDifficulty) {
@@ -85,11 +93,33 @@ public class ZoltraakBarrageAttackGoal extends Goal
         //getEntity().triggerAnim("twitch_controller", "fireball_sky_twitch_animation");
     }
 
+    protected void populateTargetList()
+    {
+        AABB targetHitBox = EntityAlgorithms.createBoundingBoxCubeAtBlockPos(mob.position(), 32);
+        targets.addAll(EntityAlgorithms.getHostileEntitiesInBoundingBox((ServerLevel) mob.level(), targetHitBox));
+        Collections.shuffle(targets);
+        int maxTargets = 5;
+
+        // Trim the list to the desired size
+        while (targets.size() > maxTargets) {
+            targets.remove(targets.size() - 1);
+        }
+    }
+
     @Override
     public void tick()
     {
         super.tick();
         elapsedAttackDuration++;
+
+        if(targets.isEmpty())
+        {
+            populateTargetList();
+            return;
+        }
+        mob.setTarget(targets.get(0));
+        targets.remove(0);
+
         spawnSoulAndShootAtTarget(5);
     }
 
