@@ -1,6 +1,7 @@
 package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.goals;
 
 import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SculkSoulReaperEntity;
+import com.github.sculkhorde.core.SculkHorde;
 import com.github.sculkhorde.util.EntityAlgorithms;
 import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.core.BlockPos;
@@ -95,10 +96,59 @@ public class ZoltraakBarrageAttackGoal extends Goal
 
     protected void populateTargetList()
     {
-        AABB targetHitBox = EntityAlgorithms.createBoundingBoxCubeAtBlockPos(mob.position(), 32);
-        targets.addAll(EntityAlgorithms.getHostileEntitiesInBoundingBox((ServerLevel) mob.level(), targetHitBox));
-        Collections.shuffle(targets);
         int maxTargets = 5;
+
+        AABB targetHitBox = EntityAlgorithms.createBoundingBoxCubeAtBlockPos(mob.position(), 10);
+        targets.addAll(EntityAlgorithms.getHostileEntitiesInBoundingBox((ServerLevel) mob.level(), targetHitBox));
+
+        if(targets.size() < maxTargets)
+        {
+            targets.clear();
+            targetHitBox = EntityAlgorithms.createBoundingBoxCubeAtBlockPos(mob.position(), 20);
+            targets.addAll(EntityAlgorithms.getHostileEntitiesInBoundingBox((ServerLevel) mob.level(), targetHitBox));
+            SculkHorde.LOGGER.debug("ZoltraakBarrageAttackGoal | Expanding hitbox to length of 20");
+        }
+
+        if(targets.size() < maxTargets)
+        {
+            targets.clear();
+            targetHitBox = EntityAlgorithms.createBoundingBoxCubeAtBlockPos(mob.position(), 30);
+            targets.addAll(EntityAlgorithms.getHostileEntitiesInBoundingBox((ServerLevel) mob.level(), targetHitBox));
+            SculkHorde.LOGGER.debug("ZoltraakBarrageAttackGoal | Expanding hitbox to length of 30");
+        }
+
+        if(targets.size() < maxTargets)
+        {
+            targets.clear();
+            targetHitBox = EntityAlgorithms.createBoundingBoxCubeAtBlockPos(mob.position(), 40);
+            targets.addAll(EntityAlgorithms.getHostileEntitiesInBoundingBox((ServerLevel) mob.level(), targetHitBox));
+            SculkHorde.LOGGER.debug("ZoltraakBarrageAttackGoal | Expanding hitbox to length of 40");
+        }
+
+        if(targets.size() < maxTargets)
+        {
+            targets.clear();
+            targetHitBox = EntityAlgorithms.createBoundingBoxCubeAtBlockPos(mob.position(), 50);
+            targets.addAll(EntityAlgorithms.getHostileEntitiesInBoundingBox((ServerLevel) mob.level(), targetHitBox));
+            SculkHorde.LOGGER.debug("ZoltraakBarrageAttackGoal | Expanding hitbox to length of 50");
+        }
+
+        if(targets.size() < maxTargets)
+        {
+            targets.clear();
+            targetHitBox = EntityAlgorithms.createBoundingBoxCubeAtBlockPos(mob.position(), 60);
+            targets.addAll(EntityAlgorithms.getHostileEntitiesInBoundingBox((ServerLevel) mob.level(), targetHitBox));
+            SculkHorde.LOGGER.debug("ZoltraakBarrageAttackGoal | Expanding hitbox to length of 60");
+        }
+
+        if(targets.size() < maxTargets && targets.isEmpty())
+        {
+            elapsedAttackDuration = maxAttackDuration;
+        }
+
+
+        Collections.shuffle(targets);
+
 
         // Trim the list to the desired size
         while (targets.size() > maxTargets) {
