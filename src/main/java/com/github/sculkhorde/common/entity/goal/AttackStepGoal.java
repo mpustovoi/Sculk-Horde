@@ -25,6 +25,6 @@ public class AttackStepGoal extends Goal
     @Override
     public void stop() {
         super.stop();
-        sequenceParent.incrementAttackIndexOrFinishSequence();
+        if(sequenceParent != null) { sequenceParent.incrementAttackIndexOrFinishSequence(); }
     }
 }
