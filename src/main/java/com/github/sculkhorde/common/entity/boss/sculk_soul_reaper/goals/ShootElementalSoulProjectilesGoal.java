@@ -4,13 +4,12 @@ import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.*;
 import com.github.sculkhorde.common.entity.projectile.AbstractProjectileEntity;
 import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;
 
-public class ShootElementalSoulProjectilesGoal extends Goal
+public class ShootElementalSoulProjectilesGoal extends ReaperCastSpellGoal
 {
     private final SculkSoulReaperEntity mob;
-    protected int maxAttackDuration = 0;
+    protected int maxAttackDuration = TickUnits.convertSecondsToTicks(10);
     protected int elapsedAttackDuration = 0;
     protected final int executionCooldown = TickUnits.convertSecondsToTicks(10);
     protected int ticksElapsed = executionCooldown;
@@ -20,9 +19,9 @@ public class ShootElementalSoulProjectilesGoal extends Goal
     protected int minDifficulty = 0;
     protected int maxDifficulty = 0;
 
-    public ShootElementalSoulProjectilesGoal(SculkSoulReaperEntity mob, int durationInTicks, int minDifficulty, int maxDifficulty) {
+    public ShootElementalSoulProjectilesGoal(SculkSoulReaperEntity mob, int minDifficulty, int maxDifficulty) {
+        super(mob, minDifficulty, maxDifficulty);
         this.mob = mob;
-        maxAttackDuration = durationInTicks;
         this.minDifficulty = minDifficulty;
         this.maxDifficulty = maxDifficulty;
     }
@@ -31,65 +30,24 @@ public class ShootElementalSoulProjectilesGoal extends Goal
         return true;
     }
 
-    private SculkSoulReaperEntity getEntity()
-    {
-        return (SculkSoulReaperEntity)this.mob;
-    }
-
-    @Override
-    public boolean canUse()
-    {
-        ticksElapsed++;
-
-        if(mob.getTarget() == null)
-        {
-            return false;
-        }
-
-        if(ticksElapsed < executionCooldown)
-        {
-            return false;
-        }
-
-        if(!mob.getSensing().hasLineOfSight(mob.getTarget()))
-        {
-            return false;
-        }
-
-        if(mob.getMobDifficultyLevel() < minDifficulty)
-        {
-            return false;
-        }
-
-        if(mob.getMobDifficultyLevel() > maxDifficulty && maxDifficulty != -1)
-        {
-            return false;
-        }
-
-        return true;
-    }
-
-    @Override
-    public boolean canContinueToUse()
-    {
-        return elapsedAttackDuration < maxAttackDuration;
-    }
-
     @Override
     public void start()
     {
         super.start();
-        getEntity().triggerAnim("attack_controller", "fireball_sky_summon_animation");
-        getEntity().triggerAnim("twitch_controller", "fireball_sky_twitch_animation");
         projectileType = mob.level().getRandom().nextInt(4);
     }
 
+
+
     @Override
-    public void tick()
-    {
-        super.tick();
+    protected void doAttackTick() {
         elapsedAttackDuration++;
         spawnSoulAndShootAtTarget(5);
+
+        if(elapsedAttackDuration >= maxAttackDuration)
+        {
+            setSpellCompleted();
+        }
     }
 
     @Override

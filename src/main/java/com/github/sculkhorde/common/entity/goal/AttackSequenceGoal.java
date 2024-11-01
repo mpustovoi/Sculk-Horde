@@ -45,6 +45,12 @@ public class AttackSequenceGoal extends Goal
     protected long getExecutionCooldown() { return executionCooldown; }
 
     @Override
+    public void start() {
+        super.start();
+        getCurrentGoal().start();
+    }
+
+    @Override
     public boolean canUse() {
 
         if(attacks.isEmpty()) { return false; }
@@ -65,6 +71,11 @@ public class AttackSequenceGoal extends Goal
     @Override
     public void tick() {
         getCurrentGoal().tick();
+    }
+
+    @Override
+    public boolean requiresUpdateEveryTick() {
+        return getCurrentGoal().requiresUpdateEveryTick();
     }
 
     @Override
