@@ -14,8 +14,6 @@ public class ReaperCastSpellGoal extends AttackStepGoal {
     protected float DAMAGE = 8F;
     protected int minDifficulty = 0;
     protected int maxDifficulty = 0;
-    protected boolean isNextSpellToCast = false;
-    protected boolean isPartOfAttackSequence = false;
 
 
     public ReaperCastSpellGoal(SculkSoulReaperEntity mob, int minDifficulty, int maxDifficulty) {
