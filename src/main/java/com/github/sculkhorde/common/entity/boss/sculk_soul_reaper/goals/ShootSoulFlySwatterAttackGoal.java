@@ -6,46 +6,22 @@ import com.github.sculkhorde.common.entity.projectile.AbstractProjectileEntity;
 import com.github.sculkhorde.util.EntityAlgorithms;
 import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.Vec3;
 
-public class ShootSoulFlySwatterAttackGoal extends Goal
+public class ShootSoulFlySwatterAttackGoal extends ReaperCastSpellGoal
 {
-    private final SculkSoulReaperEntity mob;
-    protected final int executionCooldown = TickUnits.convertSecondsToTicks(3);
-    protected int ticksElapsed = executionCooldown;
     protected final int baseCastingTime = TickUnits.convertSecondsToTicks(3);
     protected int castingTime = 0;
     boolean spellCasted = false;
-    protected int minDifficulty = 0;
-    protected int maxDifficulty = 0;
 
-    public ShootSoulFlySwatterAttackGoal(SculkSoulReaperEntity mob, int minDifficulty, int maxDifficulty) {
-        this.mob = mob;
-        this.minDifficulty = minDifficulty;
-        this.maxDifficulty = maxDifficulty;
-    }
-
-    public boolean requiresUpdateEveryTick() {
-        return true;
-    }
-
-    protected int getCastingTimeElapsed()
-    {
-        return castingTime;
+    public ShootSoulFlySwatterAttackGoal(SculkSoulReaperEntity mob) {
+        super(mob);
     }
 
     @Override
     public boolean canUse()
     {
-        ticksElapsed++;
-
-        if(mob.getTarget() == null)
-        {
-            return false;
-        }
-
-        if(ticksElapsed < executionCooldown)
+        if(!super.canUse())
         {
             return false;
         }
@@ -55,83 +31,22 @@ public class ShootSoulFlySwatterAttackGoal extends Goal
             return false;
         }
 
-        if(mob.getMobDifficultyLevel() < minDifficulty)
-        {
-            return false;
-        }
-
-        if(mob.getMobDifficultyLevel() > maxDifficulty && maxDifficulty != -1)
-        {
-            return false;
-        }
-
         return true;
     }
 
-    @Override
-    public boolean canContinueToUse()
-    {
-        return !spellCasted && mob.getTarget() != null;
-    }
 
     @Override
-    public void start()
-    {
-        super.start();
-
-        if(mob.level().isClientSide())
-        {
-            return;
-        }
-
-        //getEntity().triggerAnim("attack_controller", "fireball_sky_summon_animation");
-        //getEntity().triggerAnim("twitch_controller", "fireball_sky_twitch_animation");
-        this.mob.getNavigation().stop();
-    }
-
-    @Override
-    public void tick()
-    {
-        super.tick();
-
-        if(mob.level().isClientSide())
-        {
-            return;
-        }
-
-        if(getCastingTimeElapsed() < baseCastingTime)
-        {
-            castingTime++;
-            return;
-        }
-
-        if(spellCasted)
-        {
-            return;
-        }
-
+    protected void doAttackTick() {
+        super.doAttackTick();
         shootProjectileAtTarget();
-        spellCasted = true;
+        setSpellCompleted();
     }
 
-    @Override
-    public void stop()
-    {
-        super.stop();
-        ticksElapsed = 0;
-        spellCasted = false;
-        castingTime = 0;
-    }
 
     public double getRandomDoubleInRange(double min, double max)
     {
         return min + (mob.getRandom().nextFloat() * (max + min));
     }
-    public int getRandomIntInRange(int min, int max)
-    {
-        return min + (mob.getRandom().nextInt() * (max + min));
-    }
-
     public void shootProjectileAtTarget()
     {
 
@@ -161,6 +76,4 @@ public class ShootSoulFlySwatterAttackGoal extends Goal
         mob.level().addFreshEntity(projectile);
 
     }
-
 }
-//projectileEntity.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, (float)(14 - mob.level().getDifficulty().getId() * 4));

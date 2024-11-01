@@ -19,11 +19,9 @@ public class ShootElementalSoulProjectilesGoal extends ReaperCastSpellGoal
     protected int minDifficulty = 0;
     protected int maxDifficulty = 0;
 
-    public ShootElementalSoulProjectilesGoal(SculkSoulReaperEntity mob, int minDifficulty, int maxDifficulty) {
-        super(mob, minDifficulty, maxDifficulty);
+    public ShootElementalSoulProjectilesGoal(SculkSoulReaperEntity mob) {
+        super(mob);
         this.mob = mob;
-        this.minDifficulty = minDifficulty;
-        this.maxDifficulty = maxDifficulty;
     }
 
     public boolean requiresUpdateEveryTick() {

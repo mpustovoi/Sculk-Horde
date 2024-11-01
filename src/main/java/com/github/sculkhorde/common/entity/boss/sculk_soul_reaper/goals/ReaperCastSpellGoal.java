@@ -12,14 +12,10 @@ public class ReaperCastSpellGoal extends AttackStepGoal {
     protected int castingTime = 0;
     protected boolean spellCasted = false;
     protected float DAMAGE = 8F;
-    protected int minDifficulty = 0;
-    protected int maxDifficulty = 0;
 
 
-    public ReaperCastSpellGoal(SculkSoulReaperEntity mob, int minDifficulty, int maxDifficulty) {
+    public ReaperCastSpellGoal(SculkSoulReaperEntity mob) {
         this.mob = mob;
-        this.minDifficulty = minDifficulty;
-        this.maxDifficulty = maxDifficulty;
     }
 
     public boolean requiresUpdateEveryTick() {
@@ -66,17 +62,6 @@ public class ReaperCastSpellGoal extends AttackStepGoal {
         {
             return false;
         }
-
-        if(mob.getMobDifficultyLevel() < minDifficulty)
-        {
-            return false;
-        }
-
-        if(mob.getMobDifficultyLevel() > maxDifficulty && maxDifficulty != -1)
-        {
-            return false;
-        }
-
         return true;
     }
 

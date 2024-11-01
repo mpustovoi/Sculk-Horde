@@ -1,6 +1,7 @@
 package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper;
 
 import com.github.sculkhorde.common.entity.ISculkSmartEntity;
+import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.goals.ReaperAttackSequenceGoal;
 import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.goals.ShootElementalSoulProjectilesGoal;
 import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.goals.SoulReapterNavigator;
 import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.goals.ZoltraakAttackGoal;
@@ -228,10 +229,10 @@ public class SculkSoulReaperEntity extends Monster implements GeoEntity, ISculkS
         //this.goalSelector.addGoal(2, new ShortRangeFloorSoulsAttackGoal(this, 3, -1));
         //this.goalSelector.addGoal(2, new MirrorPlayerGoal(this, 3, -1));
 
-        this.goalSelector.addGoal(1, new AttackSequenceGoal(this, TickUnits.convertSecondsToTicks(5),
-                new ZoltraakAttackGoal(this, 2, 2),
-                new ZoltraakAttackGoal(this, 2, 2),
-                new ShootElementalSoulProjectilesGoal(this, 2, -1)
+        this.goalSelector.addGoal(1, new ReaperAttackSequenceGoal(this, TickUnits.convertSecondsToTicks(5), 2,2,
+                new ZoltraakAttackGoal(this),
+                new ZoltraakAttackGoal(this),
+                new ShootElementalSoulProjectilesGoal(this)
         ));
 
         this.goalSelector.addGoal(5, new SoulReapterNavigator(this, 20F, 10F));
