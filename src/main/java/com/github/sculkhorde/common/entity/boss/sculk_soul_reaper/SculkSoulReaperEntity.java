@@ -1,11 +1,9 @@
 package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper;
 
 import com.github.sculkhorde.common.entity.ISculkSmartEntity;
-import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.goals.*;
-import com.github.sculkhorde.common.entity.goal.ImprovedRandomStrollGoal;
-import com.github.sculkhorde.common.entity.goal.InvalidateTargetGoal;
-import com.github.sculkhorde.common.entity.goal.NearestLivingEntityTargetGoal;
-import com.github.sculkhorde.common.entity.goal.TargetAttacker;
+import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.goals.SoulReapterNavigator;
+import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.goals.ZoltraakAttackGoal;
+import com.github.sculkhorde.common.entity.goal.*;
 import com.github.sculkhorde.core.ModEntities;
 import com.github.sculkhorde.core.ModMobEffects;
 import com.github.sculkhorde.core.ModSounds;
@@ -84,6 +82,8 @@ public class SculkSoulReaperEntity extends Monster implements GeoEntity, ISculkS
     private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     protected Optional<LivingEntity> hitTarget = Optional.empty();
+
+    protected boolean isUsingSpell = false;
 
     /**
      * The Constructor
@@ -185,6 +185,21 @@ public class SculkSoulReaperEntity extends Monster implements GeoEntity, ISculkS
         hitTarget = Optional.of(e);
     }
 
+    public boolean getIsUsingSpell()
+    {
+        return isUsingSpell;
+    }
+
+    public void startUsingSpell()
+    {
+        isUsingSpell = true;
+    }
+
+    public void stopUsingSpell()
+    {
+        isUsingSpell = false;
+    }
+
     @Override
     public void checkDespawn() {}
 
@@ -199,19 +214,26 @@ public class SculkSoulReaperEntity extends Monster implements GeoEntity, ISculkS
         this.goalSelector.addGoal(0, new FloatGoal(this));
 
 
-        this.goalSelector.addGoal(2, new SummonVexAttackGoal(this, 1, 3));
-        this.goalSelector.addGoal(3, new FangsAttackGoal(this, 1, 2));
+        //this.goalSelector.addGoal(2, new SummonVexAttackGoal(this, 1, 3));
+        //this.goalSelector.addGoal(3, new FangsAttackGoal(this, 1, 2));
 
-        this.goalSelector.addGoal(1, new ShootSoulFlySwatterAttackGoal(this, 2, 2));
-        this.goalSelector.addGoal(1, new ShootSoulSpearAttackGoal(this, 2, -1));
-        this.goalSelector.addGoal(2, new ZoltraakAttackGoal(this, 2, 2));
-        this.goalSelector.addGoal(2, new ShootElementalSoulProjectilesGoal(this, TickUnits.convertSecondsToTicks(10), 2, -1));
+        //this.goalSelector.addGoal(1, new ShootSoulFlySwatterAttackGoal(this, 2, 2));
+        //this.goalSelector.addGoal(1, new ShootSoulSpearAttackGoal(this, 2, -1));
+        //this.goalSelector.addGoal(2, new ZoltraakAttackGoal(this, 2, 2));
+        //this.goalSelector.addGoal(2, new ShootElementalSoulProjectilesGoal(this, TickUnits.convertSecondsToTicks(10), 2, -1));
 
-        this.goalSelector.addGoal(1, new ZoltraakBarrageAttackGoal(this, TickUnits.convertSecondsToTicks(15), 3, -1));
-        this.goalSelector.addGoal(1, new FloorSoulSpearsAttackGoal(this, TickUnits.convertSecondsToTicks(10), 3, -1));
-        this.goalSelector.addGoal(2, new ShortRangeFloorSoulsAttackGoal(this, 3, -1));
-        this.goalSelector.addGoal(2, new MirrorPlayerGoal(this, 3, -1));
+        //this.goalSelector.addGoal(1, new ZoltraakBarrageAttackGoal(this, TickUnits.convertSecondsToTicks(15), 3, -1));
+        //this.goalSelector.addGoal(1, new FloorSoulSpearsAttackGoal(this, TickUnits.convertSecondsToTicks(10), 3, -1));
+        //this.goalSelector.addGoal(2, new ShortRangeFloorSoulsAttackGoal(this, 3, -1));
+        //this.goalSelector.addGoal(2, new MirrorPlayerGoal(this, 3, -1));
 
+        this.goalSelector.addGoal(1, new AttackSequenceGoal(
+                this,
+                TickUnits.convertSecondsToTicks(5),
+                new ZoltraakAttackGoal(this, 2, 2),
+                new ZoltraakAttackGoal(this, 2, 2),
+                new ZoltraakAttackGoal(this, 2, 2)
+        ));
 
         this.goalSelector.addGoal(5, new SoulReapterNavigator(this, 20F, 10F));
         this.goalSelector.addGoal(6, new ImprovedRandomStrollGoal(this, 1.0D).setToAvoidWater(true));
