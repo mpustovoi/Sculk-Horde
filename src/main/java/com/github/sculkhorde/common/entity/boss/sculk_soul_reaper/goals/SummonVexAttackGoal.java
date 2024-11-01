@@ -69,6 +69,7 @@ public class SummonVexAttackGoal extends Goal
     public void start()
     {
         super.start();
+        mob.startUsingSpell();
         performSpellCasting();
         lastTimeOfExecution = mob.level().getGameTime();
     }
@@ -87,5 +88,11 @@ public class SummonVexAttackGoal extends Goal
             entity.setTarget(mob.getTarget());
             mob.level().addFreshEntity(entity);
         }
+    }
+
+    @Override
+    public void stop() {
+        super.stop();
+        mob.stopUsingSpell();
     }
 }
