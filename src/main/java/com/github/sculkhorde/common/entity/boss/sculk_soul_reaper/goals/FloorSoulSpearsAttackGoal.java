@@ -11,7 +11,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.level.block.Blocks;
 
@@ -20,65 +19,19 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.PriorityQueue;
 
-public class FloorSoulSpearsAttackGoal extends Goal
+public class FloorSoulSpearsAttackGoal extends ReaperCastSpellGoal
 {
-    private final SculkSoulReaperEntity mob;
-    protected int maxAttackDuration = 0;
+    protected int maxAttackDuration = TickUnits.convertSecondsToTicks(10);
     protected int elapsedAttackDuration = 0;
-    protected final int executionCooldown = TickUnits.convertSecondsToTicks(20);
-    protected int ticksElapsed = executionCooldown;
     FloorSoulSpearsSpawner spawner;
     List<LivingEntity> enemies;
     ArrayList<FloorSoulSpearsSpawner> spawners = new ArrayList<>();
     protected long UPDATE_INTERVAL = TickUnits.convertSecondsToTicks(0.15F);
     protected long lastUpdate = 0;
-    protected int minDifficulty = 0;
-    protected int maxDifficulty = 0;
 
 
-    public FloorSoulSpearsAttackGoal(SculkSoulReaperEntity mob, int durationInTicks, int minDifficulty, int maxDifficulty) {
-        this.mob = mob;
-        maxAttackDuration = durationInTicks;
-        this.minDifficulty = minDifficulty;
-        this.maxDifficulty = maxDifficulty;
-    }
-
-    public boolean requiresUpdateEveryTick() {
-        return true;
-    }
-
-    @Override
-    public boolean canUse()
-    {
-        ticksElapsed++;
-
-        if(mob.getTarget() == null)
-        {
-            return false;
-        }
-
-        if(ticksElapsed < executionCooldown)
-        {
-            return false;
-        }
-
-        if(mob.getMobDifficultyLevel() < minDifficulty)
-        {
-            return false;
-        }
-
-        if(mob.getMobDifficultyLevel() > maxDifficulty && maxDifficulty != -1)
-        {
-            return false;
-        }
-
-        return true;
-    }
-
-    @Override
-    public boolean canContinueToUse()
-    {
-        return elapsedAttackDuration < maxAttackDuration;
+    public FloorSoulSpearsAttackGoal(SculkSoulReaperEntity mob) {
+        super(mob);
     }
 
     @Override
@@ -91,15 +44,17 @@ public class FloorSoulSpearsAttackGoal extends Goal
         {
             spawners.add(new FloorSoulSpearsSpawner((ServerLevel) mob.level(), mob.blockPosition(), e));
         }
-        //getEntity().triggerAnim("attack_controller", "fireball_sky_summon_animation");
-        //getEntity().triggerAnim("twitch_controller", "fireball_sky_twitch_animation");
     }
 
     @Override
-    public void tick()
-    {
-        super.tick();
+    protected void doAttackTick() {
         elapsedAttackDuration++;
+
+        if(elapsedAttackDuration >= maxAttackDuration)
+        {
+            setSpellCompleted();
+            return;
+        }
 
         if(Math.abs(mob.level().getGameTime() - lastUpdate) < UPDATE_INTERVAL)
         {
@@ -119,7 +74,6 @@ public class FloorSoulSpearsAttackGoal extends Goal
     {
         super.stop();
         elapsedAttackDuration = 0;
-        ticksElapsed = 0;
         spawner = null;
     }
 
