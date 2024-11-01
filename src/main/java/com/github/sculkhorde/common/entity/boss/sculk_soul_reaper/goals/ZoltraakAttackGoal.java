@@ -9,8 +9,8 @@ public class ZoltraakAttackGoal extends ReaperCastSpellGoal
 {
 
 
-    public ZoltraakAttackGoal(SculkSoulReaperEntity mob, int minDifficulty, int maxDifficulty) {
-        super(mob, minDifficulty, maxDifficulty);
+    public ZoltraakAttackGoal(SculkSoulReaperEntity mob) {
+        super(mob);
     }
 
     @Override
