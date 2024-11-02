@@ -2,7 +2,6 @@ package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.goals;
 
 import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.LivingArmorEntity;
 import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SculkSoulReaperEntity;
-import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -15,48 +14,21 @@ import net.minecraft.world.phys.Vec3;
 
 public class MirrorPlayerGoal extends ReaperCastSpellGoal
 {
-    protected final int executionCooldown = TickUnits.convertSecondsToTicks(30);
-    protected int ticksElapsed = executionCooldown;
-    protected int minDifficulty = 0;
-    protected int maxDifficulty = 0;
-
-
     public MirrorPlayerGoal(SculkSoulReaperEntity mob, int minDifficulty, int maxDifficulty) {
         super(mob);
-        this.minDifficulty = minDifficulty;
-        this.maxDifficulty = maxDifficulty;
     }
 
     @Override
     public boolean canUse()
     {
-        ticksElapsed++;
-
         if(!super.canUse())
         {
             return false;
         }
-
-        if(ticksElapsed < executionCooldown)
-        {
-            return false;
-        }
-
         if(!(mob.getTarget() instanceof Player))
         {
             return false;
         }
-
-        if(mob.getMobDifficultyLevel() < minDifficulty)
-        {
-            return false;
-        }
-
-        if(mob.getMobDifficultyLevel() > maxDifficulty && maxDifficulty != -1)
-        {
-            return false;
-        }
-
         return true;
     }
 
@@ -72,13 +44,6 @@ public class MirrorPlayerGoal extends ReaperCastSpellGoal
         LivingArmorEntity entity = new LivingArmorEntity(mob.level(), mob.position());
         mob.level().addFreshEntity(entity);
         setSpellCompleted();
-    }
-
-    @Override
-    public void stop()
-    {
-        super.stop();
-        ticksElapsed = 0;
     }
     public void shootFakeBeam(Vec3 origin, Mob shooter, LivingEntity target, float radius, float thickness)
     {

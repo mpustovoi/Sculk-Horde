@@ -28,6 +28,11 @@ public class ReaperAttackSequenceGoal extends AttackSequenceGoal {
             return false;
         }
 
+        if(!getReaper().isCurrentAttackOrThereIsNone(this))
+        {
+            return false;
+        }
+
         if(getReaper().getMobDifficultyLevel() < minDifficulty)
         {
             return false;
@@ -39,5 +44,26 @@ public class ReaperAttackSequenceGoal extends AttackSequenceGoal {
         }
 
         return true;
+    }
+
+    @Override
+    public void start() {
+        super.start();
+
+        if(getReaper().getCurrentAttack() == null)
+        {
+            getReaper().setCurrentAttack(this);
+        }
+
+    }
+
+    @Override
+    public void stop() {
+        super.stop();
+
+        if(finishedAttackSequence)
+        {
+            getReaper().clearCurrentAttack();
+        }
     }
 }
