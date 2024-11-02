@@ -1,68 +1,28 @@
 package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.goals;
 
 import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SculkSoulReaperEntity;
-import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.projectile.EvokerFangs;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-public class FangsAttackGoal extends Goal
+public class FangsAttackGoal extends ReaperCastSpellGoal
 {
-    private final SculkSoulReaperEntity mob;
-    protected final int executionCooldown = TickUnits.convertSecondsToTicks(5);
-    protected long lastTimeOfExecution;
-    protected int minDifficulty = 0;
-    protected int maxDifficulty = 0;
-
-    public FangsAttackGoal(SculkSoulReaperEntity mob, int minDifficulty, int maxDifficulty) {
-        this.mob = mob;
-        this.minDifficulty = minDifficulty;
-        this.maxDifficulty = maxDifficulty;
-    }
-
-    public boolean requiresUpdateEveryTick() {
-        return true;
-    }
-
-    private SculkSoulReaperEntity getEntity()
-    {
-        return (SculkSoulReaperEntity)this.mob;
+    public FangsAttackGoal(SculkSoulReaperEntity mob) {
+        super(mob);
     }
 
     @Override
     public boolean canUse()
     {
-
-        if(mob.level().getGameTime() - lastTimeOfExecution < executionCooldown)
+        if(!super.canUse())
         {
             return false;
         }
-        if(mob.getTarget() == null)
-        {
-            return false;
-        }
-
         if(!mob.getTarget().onGround())
-        {
-            return false;
-        }
-
-        if(!mob.getSensing().hasLineOfSight(mob.getTarget()))
-        {
-            return false;
-        }
-
-        if(mob.getMobDifficultyLevel() < minDifficulty)
-        {
-            return false;
-        }
-
-        if(mob.getMobDifficultyLevel() > maxDifficulty && maxDifficulty != -1)
         {
             return false;
         }
@@ -71,17 +31,9 @@ public class FangsAttackGoal extends Goal
     }
 
     @Override
-    public boolean canContinueToUse()
-    {
-        return false;
-    }
-
-    @Override
-    public void start()
-    {
-        super.start();
+    protected void doAttackTick() {
         performSpellCasting();
-        lastTimeOfExecution = mob.level().getGameTime();
+        setSpellCompleted();
     }
 
     // Performs the spell casting action
@@ -145,5 +97,4 @@ public class FangsAttackGoal extends Goal
             mob.level().addFreshEntity(new EvokerFangs(mob.level(), x, (double)blockPos.getY() + yOffset, z, angle, delay, mob));
         }
     }
-
 }

@@ -6,74 +6,22 @@ import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.phys.AABB;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class ZoltraakBarrageAttackGoal extends Goal
+public class ZoltraakBarrageAttackGoal extends ReaperCastSpellGoal
 {
-    private final SculkSoulReaperEntity mob;
-    protected int maxAttackDuration = 0;
+    protected int maxAttackDuration = TickUnits.convertSecondsToTicks(10);
     protected int elapsedAttackDuration = 0;
-    protected final int executionCooldown = TickUnits.convertSecondsToTicks(10);
-    protected int ticksElapsed = executionCooldown;
     protected int attackIntervalTicks = TickUnits.convertSecondsToTicks(0.5F);
     protected int attackkIntervalCooldown = 0;
-    protected int minDifficulty = 0;
-    protected int maxDifficulty = 0;
     ArrayList<LivingEntity> targets = new ArrayList<>();
 
 
-    public ZoltraakBarrageAttackGoal(SculkSoulReaperEntity mob, int durationInTicks, int minDifficulty, int maxDifficulty) {
-        this.mob = mob;
-        maxAttackDuration = durationInTicks;
-        this.minDifficulty = minDifficulty;
-        this.maxDifficulty = maxDifficulty;
-    }
-
-    public boolean requiresUpdateEveryTick() {
-        return true;
-    }
-
-    @Override
-    public boolean canUse()
-    {
-        ticksElapsed++;
-
-        if(mob.getTarget() == null)
-        {
-            return false;
-        }
-
-        if(ticksElapsed < executionCooldown)
-        {
-            return false;
-        }
-
-        if(!mob.getSensing().hasLineOfSight(mob.getTarget()))
-        {
-            return false;
-        }
-
-        if(mob.getMobDifficultyLevel() < minDifficulty)
-        {
-            return false;
-        }
-
-        if(mob.getMobDifficultyLevel() > maxDifficulty && maxDifficulty != -1)
-        {
-            return false;
-        }
-
-        return true;
-    }
-
-    @Override
-    public boolean canContinueToUse()
-    {
-        return elapsedAttackDuration < maxAttackDuration;
+    public ZoltraakBarrageAttackGoal(SculkSoulReaperEntity mob) {
+        super(mob);
     }
 
     protected BlockPos getRandomBlockPosAboveEntity()
@@ -86,11 +34,24 @@ public class ZoltraakBarrageAttackGoal extends Goal
     }
 
     @Override
-    public void start()
-    {
-        super.start();
-        //getEntity().triggerAnim("attack_controller", "fireball_sky_summon_animation");
-        //getEntity().triggerAnim("twitch_controller", "fireball_sky_twitch_animation");
+    protected void doAttackTick() {
+        elapsedAttackDuration++;
+
+        if(elapsedAttackDuration >= maxAttackDuration)
+        {
+            setSpellCompleted();
+            return;
+        }
+
+        if(targets.isEmpty())
+        {
+            populateTargetList();
+            return;
+        }
+        mob.setTarget(targets.get(0));
+        targets.remove(0);
+
+        spawnSoulAndShootAtTarget(5);
     }
 
     protected void populateTargetList()
@@ -155,29 +116,12 @@ public class ZoltraakBarrageAttackGoal extends Goal
         }
     }
 
-    @Override
-    public void tick()
-    {
-        super.tick();
-        elapsedAttackDuration++;
-
-        if(targets.isEmpty())
-        {
-            populateTargetList();
-            return;
-        }
-        mob.setTarget(targets.get(0));
-        targets.remove(0);
-
-        spawnSoulAndShootAtTarget(5);
-    }
 
     @Override
     public void stop()
     {
         super.stop();
         elapsedAttackDuration = 0;
-        ticksElapsed = 0;
     }
 
 
@@ -201,4 +145,3 @@ public class ZoltraakBarrageAttackGoal extends Goal
     }
 
 }
-//projectileEntity.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, (float)(14 - mob.level().getDifficulty().getId() * 4));

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class AttackSequenceGoal extends Goal
 {
 
-    ArrayList<AttackStepGoal> attacks = new ArrayList<>();
+    protected ArrayList<AttackStepGoal> attacks = new ArrayList<>();
     protected int currentAttackIndex = 0;
     protected long timeOfLastExecution = 0;
     protected Mob mob;
