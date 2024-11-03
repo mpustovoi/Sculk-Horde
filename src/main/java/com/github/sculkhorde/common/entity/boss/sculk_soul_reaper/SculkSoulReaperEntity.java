@@ -236,6 +236,10 @@ public class SculkSoulReaperEntity extends Monster implements GeoEntity, ISculkS
 
         this.goalSelector.addGoal(0, new FloatGoal(this));
 
+        this.goalSelector.addGoal(1, new SummonVexAttackGoal(this,1 , -1));
+
+
+
         // #### LEVEL 1 ####
 
         this.goalSelector.addGoal(1, new ReaperAttackSequenceGoal(this, TickUnits.convertSecondsToTicks(1), 1,1,
@@ -272,7 +276,7 @@ public class SculkSoulReaperEntity extends Monster implements GeoEntity, ISculkS
 
         // #### LEVEL 3+ ####
 
-        this.goalSelector.addGoal(1, new ReaperAttackSequenceGoal(this, TickUnits.convertSecondsToTicks(5), 3,-1,
+        this.goalSelector.addGoal(3, new ReaperAttackSequenceGoal(this, TickUnits.convertSecondsToTicks(5), 3,-1,
                 new ZoltraakAttackGoal(this),
                 new ZoltraakAttackGoal(this),
                 new ZoltraakAttackGoal(this),
@@ -280,7 +284,7 @@ public class SculkSoulReaperEntity extends Monster implements GeoEntity, ISculkS
 
         ));
 
-        this.goalSelector.addGoal(1, new ReaperAttackSequenceGoal(this, TickUnits.convertSecondsToTicks(5), 3,-1,
+        this.goalSelector.addGoal(2, new ReaperAttackSequenceGoal(this, TickUnits.convertSecondsToTicks(10), 3,-1,
                 new ShootElementalSoulProjectilesGoal(this),
                 new ZoltraakAttackGoal(this),
                 new ShootElementalSoulProjectilesGoal(this),
@@ -290,12 +294,18 @@ public class SculkSoulReaperEntity extends Monster implements GeoEntity, ISculkS
 
         ));
 
-        this.goalSelector.addGoal(1, new ReaperAttackSequenceGoal(this, TickUnits.convertSecondsToTicks(5), 3,-1,
+        this.goalSelector.addGoal(1, new ReaperAttackSequenceGoal(this, TickUnits.convertSecondsToTicks(15), 3,-1,
                 new ShootElementalSoulProjectilesGoal(this),
                 new ShootElementalSoulProjectilesGoal(this),
                 new ShootElementalSoulProjectilesGoal(this),
                 new FloorSoulSpearsAttackGoal(this)
 
+        ));
+
+        this.goalSelector.addGoal(1, new ReaperAttackSequenceGoal(this, TickUnits.convertSecondsToTicks(30), 3,-1,
+                new MirrorPlayerGoal(this),
+                new FloorSoulSpearsAttackGoal(this),
+                new ZoltraakBarrageAttackGoal(this)
         ));
 
         this.goalSelector.addGoal(5, new SoulReapterNavigator(this, 20F, 10F));
