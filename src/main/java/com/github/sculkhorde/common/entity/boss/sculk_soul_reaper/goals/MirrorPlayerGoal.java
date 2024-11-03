@@ -14,7 +14,7 @@ import net.minecraft.world.phys.Vec3;
 
 public class MirrorPlayerGoal extends ReaperCastSpellGoal
 {
-    public MirrorPlayerGoal(SculkSoulReaperEntity mob, int minDifficulty, int maxDifficulty) {
+    public MirrorPlayerGoal(SculkSoulReaperEntity mob) {
         super(mob);
     }
 
