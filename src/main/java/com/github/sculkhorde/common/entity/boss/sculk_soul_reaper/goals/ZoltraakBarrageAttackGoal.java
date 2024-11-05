@@ -51,7 +51,7 @@ public class ZoltraakBarrageAttackGoal extends ReaperCastSpellGoal
         mob.setTarget(targets.get(0));
         targets.remove(0);
 
-        spawnSoulAndShootAtTarget(5);
+        shootZoltraakAtRandomTarget(5);
     }
 
     protected void populateTargetList()
@@ -125,7 +125,7 @@ public class ZoltraakBarrageAttackGoal extends ReaperCastSpellGoal
     }
 
 
-    public void spawnSoulAndShootAtTarget(int range)
+    public void shootZoltraakAtRandomTarget(int range)
     {
         attackkIntervalCooldown--;
 
@@ -139,7 +139,7 @@ public class ZoltraakBarrageAttackGoal extends ReaperCastSpellGoal
             return;
         }
 
-        SculkSoulReaperEntity.shootZoltraakBeam(getRandomBlockPosAboveEntity().getCenter(), mob, mob.getTarget(), 8F, 0.3F, 10);
+        SculkSoulReaperEntity.performTargetedZoltraakAttack(mob, getRandomBlockPosAboveEntity().getCenter(), mob.getTarget(), DAMAGE);
 
         attackkIntervalCooldown = attackIntervalTicks;
     }
