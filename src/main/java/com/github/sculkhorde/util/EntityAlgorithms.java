@@ -13,6 +13,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.TickTask;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -412,6 +413,38 @@ public class EntityAlgorithms {
             }
         });
         return livingEntitiesInRange;
+    }
+
+    public static HitResult getHitScan(Entity entity, Vec3 origin, float xRot, float yRot, float maxDistance) {
+        // Calculate direction vectors
+        float cosYaw = Mth.cos(-yRot * ((float) Math.PI / 180F) - (float) Math.PI);
+        float sinYaw = Mth.sin(-yRot * ((float) Math.PI / 180F) - (float) Math.PI);
+        float cosPitch = -Mth.cos(-xRot * ((float) Math.PI / 180F));
+        float sinPitch = Mth.sin(-xRot * ((float) Math.PI / 180F));
+        float directionX = sinYaw * cosPitch;
+        float directionZ = cosYaw * cosPitch;
+
+        Vec3 endPosition = origin.add((double) directionX * maxDistance, (double) sinPitch * maxDistance, (double) directionZ * maxDistance);
+        return entity.level().clip(new ClipContext(origin, endPosition, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity));
+    }
+
+    public static HitResult getHitScanAtTarget(Entity entity, Vec3 origin, Entity target, float maxDistance) {
+        Vec3 startPosition = origin;
+        Vec3 targetPosition = target.position();
+
+        // Calculate the difference in positions
+        double deltaX = targetPosition.x - startPosition.x;
+        double deltaY = targetPosition.y - startPosition.y;
+        double deltaZ = targetPosition.z - startPosition.z;
+
+        // Calculate the horizontal distance
+        double horizontalDistance = Math.sqrt(deltaX * deltaX + deltaZ * deltaZ);
+
+        // Calculate rotations
+        float xRot = (float) -(Math.atan2(deltaY, horizontalDistance) * (180F / Math.PI));
+        float yRot = (float) (Math.atan2(deltaZ, deltaX) * (180F / Math.PI)) - 90F;
+
+        return getHitScan(entity, origin, xRot, yRot, maxDistance);
     }
 
 
