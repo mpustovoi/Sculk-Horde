@@ -2,13 +2,14 @@ package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper;
 
 import com.github.sculkhorde.common.entity.ISculkSmartEntity;
 import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.goals.*;
-import com.github.sculkhorde.common.entity.goal.*;
+import com.github.sculkhorde.common.entity.goal.ImprovedRandomStrollGoal;
+import com.github.sculkhorde.common.entity.goal.InvalidateTargetGoal;
+import com.github.sculkhorde.common.entity.goal.NearestLivingEntityTargetGoal;
+import com.github.sculkhorde.common.entity.goal.TargetAttacker;
 import com.github.sculkhorde.core.ModEntities;
 import com.github.sculkhorde.core.ModMobEffects;
 import com.github.sculkhorde.core.ModSounds;
-import com.github.sculkhorde.util.SquadHandler;
-import com.github.sculkhorde.util.TargetParameters;
-import com.github.sculkhorde.util.TickUnits;
+import com.github.sculkhorde.util.*;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
@@ -24,6 +25,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -35,6 +37,7 @@ import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.animatable.GeoEntity;
@@ -43,6 +46,7 @@ import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
+import java.util.List;
 import java.util.Optional;
 
 public class SculkSoulReaperEntity extends Monster implements GeoEntity, ISculkSmartEntity {
@@ -325,6 +329,57 @@ public class SculkSoulReaperEntity extends Monster implements GeoEntity, ISculkS
         }
 
         return super.hurt(damageSource, amount);
+    }
+
+    public static void doMagicDamageToTargetsInHitBox(LivingEntity sourceEntity, AABB hitbox, float damage)
+    {
+        // Check for entities within the hitbox
+        List<Entity> entitiesHit = sourceEntity.level().getEntities(null, hitbox);
+
+        for (Entity entity : entitiesHit) {
+            // Handle entity hit logic here
+            if(entity.getUUID() != sourceEntity.getUUID())
+            {
+                if(entity instanceof LivingEntity livingEntity)
+                {
+                    livingEntity.hurt(sourceEntity.damageSources().magic(), damage);
+                }
+            }
+        }
+    }
+
+    public static void performTargetedZoltraakAttack(LivingEntity reaper, Vec3 origin, Entity target, float damage)
+    {
+        // Perform ray trace
+        HitResult hitResult = EntityAlgorithms.getHitScanAtTarget(reaper, reaper.getEyePosition(), target, 128);
+
+        performZoltraakAttack(reaper, hitResult, origin, damage);
+    }
+
+    public static void performZoltraakAttack(LivingEntity reaper, HitResult hitResult, Vec3 origin, float damage)
+    {
+        Vec3 hitVector = hitResult.getLocation();
+
+        Vec3 targetVector = hitVector.subtract(origin);
+        Vec3 direction = targetVector.normalize();
+
+        Vec3 beamPath = hitVector.subtract(origin);
+
+        float radius = 0.3F;
+        float thickness = 10F;
+
+        // Create a hitbox along the beam path
+        AABB hitbox = new AABB(origin, hitVector).inflate(radius);
+
+        // Damage entities in hit box
+        doMagicDamageToTargetsInHitBox(reaper, hitbox, damage);
+
+        // Spawn magic particles
+        ParticleUtil.spawnParticleBeam((ServerLevel) reaper.level(), ParticleTypes.SOUL_FIRE_FLAME, origin, direction, (float) beamPath.length(), radius, thickness);
+
+        // Make Sound
+        reaper.level().playSound(reaper,reaper.blockPosition(), ModSounds.ZOLTRAAK_ATTACK.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
+
     }
 
     public static void shootZoltraakBeam(Vec3 origin, Mob shooter, LivingEntity target, float damage, float radius, float thickness)

@@ -3,7 +3,7 @@ package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.goals;
 import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SculkSoulReaperEntity;
 import com.github.sculkhorde.util.TickUnits;
 
-import static com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SculkSoulReaperEntity.shootZoltraakBeam;
+import static com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SculkSoulReaperEntity.performTargetedZoltraakAttack;
 
 public class ZoltraakAttackGoal extends ReaperCastSpellGoal
 {
@@ -25,7 +25,7 @@ public class ZoltraakAttackGoal extends ReaperCastSpellGoal
 
     @Override
     protected void doAttackTick() {
-        shootZoltraakBeam(mob.getEyePosition(), mob, mob.getTarget(), DAMAGE, 0.3F, 10F);
+        performTargetedZoltraakAttack(mob, mob.getEyePosition(), mob.getTarget(), DAMAGE);
         setSpellCompleted();
     }
 }
