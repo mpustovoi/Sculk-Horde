@@ -21,19 +21,16 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.util.Mth;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
@@ -247,10 +244,10 @@ public class SculkSoulReaperEntity extends Monster implements GeoEntity, ISculkS
         // #### LEVEL 1 ####
 
         this.goalSelector.addGoal(1, new ReaperAttackSequenceGoal(this, TickUnits.convertSecondsToTicks(1), 1,1,
-                new FangsAttackGoal(this),
-                new FangsAttackGoal(this),
-                new FangsAttackGoal(this),
-                new FangsAttackGoal(this),
+                new ElementalMagicCircleAttackGoal(this),
+                new ElementalMagicCircleAttackGoal(this),
+                new ElementalMagicCircleAttackGoal(this),
+                new ElementalMagicCircleAttackGoal(this),
                 new ZoltraakAttackGoal(this)
         ));
 
@@ -376,51 +373,6 @@ public class SculkSoulReaperEntity extends Monster implements GeoEntity, ISculkS
 
     }
 
-    public static void shootZoltraakBeam(Vec3 origin, Mob shooter, LivingEntity target, float damage, float radius, float thickness)
-    {
-
-        if(target == null)
-        {
-            return;
-        }
-
-        shooter.getLookControl().setLookAt(target.position());
-        Vec3 targetVector = shooter.getTarget().getEyePosition().subtract(origin);
-        Vec3 direction = targetVector.normalize();
-
-        // Perform ray trace
-        HitResult hitResult = shooter.level().clip(new ClipContext(origin, origin.add(targetVector), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, shooter));
-
-        Vec3 hitVector = hitResult.getLocation();
-
-        Vec3 beamPath = hitVector.subtract(origin);
-
-
-        Vec3 up = new Vec3(0, 1, 0);
-        Vec3 right = direction.cross(up).normalize();
-        Vec3 forward = direction.cross(right).normalize();
-
-        // Spawn Particles
-        for (float i = 1; i < Mth.floor(beamPath.length()) + 1; i += 0.3F) {
-            Vec3 vec33 = origin.add(direction.scale((double) i));
-
-            // Create a circle of particles around vec33
-            for (int j = 0; j < thickness; ++j) {
-                double angle = 2 * Math.PI * j / thickness;
-                double xOffset = radius * Math.cos(angle);
-                double zOffset = radius * Math.sin(angle);
-                Vec3 offset = right.scale(xOffset).add(forward.scale(zOffset));
-                ((ServerLevel) shooter.level()).sendParticles(ParticleTypes.SOUL_FIRE_FLAME, vec33.x + offset.x, vec33.y + offset.y, vec33.z + offset.z, 1, 0.0D, 0.0D, 0.0D, 0.0D);
-            }
-        }
-
-        shooter.level().playSound(shooter,shooter.blockPosition(), ModSounds.ZOLTRAAK_ATTACK.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
-
-        if(shooter.getSensing().hasLineOfSight(shooter.getTarget()))
-        {
-            shooter.getTarget().hurt(shooter.damageSources().magic(), damage);
-        }
-    }
 
     /**
      * Called to update the entity's position/logic.

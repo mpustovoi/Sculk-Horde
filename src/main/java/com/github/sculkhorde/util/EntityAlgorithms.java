@@ -378,6 +378,17 @@ public class EntityAlgorithms {
         return list;
     }
 
+    public static List<LivingEntity> getEntitiesExceptOwnerInBoundingBox(LivingEntity entity, ServerLevel serverLevel, AABB boundingBox)
+    {
+        List<LivingEntity> list = serverLevel.getEntitiesOfClass(LivingEntity.class, boundingBox, new Predicate<LivingEntity>() {
+            @Override
+            public boolean test(LivingEntity livingEntity) {
+                return entity == null || livingEntity.getUUID() != entity.getUUID();
+            }
+        });
+        return list;
+    }
+
     public static Optional<LivingEntity> getNearestHostile(ServerLevel serverLevel, BlockPos position, AABB boundingBox) {
 
         // Get the list of hostile entities within the bounding box
