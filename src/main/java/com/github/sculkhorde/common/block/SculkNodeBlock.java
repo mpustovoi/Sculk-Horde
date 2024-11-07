@@ -194,7 +194,9 @@ public class SculkNodeBlock extends BaseEntityBlock implements IForgeBlock {
         level.players().forEach(player -> player.displayClientMessage(Component.literal("A Sculk Node has spawned!"), true));
         // Play sound for each player
         level.players().forEach(player -> level.playSound(null, player.blockPosition(), ModSounds.NODE_SPAWN_SOUND.get(), SoundSource.HOSTILE, 1.0F, 1.0F));
-        spawnSculkPhantomsAtTopOfWorld(level, newOrigin, 10);
+        if (ModConfig.SERVER.should_sculk_nodes_and_raids_spawn_phantoms.get()) {
+        	spawnSculkPhantomsAtTopOfWorld(level, newOrigin, 10);
+        }
     }
 
     private static void spawnSculkPhantomsAtTopOfWorld(ServerLevel level, BlockPos origin, int amount)
