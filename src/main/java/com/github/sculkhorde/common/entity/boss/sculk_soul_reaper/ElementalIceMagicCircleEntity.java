@@ -37,7 +37,6 @@ public class ElementalIceMagicCircleEntity extends ElementalFireMagicCircleEntit
 
     @Override
     public void tick() {
-        super.tick();
 
         if(level().isClientSide()) { return; }
 
