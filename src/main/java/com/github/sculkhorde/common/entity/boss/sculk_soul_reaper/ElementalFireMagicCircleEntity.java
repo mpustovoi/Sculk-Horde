@@ -1,4 +1,4 @@
-package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.goals;
+package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper;
 
 import com.github.sculkhorde.common.entity.boss.SpecialEffectEntity;
 import com.github.sculkhorde.core.ModEntities;
@@ -21,6 +21,8 @@ public class ElementalFireMagicCircleEntity extends SpecialEffectEntity implemen
     public static int LIFE_TIME = TickUnits.convertSecondsToTicks(5);
     public int currentLifeTicks = 0;
 
+    protected float DAMAGE = 5F;
+
     public ElementalFireMagicCircleEntity(EntityType<?> entityType, Level level) {
         super(entityType, level);
     }
@@ -34,12 +36,6 @@ public class ElementalFireMagicCircleEntity extends SpecialEffectEntity implemen
         setPos(x,y,z);
         this.setYRot(angle * (180F / (float)Math.PI));
         setOwner(owner);
-    }
-
-    public ElementalFireMagicCircleEntity enableDeleteAfterTime(int ticks)
-    {
-        LIFE_TIME = ticks;
-        return this;
     }
 
     @Override
@@ -66,7 +62,7 @@ public class ElementalFireMagicCircleEntity extends SpecialEffectEntity implemen
 
             if(getOwner() != null)
             {
-                boolean didHurt = entity.hurt(damageSources().magic(), 5);
+                boolean didHurt = entity.hurt(damageSources().magic(), DAMAGE);
                 if(didHurt)
                 {
                     double damageResistance = entity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
@@ -78,7 +74,7 @@ public class ElementalFireMagicCircleEntity extends SpecialEffectEntity implemen
             }
             else
             {
-                entity.hurt(damageSources().magic(), 5);
+                entity.hurt(damageSources().magic(), DAMAGE);
             }
             entity.setSecondsOnFire(10);
         }

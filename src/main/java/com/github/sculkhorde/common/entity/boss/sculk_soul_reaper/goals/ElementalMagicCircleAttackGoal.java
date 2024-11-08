@@ -1,6 +1,6 @@
 package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.goals;
 
-import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SculkSoulReaperEntity;
+import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.*;
 import com.github.sculkhorde.util.BlockAlgorithms;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -11,8 +11,18 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class ElementalMagicCircleAttackGoal extends ReaperCastSpellGoal
 {
+
+    protected int elementType = 0;
+
     public ElementalMagicCircleAttackGoal(SculkSoulReaperEntity mob) {
         super(mob);
+    }
+
+    @Override
+    public void start()
+    {
+        super.start();
+        elementType = mob.level().getRandom().nextInt(4);
     }
 
     @Override
@@ -29,6 +39,8 @@ public class ElementalMagicCircleAttackGoal extends ReaperCastSpellGoal
 
         return true;
     }
+
+
 
     @Override
     protected void doAttackTick() {
@@ -106,7 +118,18 @@ public class ElementalMagicCircleAttackGoal extends ReaperCastSpellGoal
 
         // Add the spell entity to the world if a suitable position is found
         if (foundSuitablePosition) {
-            mob.level().addFreshEntity(new ElementalFireMagicCircleEntity(mob.level(), x, (double)blockPos.getY() + yOffset, z, angle, mob));
+            mob.level().addFreshEntity(getElementalSpellEntity(x, (double)blockPos.getY() + yOffset, z, angle, mob));
         }
+    }
+
+    public ElementalFireMagicCircleEntity getElementalSpellEntity(double x, double y, double z, float angle, LivingEntity owner)
+    {
+        return switch (elementType) {
+            case 0 -> new ElementalFireMagicCircleEntity(mob.level(), x, y, z, angle, owner);
+            case 1 -> new ElementalPoisonMagicCircleEntity(mob.level(), x, y, z, angle, owner);
+            case 2 -> new ElementalIceMagicCircleEntity(mob.level(), x, y, z, angle, owner);
+            case 3 -> new ElementalBreezeMagicCircleEntity(mob.level(), x, y, z, angle, owner);
+            default -> new ElementalFireMagicCircleEntity(mob.level(), x, y, z, angle, owner);
+        };
     }
 }
