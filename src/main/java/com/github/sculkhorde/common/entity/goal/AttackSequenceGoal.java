@@ -1,5 +1,6 @@
 package com.github.sculkhorde.common.entity.goal;
 
+import com.github.sculkhorde.core.SculkHorde;
 import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -51,6 +52,7 @@ public class AttackSequenceGoal extends Goal
     @Override
     public void start() {
         super.start();
+        SculkHorde.LOGGER.debug("Sculk Reaper Entity | Starting Attack: " + getCurrentGoal().getClass());
         getCurrentGoal().start();
     }
 
@@ -75,18 +77,24 @@ public class AttackSequenceGoal extends Goal
     @Override
     public void tick() {
 
-        if(timeOfLastEnemy != 0 && mob.getTarget() != null)
+        if(mob.getTarget() == null)
         {
-            timeOfLastEnemy = 0;
-        }
-        else if(timeOfLastEnemy == 0 && mob.getTarget() == null)
-        {
-            timeOfLastEnemy = mob.level().getGameTime();
-        }
+            if(timeOfLastEnemy == 0)
+            {
+                timeOfLastEnemy = mob.level().getGameTime();
+            }
 
-        if(mob.level().getGameTime() - timeOfLastEnemy >= NO_ENEMY_TIMEOUT)
+            if(Math.abs(mob.level().getGameTime() - timeOfLastEnemy) >= NO_ENEMY_TIMEOUT)
+            {
+                finishedAttackSequence = true;
+            }
+        }
+        else
         {
-            finishedAttackSequence = true;
+            if(timeOfLastEnemy != 0)
+            {
+                timeOfLastEnemy = 0;
+            }
         }
 
         getCurrentGoal().tick();
@@ -107,6 +115,7 @@ public class AttackSequenceGoal extends Goal
         }
         else
         {
+            SculkHorde.LOGGER.debug("Sculk Reaper Entity | Stopping Attack: " + getCurrentGoal().getClass());
             getCurrentGoal().stop();
         }
         super.stop();

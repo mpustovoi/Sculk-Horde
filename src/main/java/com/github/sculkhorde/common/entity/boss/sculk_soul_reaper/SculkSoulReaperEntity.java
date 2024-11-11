@@ -373,16 +373,13 @@ public class SculkSoulReaperEntity extends Monster implements GeoEntity, ISculkS
     public static void doMagicDamageToTargetsInHitBox(LivingEntity sourceEntity, AABB hitbox, float damage)
     {
         // Check for entities within the hitbox
-        List<Entity> entitiesHit = sourceEntity.level().getEntities(null, hitbox);
+        List<LivingEntity> entitiesHit = EntityAlgorithms.getNonSculkUnitsInBoundingBox(sourceEntity.level(), hitbox);
 
-        for (Entity entity : entitiesHit) {
+        for (LivingEntity entity : entitiesHit) {
             // Handle entity hit logic here
             if(entity.getUUID() != sourceEntity.getUUID())
             {
-                if(entity instanceof LivingEntity livingEntity)
-                {
-                    livingEntity.hurt(sourceEntity.damageSources().magic(), damage);
-                }
+                entity.hurt(sourceEntity.damageSources().magic(), damage);
             }
         }
     }
