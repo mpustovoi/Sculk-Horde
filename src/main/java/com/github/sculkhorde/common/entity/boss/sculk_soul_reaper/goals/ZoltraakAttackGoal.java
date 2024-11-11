@@ -15,7 +15,7 @@ public class ZoltraakAttackGoal extends ReaperCastSpellGoal
 
     @Override
     protected int getBaseCastingTime() {
-        return TickUnits.convertSecondsToTicks(2);
+        return TickUnits.convertSecondsToTicks(0.5F);
     }
 
     @Override
