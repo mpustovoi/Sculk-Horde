@@ -1,5 +1,6 @@
 package com.github.sculkhorde.common.entity.goal;
 
+import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
 
@@ -14,6 +15,9 @@ public class AttackSequenceGoal extends Goal
     protected Mob mob;
     protected boolean finishedAttackSequence = false;
     protected long executionCooldown = 0;
+
+    protected long timeOfLastEnemy = 0;
+    protected final long NO_ENEMY_TIMEOUT = TickUnits.convertSecondsToTicks(15);
 
     public AttackSequenceGoal(Mob mob, long executionCooldown, AttackStepGoal... attacksIn)
     {
@@ -70,6 +74,21 @@ public class AttackSequenceGoal extends Goal
 
     @Override
     public void tick() {
+
+        if(timeOfLastEnemy != 0 && mob.getTarget() != null)
+        {
+            timeOfLastEnemy = 0;
+        }
+        else if(timeOfLastEnemy == 0 && mob.getTarget() == null)
+        {
+            timeOfLastEnemy = mob.level().getGameTime();
+        }
+
+        if(mob.level().getGameTime() - timeOfLastEnemy >= NO_ENEMY_TIMEOUT)
+        {
+            finishedAttackSequence = true;
+        }
+
         getCurrentGoal().tick();
     }
 
