@@ -26,6 +26,7 @@ import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -428,6 +429,17 @@ public class EntityAlgorithms {
         return entities;
     }
 
+    public static List<LivingEntity> getNonSculkUnitsInBoundingBox(Level serverLevel, AABB boundingBox)
+    {
+        List<LivingEntity> entities = serverLevel.getEntitiesOfClass(LivingEntity.class, boundingBox, new Predicate<LivingEntity>() {
+            @Override
+            public boolean test(LivingEntity livingEntity) {
+                return !(EntityAlgorithms.isSculkLivingEntity.test(livingEntity));
+            }
+        });
+        return entities;
+    }
+
     public static AABB createBoundingBoxCubeAtBlockPos(Vec3 origin, int squareLength)
     {
         double halfLength = squareLength/2;
@@ -472,7 +484,7 @@ public class EntityAlgorithms {
 
     public static HitResult getHitScanAtTarget(Entity entity, Vec3 origin, Entity target, float maxDistance) {
         Vec3 startPosition = origin;
-        Vec3 targetPosition = target.position();
+        Vec3 targetPosition = target.getEyePosition();
 
         // Calculate the difference in positions
         double deltaX = targetPosition.x - startPosition.x;
