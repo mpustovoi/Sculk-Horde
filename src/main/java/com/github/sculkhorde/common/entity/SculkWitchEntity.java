@@ -1,6 +1,7 @@
 package com.github.sculkhorde.common.entity;
 
 import com.github.sculkhorde.common.entity.goal.*;
+import com.github.sculkhorde.core.ModEntities;
 import com.github.sculkhorde.util.EntityAlgorithms;
 import com.github.sculkhorde.util.SquadHandler;
 import com.github.sculkhorde.util.TargetParameters;
@@ -118,6 +119,12 @@ public class SculkWitchEntity extends Monster implements GeoEntity, ISculkSmartE
                 break;
         }
     }
+
+    public SculkWitchEntity(Level worldIn)
+    {
+        this(ModEntities.SCULK_WITCH.get(), worldIn);
+    }
+
     /**
      * Determines & registers the attributes of the mob.
      * @return The Attributes

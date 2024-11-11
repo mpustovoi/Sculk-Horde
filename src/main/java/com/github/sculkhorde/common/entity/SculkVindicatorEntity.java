@@ -1,6 +1,7 @@
 package com.github.sculkhorde.common.entity;
 
 import com.github.sculkhorde.common.entity.goal.*;
+import com.github.sculkhorde.core.ModEntities;
 import com.github.sculkhorde.core.ModSounds;
 import com.github.sculkhorde.util.SquadHandler;
 import com.github.sculkhorde.util.TargetParameters;
@@ -72,6 +73,11 @@ public class SculkVindicatorEntity extends Monster implements GeoEntity, ISculkS
         super(type, worldIn);
         this.setPathfindingMalus(BlockPathTypes.UNPASSABLE_RAIL, 0.0F);
     }
+
+    public SculkVindicatorEntity(Level worldIn) {
+        this(ModEntities.SCULK_VINDICATOR.get(), worldIn);
+    }
+
     /**
      * Determines & registers the attributes of the mob.
      * @return The Attributes

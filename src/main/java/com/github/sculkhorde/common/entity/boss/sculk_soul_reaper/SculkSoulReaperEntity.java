@@ -1,6 +1,9 @@
 package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper;
 
 import com.github.sculkhorde.common.entity.ISculkSmartEntity;
+import com.github.sculkhorde.common.entity.SculkRavagerEntity;
+import com.github.sculkhorde.common.entity.SculkVindicatorEntity;
+import com.github.sculkhorde.common.entity.SculkWitchEntity;
 import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.goals.*;
 import com.github.sculkhorde.common.entity.goal.ImprovedRandomStrollGoal;
 import com.github.sculkhorde.common.entity.goal.InvalidateTargetGoal;
@@ -108,11 +111,42 @@ public class SculkSoulReaperEntity extends Monster implements GeoEntity, ISculkS
 
     public static SculkSoulReaperEntity spawnWithDifficulty(Level level, Vec3 pos, int mobDifficultyLevel)
     {
-        SculkSoulReaperEntity entity = new SculkSoulReaperEntity(ModEntities.SCULK_SOUL_REAPER.get(), level);
-        entity.setPos(pos);
-        entity.setMobDifficultyLevel(mobDifficultyLevel);
-        level.addFreshEntity(entity);
-        return entity;
+        SculkSoulReaperEntity reaper = new SculkSoulReaperEntity(ModEntities.SCULK_SOUL_REAPER.get(), level);
+        reaper.setPos(pos);
+        reaper.setMobDifficultyLevel(mobDifficultyLevel);
+        reaper.getSquad().createSquad();
+
+        level.addFreshEntity(reaper);
+
+        SculkRavagerEntity ravager = new SculkRavagerEntity(level);
+        ravager.setPos(pos);
+        reaper.startRiding(ravager);
+        level.addFreshEntity(ravager);
+
+        SculkWitchEntity witch1 = new SculkWitchEntity(level);
+        witch1.setPos(pos);
+        level.addFreshEntity(witch1);
+        SculkWitchEntity witch2 = new SculkWitchEntity(level);
+        witch2.setPos(pos);
+        level.addFreshEntity(witch2);
+
+        SculkVindicatorEntity vindicator1 = new SculkVindicatorEntity(level);
+        vindicator1.setPos(pos);
+        level.addFreshEntity(vindicator1);
+        SculkVindicatorEntity vindicator2 = new SculkVindicatorEntity(level);
+        vindicator2.setPos(pos);
+        level.addFreshEntity(vindicator2);
+        SculkVindicatorEntity vindicator3 = new SculkVindicatorEntity(level);
+        vindicator3.setPos(pos);
+        level.addFreshEntity(vindicator3);
+
+        reaper.getSquad().forceAcceptMemberIntoSquad(ravager);
+        reaper.getSquad().forceAcceptMemberIntoSquad(witch1);
+        reaper.getSquad().forceAcceptMemberIntoSquad(witch2);
+        reaper.getSquad().forceAcceptMemberIntoSquad(vindicator1);
+        reaper.getSquad().forceAcceptMemberIntoSquad(vindicator2);
+        reaper.getSquad().forceAcceptMemberIntoSquad(vindicator3);
+        return reaper;
     }
 
 
