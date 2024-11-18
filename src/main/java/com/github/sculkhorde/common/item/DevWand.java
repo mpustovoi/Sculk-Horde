@@ -1,17 +1,15 @@
 package com.github.sculkhorde.common.item;
 
-import com.github.sculkhorde.common.entity.SculkPhantomEntity;
 import com.github.sculkhorde.core.SculkHorde;
-import com.github.sculkhorde.core.gravemind.events.Event;
-import com.github.sculkhorde.core.gravemind.events.EventHandler;
-import com.github.sculkhorde.core.gravemind.events.SpawnPhantomsEvent;
+import com.github.sculkhorde.util.StructureUtil;
+import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
-import net.minecraft.world.InteractionResultHolder;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.extensions.IForgeItem;
 import net.minecraftforge.server.ServerLifecycleHooks;
@@ -23,6 +21,7 @@ public class DevWand extends Item implements IForgeItem {
 	 * Also this is just an example item, I don't intend for this to be used
 	*/
 
+	StructureUtil.StructurePlacer structurePlacer;
 
 	/**
 	 * The Constructor that takes in properties
@@ -63,24 +62,48 @@ public class DevWand extends Item implements IForgeItem {
 	}
 
 
+	// ```/place template minecraft:village/snowy/villagers/nitwit```
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn)
+	public InteractionResultHolder<ItemStack> use(Level level, Player playerIn, InteractionHand handIn)
 	{
 		ItemStack itemstack = playerIn.getItemInHand(handIn);
 
 		//If item is not on cool down
-		if(worldIn.isClientSide())
+		if(level.isClientSide())
 		{
 			return InteractionResultHolder.fail(itemstack);
 		}
 
-		//Event phantom = SpawnPhantomsEvent.createEvent(worldIn.dimension());
-		//phantom.setEventID("dev_wand".hashCode());
-		//phantom.setEventLocation(playerIn.blockPosition());
-		//SculkHorde.eventHandler.addEvent(phantom);
-		SculkPhantomEntity.spawnPhantom(worldIn, playerIn.blockPosition(), true);
+		ServerLevel serverLevel = (ServerLevel) level;
+
+		SculkHorde.beeNestActivitySystem.activate();
+
+		//LivingArmorEntity entity = new LivingArmorEntity(ModEntities.LIVING_ARMOR.get(), worldIn);
+		//entity.teleportTo(playerIn.blockPosition().getX(), playerIn.blockPosition().getY(), playerIn.blockPosition().getZ());
+		//worldIn.addFreshEntity(entity);
+
+
+
+		//StructureUtil.placeStructureTemplate((ServerLevel) worldIn, struct, playerIn.blockPosition());
+		/*
+		if(structurePlacer == null)
+		{
+			ResourceLocation structure = new ResourceLocation("minecraft:igloo/top");
+			StructureTemplateManager structuretemplatemanager = serverLevel.getStructureManager();
+			Optional<StructureTemplate> structureTemplate;
+			structureTemplate = structuretemplatemanager.get(structure);
+
+			StructurePlaceSettings structureplacesettings = (new StructurePlaceSettings());
+			structurePlacer = new StructureUtil.StructurePlacer(structureTemplate.get(), serverLevel, playerIn.blockPosition(), playerIn.blockPosition(), structureplacesettings, playerIn.getRandom());
+		}
+
+		structurePlacer.tick();
+
+		 */
 
 		return InteractionResultHolder.pass(itemstack);
 	}
+
+
 }

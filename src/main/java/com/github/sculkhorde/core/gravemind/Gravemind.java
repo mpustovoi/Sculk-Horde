@@ -119,40 +119,6 @@ public class Gravemind
         calulateCurrentState();
     }
 
-    public void enableAmountOfBeeHives(int amount) {
-        if (SculkHorde.savedData == null) {
-            return;
-        }
-
-        List<ModSavedData.BeeNestEntry> beeNestEntries = SculkHorde.savedData.getBeeNestEntries();
-        if (beeNestEntries.isEmpty()) {
-            return;
-        }
-
-        int lastEnabledIndex = -1;
-        for (int i = 0; i < beeNestEntries.size(); i++) {
-            ModSavedData.BeeNestEntry entry = beeNestEntries.get(i);
-
-            if (!entry.isEntryValid()) {
-                continue;
-            }
-
-            if (!entry.isOccupantsExistingDisabled()) {
-                entry.disableOccupantsExiting();
-                lastEnabledIndex = i;
-            }
-        }
-
-        int startIndex = (lastEnabledIndex + 1) % beeNestEntries.size();
-        for (int i = 0; i < amount; i++) {
-            int index = (startIndex + i) % beeNestEntries.size();
-
-            if (beeNestEntries.get(index).isEntryValid()) {
-                beeNestEntries.get(index).enableOccupantsExiting();
-            }
-        }
-    }
-
 
     public void processReinforcementRequest(ReinforcementRequest context)
     {
