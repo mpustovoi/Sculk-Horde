@@ -1,8 +1,8 @@
 package com.github.sculkhorde.common.item;
 
+import com.github.sculkhorde.core.SculkHorde;
 import com.github.sculkhorde.util.StructureUtil;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -11,13 +11,8 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
-import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 import net.minecraftforge.common.extensions.IForgeItem;
 import net.minecraftforge.server.ServerLifecycleHooks;
-
-import java.util.Optional;
 
 public class DevWand extends Item implements IForgeItem {
 	/* NOTE:
@@ -82,6 +77,7 @@ public class DevWand extends Item implements IForgeItem {
 
 		ServerLevel serverLevel = (ServerLevel) level;
 
+		SculkHorde.beeNestActivitySystem.activate();
 
 		//LivingArmorEntity entity = new LivingArmorEntity(ModEntities.LIVING_ARMOR.get(), worldIn);
 		//entity.teleportTo(playerIn.blockPosition().getX(), playerIn.blockPosition().getY(), playerIn.blockPosition().getZ());
@@ -90,7 +86,7 @@ public class DevWand extends Item implements IForgeItem {
 
 
 		//StructureUtil.placeStructureTemplate((ServerLevel) worldIn, struct, playerIn.blockPosition());
-
+		/*
 		if(structurePlacer == null)
 		{
 			ResourceLocation structure = new ResourceLocation("minecraft:igloo/top");
@@ -103,6 +99,8 @@ public class DevWand extends Item implements IForgeItem {
 		}
 
 		structurePlacer.tick();
+
+		 */
 
 		return InteractionResultHolder.pass(itemstack);
 	}

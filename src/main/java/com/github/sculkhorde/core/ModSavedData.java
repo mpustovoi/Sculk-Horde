@@ -1075,6 +1075,8 @@ public class ModSavedData extends SavedData {
             return SculkHorde.savedData.level.getServer().getLevel(dimension);
         }
 
+        public BlockPos getPosition() { return position; }
+
         /**
          * Checks if the block does still exist in the world.
          * @return True if valid, false otherwise.
