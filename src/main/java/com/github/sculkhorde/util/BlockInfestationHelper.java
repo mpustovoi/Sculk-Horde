@@ -120,7 +120,6 @@ public class BlockInfestationHelper {
 
         SculkHorde.explicitInfectableBlocks.addEntry("minecraft:mud", "deeperdarker:sculk_grime");
         SculkHorde.explicitInfectableBlocks.addEntry("minecraft:air", "deeperdarker:sculk_tendrils");
-        SculkHorde.explicitInfectableBlocks.addEntry("minecraft:weeping_vines", "deeperdarker:sculk_vines");
         SculkHorde.explicitInfectableBlocks.addEntry("minecraft:mud", "deeperdarker:sculk_jaw");
 
         SculkHorde.explicitInfectableBlocks.addEntry("minecraft:moss_block", "deeperdarker:blooming_moss_block");
@@ -128,7 +127,7 @@ public class BlockInfestationHelper {
         SculkHorde.explicitInfectableBlocks.addEntry("minecraft:cave_vines", "deeperdarker:glowing_vines");
         SculkHorde.explicitInfectableBlocks.addEntry("minecraft:air", "deeperdarker:glowing_roots");
         SculkHorde.explicitInfectableBlocks.addEntry("minecraft:air", "deeperdarker:glowing_flowers");
-        SculkHorde.explicitInfectableBlocks.addEntry("minecraft:seagrass", "deeperdarker:glowing_grass");
+        SculkHorde.explicitInfectableBlocks.addEntry("minecraft:cave_vines", "deeperdarker:sculk_vines");
         SculkHorde.explicitInfectableBlocks.addEntry("minecraft:torchflower", "deeperdarker:lily_flower");
         SculkHorde.explicitInfectableBlocks.addEntry("minecraft:lily_pad", "deeperdarker:ice_lily");
 
