@@ -8,6 +8,7 @@ import com.github.sculkhorde.core.gravemind.entity_factory.EntityFactory;
 import com.github.sculkhorde.core.gravemind.events.EventHandler;
 import com.github.sculkhorde.misc.StatisticsData;
 import com.github.sculkhorde.misc.contributions.ContributionHandler;
+import com.github.sculkhorde.systems.BeeNestActivitySystem;
 import com.github.sculkhorde.systems.HitSquadDispatcherSystem;
 import com.github.sculkhorde.util.ChunkLoading.BlockEntityChunkLoaderHelper;
 import com.github.sculkhorde.util.ChunkLoading.EntityChunkLoaderHelper;
@@ -35,13 +36,12 @@ public class SculkHorde {
     public static EntityFactory entityFactory = new EntityFactory();
     public static Gravemind gravemind;
     public static ModSavedData savedData;
+    public static final Logger LOGGER = LogUtils.getLogger();
     public static BlockInfestationTable explicitInfectableBlocks;
     public static BlockInfestationTable tagInfectableBlocks;
     public static BlockInfestationTable tagInfectableStairsAndSlabsBlocks;
     public static BlockInfestationTable configInfectableBlocks;
-
     public static BlockInfestationTable[] INFESTATION_TABLES;
-
     public static PoolBlocks randomSculkFlora;
     public static DeathAreaInvestigator deathAreaInvestigator;
     public static RaidHandler raidHandler;
@@ -51,10 +51,10 @@ public class SculkHorde {
     public static StatisticsData statisticsData;
     public static BlockEntityChunkLoaderHelper blockEntityChunkLoaderHelper;
     public static EntityChunkLoaderHelper entityChunkLoaderHelper = new EntityChunkLoaderHelper();
-    public static final Logger LOGGER = LogUtils.getLogger();
     public static final ContributionHandler contributionHandler = new ContributionHandler();
     public static final SculkPopulationHandler populationHandler = new SculkPopulationHandler();
     public static final HitSquadDispatcherSystem hitSquadDispatcherSystem = new HitSquadDispatcherSystem();
+    public static BeeNestActivitySystem beeNestActivitySystem;
 
     //This is the instance of our class, and we register it to the ModEventBus (which I have stored in a variable).
     public SculkHorde()

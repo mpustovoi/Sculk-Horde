@@ -10,7 +10,6 @@ import com.github.sculkhorde.core.gravemind.SculkNodesHandler;
 import com.github.sculkhorde.core.gravemind.events.EventHandler;
 import com.github.sculkhorde.misc.StatisticsData;
 import com.github.sculkhorde.systems.BeeNestActivitySystem;
-import com.github.sculkhorde.systems.AutoPerformanceSystem;
 import com.github.sculkhorde.util.ChunkLoading.BlockEntityChunkLoaderHelper;
 import com.github.sculkhorde.util.ChunkLoading.EntityChunkLoaderHelper;
 import net.minecraft.core.BlockPos;
@@ -60,7 +59,6 @@ public class ForgeEventSubscriber {
             SculkHorde.blockEntityChunkLoaderHelper = new BlockEntityChunkLoaderHelper(); //Initialize Block Entity Chunk Loader Helper
             SculkHorde.eventHandler = new EventHandler(); //Initialize Event Handler
             SculkHorde.beeNestActivitySystem = new BeeNestActivitySystem();
-            SculkHorde.autoPerformanceSystem = new AutoPerformanceSystem();
             ModConfig.SERVER.loadItemsInfectionCursorsCanEat();
             ModConfig.SERVER.loadConfiguredInfestableBlocks();
 
@@ -256,7 +254,7 @@ public class ForgeEventSubscriber {
     public static void onServerTick(TickEvent.ServerTickEvent event)
     {
         if (event.phase == TickEvent.Phase.START) {
-            SculkHorde.autoPerformanceSystem.onServerTick();
+            TPSHandler.onServerTick();
         }
     }
 }
