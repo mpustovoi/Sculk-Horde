@@ -125,6 +125,7 @@ public class BlockInfestationHelper {
         SculkHorde.explicitInfectableBlocks.addEntry("minecraft:moss_block", "deeperdarker:blooming_moss_block");
         SculkHorde.explicitInfectableBlocks.addEntry("minecraft:grass_block", "deeperdarker:blooming_sculk_stone");
         SculkHorde.explicitInfectableBlocks.addEntry("minecraft:cave_vines", "deeperdarker:glowing_vines");
+        SculkHorde.explicitInfectableBlocks.addEntry("minecraft:cave_vines", "deeperdarker:glowing_vines_plant");
         SculkHorde.explicitInfectableBlocks.addEntry("minecraft:air", "deeperdarker:glowing_roots");
         SculkHorde.explicitInfectableBlocks.addEntry("minecraft:air", "deeperdarker:glowing_flowers");
         SculkHorde.explicitInfectableBlocks.addEntry("minecraft:cave_vines", "deeperdarker:sculk_vines");
