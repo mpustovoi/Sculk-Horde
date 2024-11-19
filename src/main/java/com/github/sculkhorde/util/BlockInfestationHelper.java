@@ -165,6 +165,7 @@ public class BlockInfestationHelper {
 
         // Used to infect non-full blocks. Order Matters
         SculkHorde.tagInfectableNonFullBlocks = new BlockInfestationTable(false);
+        SculkHorde.tagInfectableNonFullBlocks.addEntry(BlockTags.STAIRS, BlockTags.MINEABLE_WITH_AXE, Tiers.IRON, ModBlocks.INFESTED_WOOD_STAIRS.get(), Blocks.OAK_STAIRS);
         SculkHorde.tagInfectableNonFullBlocks.addEntry(BlockTags.STAIRS, BlockTags.MINEABLE_WITH_PICKAXE, Tiers.IRON, ModBlocks.INFESTED_STURDY_STAIRS.get(), Blocks.COBBLESTONE_STAIRS);
         SculkHorde.tagInfectableNonFullBlocks.addEntry(BlockTags.STAIRS, ModBlocks.BlockTags.CONVERTS_TO_CRUMBLING_VARIANT, Tiers.IRON, ModBlocks.INFESTED_CRUMBLING_STAIRS.get(), Blocks.MOSSY_COBBLESTONE_STAIRS); //vanilla doesn't have any stairs that match these criteria so this is about the best i could get
         SculkHorde.tagInfectableNonFullBlocks.addEntry(BlockTags.WOODEN_SLABS, ModBlocks.INFESTED_WOOD_SLAB.get(), Blocks.OAK_SLAB);
