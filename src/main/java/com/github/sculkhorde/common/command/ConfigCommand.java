@@ -25,6 +25,7 @@ public class ConfigCommand implements Command<CommandSourceStack> {
                 .then(sculkRaidConfig(dispatcher))
                 .then(infestationAndPurificationConfig(dispatcher))
                 .then(sculkMiteConfig(dispatcher))
+                .then(sculkPhantomConfig(dispatcher))
                 .then(modCompatibilityConfig(dispatcher))
                 .then(sculkNodeConfig(dispatcher))
                 .then(experimentalFeaturesConfig(dispatcher));
@@ -108,6 +109,13 @@ public class ConfigCommand implements Command<CommandSourceStack> {
     private static ArgumentBuilder<CommandSourceStack, ?> sculkMiteConfig(CommandDispatcher<CommandSourceStack> dispatcher) {
         return Commands.literal("sculk_mite")
                 .then(booleanConfigOption("should_sculk_mites_spawn_in_deep_dark"));
+    }
+
+    private static ArgumentBuilder<CommandSourceStack, ?> sculkPhantomConfig(CommandDispatcher<CommandSourceStack> dispatcher) {
+        return Commands.literal("sculk_phantom")
+                .then(booleanConfigOption("should_phantoms_load_chunks"))
+                .then(booleanConfigOption("should_sculk_nodes_and_raids_spawn_phantoms"))
+                .then(booleanConfigOption("should_ancient_node_spawn_phantoms"));
     }
 
     private static ArgumentBuilder<CommandSourceStack, ?> modCompatibilityConfig(CommandDispatcher<CommandSourceStack> dispatcher) {
@@ -310,14 +318,35 @@ public class ConfigCommand implements Command<CommandSourceStack> {
                         ModConfig.SERVER.trigger_ancient_node_time_of_day.set((Integer) rawValue);
                         success = true;
                     }
+                    break;
                 case "max_nodes_active":
                     if (valueType.equals(Integer.class)) {
                         ModConfig.SERVER.max_nodes_active.set((Integer) rawValue);
                         success = true;
                     }
+                    break;
                 case "max_infector_cursor_population":
                     if (valueType.equals(Integer.class)) {
                         ModConfig.SERVER.max_infector_cursor_population.set((Integer) rawValue);
+                        success = true;
+                    }
+                    break;
+                // Sculk Phantom Config
+                case "should_phantoms_load_chunks":
+                    if (valueType.equals(Boolean.class)) {
+                        ModConfig.SERVER.should_phantoms_load_chunks.set((Boolean) rawValue);
+                        success = true;
+                    }
+                    break;
+                case "should_sculk_nodes_and_raids_spawn_phantoms":
+                    if (valueType.equals(Boolean.class)) {
+                        ModConfig.SERVER.should_sculk_nodes_and_raids_spawn_phantoms.set((Boolean) rawValue);
+                        success = true;
+                    }
+                    break;
+                case "should_ancient_node_spawn_phantoms":
+                    if (valueType.equals(Boolean.class)) {
+                        ModConfig.SERVER.should_ancient_node_spawn_phantoms.set((Boolean) rawValue);
                         success = true;
                     }
                     break;

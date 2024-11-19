@@ -48,7 +48,7 @@ public class ModConfig {
         public final ForgeConfigSpec.ConfigValue<Boolean> should_sculk_mites_spawn_in_deep_dark;
 
         public final ForgeConfigSpec.ConfigValue<Boolean> should_phantoms_load_chunks;
-        public final ForgeConfigSpec.ConfigValue<Boolean> sculk_nodes_and_raids_spawn_phantoms;
+        public final ForgeConfigSpec.ConfigValue<Boolean> should_sculk_nodes_and_raids_spawn_phantoms;
         public final ForgeConfigSpec.ConfigValue<Boolean> should_ancient_node_spawn_phantoms;
         
         public final ForgeConfigSpec.ConfigValue<Boolean> sculk_raid_enabled;
