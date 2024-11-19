@@ -431,7 +431,9 @@ public class RaidHandler {
             playSoundForEveryPlayer(ModSounds.RAID_SCOUT_SOUND.get(), 1.0F, 1.0F);
 
             //Spawn Sculk Phantoms
-            spawnSculkPhantomsAtTopOfWorld(raidData.getDimension(), raidData.getAreaOfInterestEntry().getPosition(), 5);
+            if (ModConfig.SERVER.should_sculk_nodes_and_raids_spawn_phantoms.get()) {
+            	spawnSculkPhantomsAtTopOfWorld(raidData.getDimension(), raidData.getAreaOfInterestEntry().getPosition(), 5);
+            }
         }
 
         if(!raidData.getScoutEnderman().isAlive())

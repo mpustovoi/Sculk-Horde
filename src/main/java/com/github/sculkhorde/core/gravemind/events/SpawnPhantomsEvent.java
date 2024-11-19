@@ -2,6 +2,7 @@ package com.github.sculkhorde.core.gravemind.events;
 
 
 import com.github.sculkhorde.common.entity.SculkPhantomEntity;
+import com.github.sculkhorde.core.ModConfig;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 
@@ -39,6 +40,8 @@ public class SpawnPhantomsEvent extends Event{
     public void start()
     {
         super.start();
-        spawnScoutPhantomsAtTopOfWorld(10);
+        if (ModConfig.SERVER.should_sculk_nodes_and_raids_spawn_phantoms.get()) {
+        	spawnScoutPhantomsAtTopOfWorld(10);
+        }
     }
 }

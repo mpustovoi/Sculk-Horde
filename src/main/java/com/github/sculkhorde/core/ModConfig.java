@@ -48,7 +48,9 @@ public class ModConfig {
         public final ForgeConfigSpec.ConfigValue<Boolean> should_sculk_mites_spawn_in_deep_dark;
 
         public final ForgeConfigSpec.ConfigValue<Boolean> should_phantoms_load_chunks;
-
+        public final ForgeConfigSpec.ConfigValue<Boolean> sculk_nodes_and_raids_spawn_phantoms;
+        public final ForgeConfigSpec.ConfigValue<Boolean> should_ancient_node_spawn_phantoms;
+        
         public final ForgeConfigSpec.ConfigValue<Boolean> sculk_raid_enabled;
         public final ForgeConfigSpec.ConfigValue<Integer> sculk_raid_enderman_scouting_duration_minutes;
         public final ForgeConfigSpec.ConfigValue<Integer> sculk_raid_global_cooldown_between_raids_minutes;
@@ -193,6 +195,8 @@ public class ModConfig {
 
             builder.push("Sculk Phantom Variables");
             should_phantoms_load_chunks = builder.comment("Should sculk phantoms load chunks? (Default true)").define("should_phantoms_load_chunks",true);
+            should_sculk_nodes_and_raids_spawn_phantoms = builder.comment("Should sculk phantoms be spawned by sculk nodes and raids? (Default true)").define("should_sculk_nodes_and_raids_spawn_phantoms",true);
+            should_ancient_node_spawn_phantoms = builder.comment("Should sculk phantoms be spawned when the ancient node is triggered? (Default true)").define("should_ancient_node_spawn_phantoms",true);
             builder.pop();
 
             builder.push("Experimental Features");
