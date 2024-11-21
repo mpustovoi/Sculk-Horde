@@ -2,7 +2,8 @@ package com.github.sculkhorde.systems;
 
 import com.github.sculkhorde.core.ModConfig;
 import com.github.sculkhorde.core.SculkHorde;
-import com.github.sculkhorde.util.TickUnits;
+
+import java.util.concurrent.TimeUnit;
 
 public class AutoPerformanceSystem {
 
@@ -26,10 +27,10 @@ public class AutoPerformanceSystem {
     protected final int HIGH_PERFORMANCE_TPS_MINIMUM = 15;
     protected final int MEDIUM_PERFORMANCE_TPS_MINIMUM = 10;
     protected final int LOW_PERFORMANCE_TPS_MINIMUM = 5;
-    protected long timeSpentAboveTPSMaximum = 0;
-    protected long timeSpentBelowTPSMinimum = 0;
-    protected long TIME_THRESHOLD_BELOW_MINIMUM_TPS = TickUnits.convertSecondsToTicks(10);
-    protected long TIME_THRESHOLD_ABOVE_MAXIMUM_TPS = TickUnits.convertMinutesToTicks(2);
+    protected long timeStampAboveTPSMaximum = 0;
+    protected long timeStampBelowTPSMinimum = 0;
+    protected long TIME_THRESHOLD_BELOW_MINIMUM_TPS = TimeUnit.SECONDS.toMillis(10);
+    protected long TIME_THRESHOLD_ABOVE_MAXIMUM_TPS = TimeUnit.MINUTES.toMillis(1);
 
     protected PerformanceMode performanceMode = PerformanceMode.Medium;
 
@@ -167,8 +168,8 @@ public class AutoPerformanceSystem {
 
     protected void setPerformanceMode(PerformanceMode mode)
     {
-        timeSpentAboveTPSMaximum = 0;
-        timeSpentBelowTPSMinimum = 0;
+        timeStampAboveTPSMaximum = 0;
+        timeStampBelowTPSMinimum = 0;
 
         if(mode == PerformanceMode.High)
         {
@@ -301,30 +302,30 @@ public class AutoPerformanceSystem {
             lastTimeOfTPSCheck = currentTime;
         }
 
-        if(isTPSBelowMinimum())
+        if(isTPSBelowMinimum() && timeStampBelowTPSMinimum == 0)
         {
-            timeSpentBelowTPSMinimum += 1;
+            timeStampBelowTPSMinimum = System.currentTimeMillis();
         }
-        else
+        else if(!isTPSBelowMinimum() && timeStampBelowTPSMinimum != 0)
         {
-            timeSpentBelowTPSMinimum = 0;
-        }
-
-        if(isTPSAboveMaximum())
-        {
-            timeSpentAboveTPSMaximum += 1;
-        }
-        else
-        {
-            timeSpentAboveTPSMaximum = 0;
+            timeStampBelowTPSMinimum = 0;
         }
 
+        if(isTPSAboveMaximum() && timeStampAboveTPSMaximum == 0)
+        {
+            timeStampAboveTPSMaximum = System.currentTimeMillis();
+        }
+        else if(!isTPSAboveMaximum() && timeStampAboveTPSMaximum != 0)
+        {
+            timeStampAboveTPSMaximum = 0;
+        }
 
-        if(timeSpentBelowTPSMinimum >= TIME_THRESHOLD_BELOW_MINIMUM_TPS)
+
+        if(System.currentTimeMillis() - timeStampBelowTPSMinimum >= TIME_THRESHOLD_BELOW_MINIMUM_TPS && timeStampBelowTPSMinimum != 0)
         {
             decreasePerformanceMode();
         }
-        else if(timeSpentAboveTPSMaximum >= TIME_THRESHOLD_ABOVE_MAXIMUM_TPS || (ModConfig.SERVER.disable_auto_performance_system.get() && !isHighPerformanceMode()))
+        else if((System.currentTimeMillis() - timeStampAboveTPSMaximum >= TIME_THRESHOLD_ABOVE_MAXIMUM_TPS  && timeStampAboveTPSMaximum != 0) || (ModConfig.SERVER.disable_auto_performance_system.get() && !isHighPerformanceMode()))
         {
             increasePerformanceMode();
         }
