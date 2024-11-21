@@ -1,8 +1,6 @@
 package com.github.sculkhorde.common.command;
 
-import com.github.sculkhorde.core.ModConfig;
 import com.github.sculkhorde.core.SculkHorde;
-import com.github.sculkhorde.util.TPSHandler;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.ArgumentBuilder;
@@ -49,13 +47,17 @@ public class StatusAllCommand implements Command<CommandSourceStack> {
                         + "\n"
                         + "Events in Queue: " + SculkHorde.eventHandler.getEvents().size()
                         + "\n"
-                        + "Performance Mode Enabled?: " + SculkHorde.cursorHandler.isManualControlOfTickingEnabled()
+                        + "Performance Mode: " + SculkHorde.autoPerformanceSystem.getPerformanceMode().toString()
                         + "\n"
-                        + "Performance Mode Cursor Threshold?: " + ModConfig.SERVER.performance_mode_cursor_threshold.get()
+                        + "Performance Mode Cursor Threshold?: " + SculkHorde.autoPerformanceSystem.getInfectorCursorPopulationThreshold()
                         + "\n"
-                        + "Performance Mode TPS Threshold?: " + TPSHandler.getTps() + " / 15 TPS"
+                        + "Performance Mode Cursors to Tick Per Tick: " + SculkHorde.autoPerformanceSystem.getCursorsToTickPerTick()
                         + "\n"
-                        + "Cursors being Ticked: " + SculkHorde.cursorHandler.getSizeOfCursorList() + " / " + ModConfig.SERVER.max_infector_cursor_population.get()
+                        + "Performance Mode Delay Between Cursor Ticks: " + SculkHorde.autoPerformanceSystem.getDelayBetweenCursorTicks()
+                        + "\n"
+                        + "Performance Mode Max Nodes Active: " + SculkHorde.autoPerformanceSystem.getMaxNodesActive()
+                        + "\n"
+                        + "Cursors being Ticked: " + SculkHorde.cursorHandler.getSizeOfCursorList() + " / " + SculkHorde.autoPerformanceSystem.getMaxInfectorCursorPopulation()
                         + "\n"
                         + "Sculk Unit Population: " + SculkHorde.populationHandler.getPopulationSize() + " / " + SculkHorde.populationHandler.getMaxPopulation()
                 ), false);

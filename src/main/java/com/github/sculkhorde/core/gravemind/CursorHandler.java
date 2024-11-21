@@ -1,8 +1,7 @@
 package com.github.sculkhorde.core.gravemind;
 
 import com.github.sculkhorde.common.entity.infection.CursorEntity;
-import com.github.sculkhorde.core.ModConfig;
-import com.github.sculkhorde.util.TPSHandler;
+import com.github.sculkhorde.core.SculkHorde;
 
 import java.util.ArrayList;
 import java.util.Optional;
@@ -50,7 +49,7 @@ public class CursorHandler {
     {
         ArrayList<CursorEntity> listOfCursors = cursors.getList();
 
-        for(int i = 0; i < ModConfig.SERVER.performance_mode_cursors_to_tick_per_tick.get(); i++)
+        for(int i = 0; i < SculkHorde.autoPerformanceSystem.getCursorsToTickPerTick(); i++)
         {
             if(index >= listOfCursors.size())
             {
@@ -72,11 +71,11 @@ public class CursorHandler {
 
     public boolean isPerformanceModeThresholdReached()
     {
-        return getSizeOfCursorList() >= ModConfig.SERVER.performance_mode_cursor_threshold.get() || TPSHandler.isTPSBelowPerformanceThreshold();
+        return getSizeOfCursorList() >= SculkHorde.autoPerformanceSystem.getInfectorCursorPopulationThreshold();
     }
     public boolean isCursorPopulationAtMax()
     {
-        return getSizeOfCursorList() >= ModConfig.SERVER.max_infector_cursor_population.get();
+        return getSizeOfCursorList() >= SculkHorde.autoPerformanceSystem.getMaxInfectorCursorPopulation();
     }
 
     /**
@@ -88,7 +87,7 @@ public class CursorHandler {
     public void serverTick()
     {
         //Only Execute if the cooldown. Get the value from the config file.
-        if(tickDelay < ModConfig.SERVER.performance_mode_delay_between_cursor_ticks.get())
+        if(tickDelay < SculkHorde.autoPerformanceSystem.getDelayBetweenCursorTicks())
         {
             tickDelay++;
             return;

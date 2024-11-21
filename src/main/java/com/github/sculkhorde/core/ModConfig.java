@@ -66,12 +66,9 @@ public class ModConfig {
         private final ForgeConfigSpec.ConfigValue<List<? extends String>> make_block_infestable;
         public static final HashMap<String, Boolean> manually_configured_infestable_blocks = new HashMap<>();
 
-        public final ForgeConfigSpec.ConfigValue<Integer> max_infector_cursor_population;
+        public final ForgeConfigSpec.DoubleValue infection_speed_multiplier;
         public final ForgeConfigSpec.ConfigValue<Integer> max_nodes_active;
-        public final ForgeConfigSpec.ConfigValue<Integer> performance_mode_cursor_threshold;
-        public final ForgeConfigSpec.ConfigValue<Integer> performance_mode_cursors_to_tick_per_tick;
-        public final ForgeConfigSpec.ConfigValue<Integer> performance_mode_delay_between_cursor_ticks;
-        public final ForgeConfigSpec.ConfigValue<Boolean> performance_mode_thanos_snap_cursors;
+        public final ForgeConfigSpec.ConfigValue<Boolean> disable_auto_performance_system;
 
         public void loadItemsInfectionCursorsCanEat()
         {
@@ -146,13 +143,9 @@ public class ModConfig {
             Config.setInsertionOrderPreserved(true);
 
             builder.push("Performance Settings");
+            disable_auto_performance_system = builder.comment("Should the automatic performance system be disabled? (Default False)").define("disable_auto_performance_system", false);
             max_unit_population = builder.comment("How many sculk mobs should be allowed to exist at one time? (Default 200)").defineInRange("max_unit_population",200, 0, 1000);
-            max_infector_cursor_population = builder.comment("How many infector cursors should be allowed to exist at one time? (Default 200)").defineInRange("max_infector_cursor_population",200, 0, 1000);
             max_nodes_active = builder.comment("How many nodes can be active at once? (Default 1)").defineInRange("max_nodes_active",1, 0, 1000);
-            performance_mode_cursor_threshold = builder.comment("How many cursors need to exist for performance mode to kick in. (Default 100)").defineInRange("performance_mode_cursor_threshold", 100, 0, 1000);
-            performance_mode_cursors_to_tick_per_tick = builder.comment("How many cursors should we tick, per in game tick. (Default 50)").defineInRange("performance_mode_cursors_to_tick_per_tick", 50, 0, 100);
-            performance_mode_delay_between_cursor_ticks = builder.comment("How many ticks should there be between intervals of ticking cursors. (Default 1)").defineInRange("performance_mode_delay_between_cursor_ticks", 1, 0, 100);
-            performance_mode_thanos_snap_cursors = builder.comment("50% Chance for cursors to discard themselves upon reaching threshold. (Default false)").define("performance_mode_thanos_snap_cursors", false);
             builder.pop();
 
             builder.push("Mod Compatability");
@@ -174,6 +167,7 @@ public class ModConfig {
 
             builder.push("Infestation / Purification Variables");
             purification_speed_multiplier = builder.comment("How much faster or slower should purification spread? (Default 0)").defineInRange("purification_speed_multiplier",0f, -10f, 10f);
+            infection_speed_multiplier = builder.comment("How much faster or slower should infection spread? (Default 0)").defineInRange("infection_speed_multiplier",0f, -10f, 10f);
             infestation_purifier_range = builder.comment("How far should the infestation purifier reach? (Default 5)").defineInRange("purifier_range",48, 0, 100);
             items_infection_cursors_can_eat = builder.comment("What dropped items should cursors eat? This prevents lag and boosts their lifespan.").defineList("items_infection_cursors_can_eat", Arrays.asList("minecraft:wheat_seeds", "minecraft:bamboo", "minecraft:stick", "minecraft:poppy", "minecraft:dandelion", "minecraft:blue_orchid", "minecraft:allium", "minecraft:azure_bluet", "minecraft:red_tulip", "minecraft:orange_tulip", "minecraft:white_tulip", "minecraft:pink_tulip", "minecraft:oxeye_daisy", "minecraft:cornflower", "minecraft:lily_of_the_valley", "minecraft:sunflower", "minecraft:lilac", "minecraft:rose_bush", "minecraft:peony"), entry -> true);
             make_block_infestable = builder.comment("Add blocks to this list to make them infestable. I.E. minecraft:dirt. Be careful what you put in here, this can potentially lead to issues. This will not work with blocks that are air, have a block entity, are already considered an infested block, or have the not infestable tag.").defineList("make_block_infestable", Arrays.asList(""), entry -> true);

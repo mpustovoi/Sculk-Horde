@@ -404,7 +404,7 @@ public abstract class CursorEntity extends Entity
     {
         if(level().isClientSide()) { return; }
 
-        if(ModConfig.SERVER.performance_mode_thanos_snap_cursors.get() && SculkHorde.cursorHandler.isManualControlOfTickingEnabled())
+        if(SculkHorde.autoPerformanceSystem.isThanosSnappingCursors())
         {
             ServerLevel serverLevel = (ServerLevel) level();
             MinecraftServer server = serverLevel.getServer();

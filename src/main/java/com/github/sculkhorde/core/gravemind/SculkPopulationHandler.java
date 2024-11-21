@@ -3,7 +3,6 @@ package com.github.sculkhorde.core.gravemind;
 import com.github.sculkhorde.common.entity.ISculkSmartEntity;
 import com.github.sculkhorde.common.entity.SculkBeeHarvesterEntity;
 import com.github.sculkhorde.common.entity.SculkPhantomCorpseEntity;
-import com.github.sculkhorde.core.ModConfig;
 import com.github.sculkhorde.core.SculkHorde;
 import com.github.sculkhorde.util.EntityAlgorithms;
 import com.github.sculkhorde.util.TickUnits;
@@ -47,7 +46,7 @@ public class SculkPopulationHandler {
 
     public int getMaxPopulation()
     {
-        return ModConfig.SERVER.max_unit_population.get();
+        return SculkHorde.autoPerformanceSystem.getMaxSculkUnitPopulation();
     }
 
     public boolean isPopulationAtMax()
