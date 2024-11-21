@@ -324,14 +324,9 @@ public class AutoPerformanceSystem {
         {
             decreasePerformanceMode();
         }
-        else if(timeSpentAboveTPSMaximum >= TIME_THRESHOLD_ABOVE_MAXIMUM_TPS)
+        else if(timeSpentAboveTPSMaximum >= TIME_THRESHOLD_ABOVE_MAXIMUM_TPS || (ModConfig.SERVER.disable_auto_performance_system.get() && !isHighPerformanceMode()))
         {
             increasePerformanceMode();
         }
-    }
-
-    public static boolean isTPSBelowPerformanceThreshold()
-    {
-        return getTPS() < 15;
     }
 }

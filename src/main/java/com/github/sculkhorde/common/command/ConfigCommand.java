@@ -97,8 +97,8 @@ public class ConfigCommand implements Command<CommandSourceStack> {
 
     private static ArgumentBuilder<CommandSourceStack, ?> infestationAndPurificationConfig(CommandDispatcher<CommandSourceStack> dispatcher) {
         return Commands.literal("infestation_and_purification")
-                .then(doubleConfigOption("infestation_speed_multiplier", -10, 10))
-                .then(doubleConfigOption("purification_speed_multiplier", -10, 10))
+                .then(doubleConfigOption("infestation_speed_multiplier", 0.001, 10))
+                .then(doubleConfigOption("purification_speed_multiplier", 0.001, 10))
                 .then(integerConfigOption("purifier_range", 0, 100));
     }
 
@@ -217,6 +217,11 @@ public class ConfigCommand implements Command<CommandSourceStack> {
                         success = true;
                     }
                     break;
+                case "infestation_speed_multiplier":
+                    if (valueType.equals(Double.class)) {
+                        ModConfig.SERVER.infection_speed_multiplier.set((Double) rawValue);
+                        success = true;
+                    }
                 case "purification_speed_multiplier":
                     if (valueType.equals(Double.class)) {
                         ModConfig.SERVER.purification_speed_multiplier.set((Double) rawValue);
