@@ -276,7 +276,17 @@ public abstract class CursorEntity extends Entity
     public void cursorTick()
     {
         float timeElapsedMilliSeconds = System.currentTimeMillis() - lastTickTime;
-        double tickIntervalMillisecondsAfterMultiplier = tickIntervalMilliseconds;
+        double tickIntervalMillisecondsAfterMultiplier;
+
+        if(this instanceof CursorSurfaceInfectorEntity)
+        {
+            tickIntervalMillisecondsAfterMultiplier = tickIntervalMilliseconds / ModConfig.SERVER.infection_speed_multiplier.get();
+        }
+        else
+        {
+            tickIntervalMillisecondsAfterMultiplier = tickIntervalMilliseconds / ModConfig.SERVER.purification_speed_multiplier.get();
+        }
+
         if (timeElapsedMilliSeconds < Math.max(tickIntervalMillisecondsAfterMultiplier, 1)) {
             return;
         }
