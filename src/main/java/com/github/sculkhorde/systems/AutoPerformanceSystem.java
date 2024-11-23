@@ -45,7 +45,10 @@ public class AutoPerformanceSystem {
     protected int delayBetweenCursorTicks = 0;
     protected boolean thanosSnapCursors = false;
 
-
+    public AutoPerformanceSystem()
+    {
+        setPerformanceMode(PerformanceMode.Medium);
+    }
 
     //#### Accessors ####
 
