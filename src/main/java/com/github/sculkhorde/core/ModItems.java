@@ -296,6 +296,9 @@ public class ModItems {
 	public static final RegistryObject<TomeOfSporeItem> TOME_OF_SPORE = ITEMS.register("tome_of_spore",
 			TomeOfSporeItem::new);
 
+	public static final RegistryObject<TomeOfSacrificeItem> TOME_OF_SACRIFICE = ITEMS.register("tome_of_sacrifice",
+			TomeOfSacrificeItem::new);
+
 	public static final RegistryObject<Item> SOULITE_SHARD = ITEMS.register("soulite_shard", () -> new Item(new Item.Properties()){
 		@Override
 		@OnlyIn(Dist.CLIENT)
