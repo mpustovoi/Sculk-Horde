@@ -7,26 +7,32 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.TagKey;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class BlockInfestationTable{
 
     private List<IBlockInfestationEntry> entries;
+    protected boolean denyNonSolidBlocks = true;
+    protected float priority = 0F;
 
-    public BlockInfestationTable(boolean denyNonSolidBlocks)
+    public BlockInfestationTable(float priority, boolean denyNonSolidBlocks)
     {
         entries = new ArrayList<>();
         setDenyNonSolidBlocks(denyNonSolidBlocks);
+        this.priority = priority;
     }
 
-    protected boolean denyNonSolidBlocks = true;
+    public float getPriority()
+    {
+        return priority;
+    }
 
 
     public boolean isDenyNonSolidBlocks() {
@@ -42,34 +48,40 @@ public class BlockInfestationTable{
      * @param normalVariant The normal variant of the block.
      * @param infectedVariant The infected variant of the block.
      */
-    public void addEntry(Block normalVariant, BlockState infectedVariant)
+    public void addEntry(float priority, Block normalVariant, BlockState infectedVariant)
     {
-        entries.add(new BlockInfestationTableEntry(normalVariant, infectedVariant));
+        entries.add(new BlockInfestationTableEntry(priority, normalVariant, infectedVariant));
+        entries.sort(Comparator.comparing(IBlockInfestationEntry::getPriority));
     }
 
-    public void addEntry(TagKey<Block> normalTag, ITagInfestedBlock infectedVariant, Block defaultNormalVariant)
+    public void addEntry(float priority, TagKey<Block> normalTag, ITagInfestedBlock infectedVariant, Block defaultNormalVariant)
     {
-        entries.add(new BlockTagInfestationTableEntry(normalTag, infectedVariant, defaultNormalVariant));
+        entries.add(new BlockTagInfestationTableEntry(priority, normalTag, infectedVariant, defaultNormalVariant));
+        entries.sort(Comparator.comparing(IBlockInfestationEntry::getPriority));
     }
 
-    public void addEntry(String normalBlockID, String infectedBlockID)
+    public void addEntry(float priority, String normalBlockID, String infectedBlockID)
     {
-        entries.add(new BlockIDOnlyCurableTableEntry(normalBlockID, infectedBlockID));
+        entries.add(new BlockIDOnlyCurableTableEntry(priority, normalBlockID, infectedBlockID));
+        entries.sort(Comparator.comparing(IBlockInfestationEntry::getPriority));
     }
 
-    public void addEntry(TagKey<Block> toolRequired, Tier tier, ITagInfestedBlock infectedVariant, Block defaultNormalVariant)
+    public void addEntry(float priority, TagKey<Block> toolRequired, Tier tier, ITagInfestedBlock infectedVariant, Block defaultNormalVariant)
     {
-        entries.add(new ToolTaglInfestationTableEntry(toolRequired, tier, infectedVariant, defaultNormalVariant));
+        entries.add(new ToolTaglInfestationTableEntry(priority, toolRequired, tier, infectedVariant, defaultNormalVariant));
+        entries.sort(Comparator.comparing(IBlockInfestationEntry::getPriority));
     }
 
-    public void addEntry(TagKey<Block> tag1, TagKey<Block> tag2, Tier tier, ITagInfestedBlock infestedVariant, Block defaultNormalVariant)
+    public void addEntry(float priority, TagKey<Block> tag1, TagKey<Block> tag2, Tier tier, ITagInfestedBlock infestedVariant, Block defaultNormalVariant)
     {
-        entries.add(new MultiTagInfestationTableEntry(tag1, tag2, tier, infestedVariant, defaultNormalVariant));
+        entries.add(new MultiTagInfestationTableEntry(priority, tag1, tag2, tier, infestedVariant, defaultNormalVariant));
+        entries.sort(Comparator.comparing(IBlockInfestationEntry::getPriority));
     }
 
     public void addEntry(ITagInfestedBlock infectedVariant)
     {
         entries.add(new ConfigInfestationTableEntry(infectedVariant));
+        entries.sort(Comparator.comparing(IBlockInfestationEntry::getPriority));
     }
 
     public BlockState getInfestedVariant(Level level, BlockPos blockPos)
@@ -149,9 +161,15 @@ public class BlockInfestationTable{
         world.setBlockAndUpdate(targetPos, newBlock);
         world.playSound(null, targetPos, SoundEvents.SCULK_CATALYST_BLOOM, SoundSource.BLOCKS, 2.0F, 0.6F + world.getRandom().nextFloat() * 0.4F);
 
-        if(newBlock.getBlock() instanceof ITagInfestedBlock)
+        if(newBlock.getBlock() instanceof ITagInfestedBlock tagInfestedBlock)
         {
-            ((ITagInfestedBlock) newBlock.getBlock()).getTagInfestedBlockEntity(world, targetPos).setNormalBlockState(oldBlock);
+            ITagInfestedBlockEntity tagInfestedBlockEntity = tagInfestedBlock.getTagInfestedBlockEntity(world, targetPos);
+            if(tagInfestedBlockEntity == null)
+            {
+                return false;
+            }
+
+            tagInfestedBlockEntity.setNormalBlockState(oldBlock);
         }
 
         SculkHorde.statisticsData.incrementTotalBlocksInfested();

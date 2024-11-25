@@ -9,6 +9,8 @@ import com.github.sculkhorde.core.gravemind.RaidHandler;
 import com.github.sculkhorde.core.gravemind.SculkNodesHandler;
 import com.github.sculkhorde.core.gravemind.events.EventHandler;
 import com.github.sculkhorde.misc.StatisticsData;
+import com.github.sculkhorde.systems.BeeNestActivitySystem;
+import com.github.sculkhorde.systems.AutoPerformanceSystem;
 import com.github.sculkhorde.util.ChunkLoading.BlockEntityChunkLoaderHelper;
 import com.github.sculkhorde.util.ChunkLoading.EntityChunkLoaderHelper;
 import net.minecraft.core.BlockPos;
@@ -57,6 +59,8 @@ public class ForgeEventSubscriber {
             SculkHorde.entityChunkLoaderHelper = new EntityChunkLoaderHelper(); //Initialize Entity Chunk Loader Helper
             SculkHorde.blockEntityChunkLoaderHelper = new BlockEntityChunkLoaderHelper(); //Initialize Block Entity Chunk Loader Helper
             SculkHorde.eventHandler = new EventHandler(); //Initialize Event Handler
+            SculkHorde.beeNestActivitySystem = new BeeNestActivitySystem();
+            SculkHorde.autoPerformanceSystem = new AutoPerformanceSystem();
             ModConfig.SERVER.loadItemsInfectionCursorsCanEat();
             ModConfig.SERVER.loadConfiguredInfestableBlocks();
 
@@ -98,6 +102,7 @@ public class ForgeEventSubscriber {
         SculkHorde.populationHandler.serverTick();
         SculkHorde.blockEntityChunkLoaderHelper.processBlockChunkLoadRequests();
         SculkHorde.entityChunkLoaderHelper.processEntityChunkLoadRequests();
+        SculkHorde.beeNestActivitySystem.serverTick();
 
         // Only run stuff below every 5 minutes
         if (event.level.getGameTime() - time_save_point < TickUnits.convertMinutesToTicks(5))
@@ -106,7 +111,7 @@ public class ForgeEventSubscriber {
         }
 
         time_save_point = event.level.getGameTime();//Set to current time so we can recalculate time passage
-        SculkHorde.gravemind.enableAmountOfBeeHives(20);
+        SculkHorde.beeNestActivitySystem.activate();
 
         //Verification Processes to ensure our data is accurate
         SculkHorde.savedData.validateNodeEntries();
@@ -250,7 +255,7 @@ public class ForgeEventSubscriber {
     public static void onServerTick(TickEvent.ServerTickEvent event)
     {
         if (event.phase == TickEvent.Phase.START) {
-            TPSHandler.onServerTick();
+            SculkHorde.autoPerformanceSystem.onServerTick();
         }
     }
 }

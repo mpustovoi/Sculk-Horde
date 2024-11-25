@@ -25,6 +25,7 @@ public class ConfigCommand implements Command<CommandSourceStack> {
                 .then(sculkRaidConfig(dispatcher))
                 .then(infestationAndPurificationConfig(dispatcher))
                 .then(sculkMiteConfig(dispatcher))
+                .then(sculkPhantomConfig(dispatcher))
                 .then(modCompatibilityConfig(dispatcher))
                 .then(sculkNodeConfig(dispatcher))
                 .then(experimentalFeaturesConfig(dispatcher));
@@ -74,13 +75,9 @@ public class ConfigCommand implements Command<CommandSourceStack> {
 
     private static ArgumentBuilder<CommandSourceStack, ?> performance(CommandDispatcher<CommandSourceStack> dispatcher) {
         return Commands.literal("performance")
+                .then(booleanConfigOption("disable_auto_performance_system"))
                 .then(integerConfigOption("max_unit_population", 0, 1000))
-                .then(integerConfigOption("max_infector_cursor_population", 0, 1000))
-                .then(integerConfigOption("max_nodes_active", 0, 1000))
-                .then(integerConfigOption("performance_mode_cursor_threshold", 0, 1000))
-                .then(integerConfigOption("performance_mode_cursors_to_tick_per_tick", 0, 100))
-                .then(integerConfigOption("performance_mode_delay_between_cursor_ticks", 0, 100))
-                .then(booleanConfigOption("performance_mode_thanos_snap_cursors"));
+                .then(integerConfigOption("max_nodes_active", 0, 1000));
     }
 
     private static ArgumentBuilder<CommandSourceStack, ?> generalConfig(CommandDispatcher<CommandSourceStack> dispatcher) {
@@ -100,14 +97,21 @@ public class ConfigCommand implements Command<CommandSourceStack> {
 
     private static ArgumentBuilder<CommandSourceStack, ?> infestationAndPurificationConfig(CommandDispatcher<CommandSourceStack> dispatcher) {
         return Commands.literal("infestation_and_purification")
-                .then(doubleConfigOption("infestation_speed_multiplier", -10, 10))
-                .then(doubleConfigOption("purification_speed_multiplier", -10, 10))
+                .then(doubleConfigOption("infestation_speed_multiplier", 0.001, 10))
+                .then(doubleConfigOption("purification_speed_multiplier", 0.001, 10))
                 .then(integerConfigOption("purifier_range", 0, 100));
     }
 
     private static ArgumentBuilder<CommandSourceStack, ?> sculkMiteConfig(CommandDispatcher<CommandSourceStack> dispatcher) {
         return Commands.literal("sculk_mite")
                 .then(booleanConfigOption("should_sculk_mites_spawn_in_deep_dark"));
+    }
+
+    private static ArgumentBuilder<CommandSourceStack, ?> sculkPhantomConfig(CommandDispatcher<CommandSourceStack> dispatcher) {
+        return Commands.literal("sculk_phantom")
+                .then(booleanConfigOption("should_phantoms_load_chunks"))
+                .then(booleanConfigOption("should_sculk_nodes_and_raids_spawn_phantoms"))
+                .then(booleanConfigOption("should_ancient_node_spawn_phantoms"));
     }
 
     private static ArgumentBuilder<CommandSourceStack, ?> modCompatibilityConfig(CommandDispatcher<CommandSourceStack> dispatcher) {
@@ -213,6 +217,11 @@ public class ConfigCommand implements Command<CommandSourceStack> {
                         success = true;
                     }
                     break;
+                case "infestation_speed_multiplier":
+                    if (valueType.equals(Double.class)) {
+                        ModConfig.SERVER.infection_speed_multiplier.set((Double) rawValue);
+                        success = true;
+                    }
                 case "purification_speed_multiplier":
                     if (valueType.equals(Double.class)) {
                         ModConfig.SERVER.purification_speed_multiplier.set((Double) rawValue);
@@ -226,27 +235,9 @@ public class ConfigCommand implements Command<CommandSourceStack> {
                     }
                     break;
                 // Emergency Cursor Ticking
-                case "performance_mode_cursor_threshold":
-                    if (valueType.equals(Integer.class)) {
-                        ModConfig.SERVER.performance_mode_cursor_threshold.set((Integer) rawValue);
-                        success = true;
-                    }
-                    break;
-                case "performance_mode_cursors_to_tick_per_tick":
-                    if (valueType.equals(Integer.class)) {
-                        ModConfig.SERVER.performance_mode_cursors_to_tick_per_tick.set((Integer) rawValue);
-                        success = true;
-                    }
-                    break;
-                case "performance_mode_delay_between_cursor_ticks":
-                    if (valueType.equals(Integer.class)) {
-                        ModConfig.SERVER.performance_mode_delay_between_cursor_ticks.set((Integer) rawValue);
-                        success = true;
-                    }
-                    break;
-                case "performance_mode_thanos_snap_cursors":
+                case "disable_auto_performance_system":
                     if (valueType.equals(Boolean.class)) {
-                        ModConfig.SERVER.performance_mode_thanos_snap_cursors.set((Boolean) rawValue);
+                        ModConfig.SERVER.disable_auto_performance_system.set((Boolean) rawValue);
                         success = true;
                     }
                     break;
@@ -310,14 +301,29 @@ public class ConfigCommand implements Command<CommandSourceStack> {
                         ModConfig.SERVER.trigger_ancient_node_time_of_day.set((Integer) rawValue);
                         success = true;
                     }
+                    break;
                 case "max_nodes_active":
                     if (valueType.equals(Integer.class)) {
                         ModConfig.SERVER.max_nodes_active.set((Integer) rawValue);
                         success = true;
                     }
-                case "max_infector_cursor_population":
-                    if (valueType.equals(Integer.class)) {
-                        ModConfig.SERVER.max_infector_cursor_population.set((Integer) rawValue);
+                    break;
+                // Sculk Phantom Config
+                case "should_phantoms_load_chunks":
+                    if (valueType.equals(Boolean.class)) {
+                        ModConfig.SERVER.should_phantoms_load_chunks.set((Boolean) rawValue);
+                        success = true;
+                    }
+                    break;
+                case "should_sculk_nodes_and_raids_spawn_phantoms":
+                    if (valueType.equals(Boolean.class)) {
+                        ModConfig.SERVER.should_sculk_nodes_and_raids_spawn_phantoms.set((Boolean) rawValue);
+                        success = true;
+                    }
+                    break;
+                case "should_ancient_node_spawn_phantoms":
+                    if (valueType.equals(Boolean.class)) {
+                        ModConfig.SERVER.should_ancient_node_spawn_phantoms.set((Boolean) rawValue);
                         success = true;
                     }
                     break;

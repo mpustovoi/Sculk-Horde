@@ -172,7 +172,7 @@ public class SculkNodesHandler {
 
         if((hasAnyNodeBeenActiveForTooLong && isThereMoreNodesThanMaxActiveNodes) || areAllNodesInactive)
         {
-            for(int i = 0; i < ModConfig.SERVER.max_nodes_active.get(); i++)
+            for(int i = 0; i < SculkHorde.autoPerformanceSystem.getMaxNodesActive(); i++)
             {
                 DeactivateAllNodes();
                 ActivateNodeWithLongestDurationOfInactivity();
