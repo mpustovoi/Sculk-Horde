@@ -70,6 +70,9 @@ public class ModConfig {
         public final ForgeConfigSpec.ConfigValue<Integer> max_nodes_active;
         public final ForgeConfigSpec.ConfigValue<Boolean> disable_auto_performance_system;
 
+        public final ForgeConfigSpec.ConfigValue<Integer> minutes_required_for_performance_increase;
+        public final ForgeConfigSpec.ConfigValue<Integer> seconds_required_for_performance_decrease;
+
         public void loadItemsInfectionCursorsCanEat()
         {
             infection_cursor_item_eat_list.clear();
@@ -146,6 +149,8 @@ public class ModConfig {
             disable_auto_performance_system = builder.comment("Should the automatic performance system be disabled? (Default False)").define("disable_auto_performance_system", false);
             max_unit_population = builder.comment("How many sculk mobs should be allowed to exist at one time? (Default 200)").defineInRange("max_unit_population",200, 0, 1000);
             max_nodes_active = builder.comment("How many nodes can be active at once? (Default 1)").defineInRange("max_nodes_active",1, 0, 1000);
+            minutes_required_for_performance_increase = builder.comment("How many MINUTES of good performance required before increasing performance mode? (Default 5)").defineInRange("minutes_required_for_performance_increase",5, 1, Integer.MAX_VALUE);
+            seconds_required_for_performance_decrease = builder.comment("How many SECONDS of poor performance required before decreasing performance mode? (Default 30)").defineInRange("seconds_required_for_performance_decrease",30, 1, Integer.MAX_VALUE);
             builder.pop();
 
             builder.push("Mod Compatability");

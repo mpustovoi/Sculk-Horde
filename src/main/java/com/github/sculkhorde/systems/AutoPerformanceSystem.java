@@ -29,8 +29,6 @@ public class AutoPerformanceSystem {
     protected final int LOW_PERFORMANCE_TPS_MINIMUM = 5;
     protected long timeStampAboveTPSMaximum = 0;
     protected long timeStampBelowTPSMinimum = 0;
-    protected long TIME_THRESHOLD_BELOW_MINIMUM_TPS = TimeUnit.SECONDS.toMillis(10);
-    protected long TIME_THRESHOLD_ABOVE_MAXIMUM_TPS = TimeUnit.MINUTES.toMillis(1);
 
     protected PerformanceMode performanceMode = PerformanceMode.Medium;
 
@@ -323,6 +321,9 @@ public class AutoPerformanceSystem {
             timeStampAboveTPSMaximum = 0;
         }
 
+
+        long TIME_THRESHOLD_BELOW_MINIMUM_TPS = TimeUnit.SECONDS.toMillis(ModConfig.SERVER.seconds_required_for_performance_decrease.get());
+        long TIME_THRESHOLD_ABOVE_MAXIMUM_TPS = TimeUnit.MINUTES.toMillis(ModConfig.SERVER.minutes_required_for_performance_increase.get());
 
         if(System.currentTimeMillis() - timeStampBelowTPSMinimum >= TIME_THRESHOLD_BELOW_MINIMUM_TPS && timeStampBelowTPSMinimum != 0)
         {
