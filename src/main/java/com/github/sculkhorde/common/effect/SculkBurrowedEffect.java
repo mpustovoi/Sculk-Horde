@@ -47,11 +47,9 @@ public class SculkBurrowedEffect extends MobEffect {
     {
         if(event.getEntity().level().isClientSide()) { return;}
 
-        boolean isHordeNotActivatedAndNotAllowedToFunction = (ModConfig.SERVER.disable_sculk_horde_unless_activated.get() && SculkHorde.savedData.getHordeState() == ModSavedData.HordeState.UNACTIVATED);
-
         LivingEntity entity = event.getEntity();
         // OR mob outside of world border
-        if(entity == null || EntityAlgorithms.isSculkLivingEntity.test(entity) || !entity.level().isInWorldBounds(entity.blockPosition()) || isHordeNotActivatedAndNotAllowedToFunction)
+        if(entity == null || EntityAlgorithms.isSculkLivingEntity.test(entity) || !entity.level().isInWorldBounds(entity.blockPosition()))
         {
             return;
         }

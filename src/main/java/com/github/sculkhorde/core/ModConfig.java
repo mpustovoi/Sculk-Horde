@@ -57,7 +57,6 @@ public class ModConfig {
         public final ForgeConfigSpec.ConfigValue<Integer> sculk_raid_no_raid_zone_duration_minutes;
 
         public final ForgeConfigSpec.ConfigValue<Boolean> experimental_features_enabled;
-        public final ForgeConfigSpec.ConfigValue<Boolean> disable_sculk_horde_unless_activated;
         public final ForgeConfigSpec.ConfigValue<Double> purification_speed_multiplier;
         public final ForgeConfigSpec.ConfigValue<Integer> infestation_purifier_range;
         private final ForgeConfigSpec.ConfigValue<List<? extends String>> items_infection_cursors_can_eat;
@@ -200,7 +199,6 @@ public class ModConfig {
 
             builder.push("Experimental Features");
             experimental_features_enabled = builder.comment("Should experimental features be enabled? (Default false)").define("experimental_features_enabled",false);
-            disable_sculk_horde_unless_activated = builder.comment("Should the Sculk Horde be unable to function without Ancient Node Activation (Default false).").define("disable_sculk_horde_unless_activated", false);
             builder.pop();
 
             builder.push("Sculk Raid Variables");

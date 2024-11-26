@@ -60,7 +60,7 @@ public class ModSavedData extends SavedData {
     }
 
     public boolean isHordeDefeated() {
-        return hordeState == HordeState.DEFEATED || (ModConfig.SERVER.disable_sculk_horde_unless_activated.get() && hordeState == HordeState.UNACTIVATED);
+        return hordeState == HordeState.DEFEATED;
     }
 
     public HordeState getHordeState() {
