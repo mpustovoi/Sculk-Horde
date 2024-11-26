@@ -386,14 +386,14 @@ public class SculkAncientNodeBlockEntity extends BlockEntity implements GameEven
 
         int MAX_SPAWNED_SPORE_SPEWERS = 10;
 
+        SculkHorde.savedData.setHordeState(ModSavedData.HordeState.ACTIVE);
+
         // If the horde has no mass, give it some
         if(SculkHorde.savedData.getSculkAccumulatedMass() <= 0)
         {
             SculkHorde.savedData.addSculkAccumulatedMass(1000);
             SculkHorde.statisticsData.addTotalMassFromNodes(1000);
         }
-
-        SculkHorde.savedData.setHordeState(ModSavedData.HordeState.ACTIVE);
 
         announceToAllPlayers((ServerLevel)level, Component.literal("The Sculk Horde has been awakened!"));
 
