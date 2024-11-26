@@ -34,7 +34,15 @@ public abstract class BlockEntityInfestationTableEntry implements IBlockInfestat
         }
     }
 
+    private static BlockState copyBlockProperties(BlockState from, BlockState to) {
+        for (Property<?> prop : from.getProperties()) {
+            to = copyBlockProperty(from, to, prop);
+        }
+        return to;
+    }
+
     public BlockEntityInfestationTableEntry(float priority, ITagInfestedBlock infectedVariantIn, Block defaultNormalVariantIn) {
+        this.priority = priority;
         this.infectedVariant = infectedVariantIn;
         this.defaultNormalVariant = defaultNormalVariantIn;
     }
@@ -52,7 +60,7 @@ public abstract class BlockEntityInfestationTableEntry implements IBlockInfestat
         {
             return level.getBlockState(blockPos);
         }
-        return infectedVariant.getTagInfestedBlockEntity(level, blockPos).getNormalBlockState(defaultNormalVariant);
+        return copyBlockProperties(level.getBlockState(blockPos), infectedVariant.getTagInfestedBlockEntity(level, blockPos).getNormalBlockState(defaultNormalVariant));
     }
 
     @Override
