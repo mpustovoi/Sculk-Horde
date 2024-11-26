@@ -45,5 +45,6 @@ public class DespawnAfterTime extends Goal {
     {
         ((Mob)mob).remove(Entity.RemovalReason.DISCARDED);
         SculkHorde.savedData.addSculkAccumulatedMass((int) ((Mob) mob).getHealth());
+        SculkHorde.statisticsData.addTotalMassFromDespawns((int) ((Mob) mob).getHealth()); 
     }
 }
