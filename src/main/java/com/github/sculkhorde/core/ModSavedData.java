@@ -328,6 +328,7 @@ public class ModSavedData extends SavedData {
      * @param amount The amount you want to add
      */
     public int addSculkAccumulatedMass(int amount) {
+    	if (!ModConfig.SERVER.add_mass_if_inactive.get() && this.isHordeUnactivated()) return sculkAccumulatedMass;
         setDirty();
         sculkAccumulatedMass += amount;
         return sculkAccumulatedMass;
