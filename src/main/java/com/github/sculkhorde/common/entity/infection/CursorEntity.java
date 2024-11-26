@@ -62,8 +62,8 @@ public abstract class CursorEntity extends Entity
     protected HashMap<Long, Boolean> visitedPositons = new HashMap<>();
 
     // Client Side Particle Spawning
-    protected int particleSpawnCooldown = TickUnits.convertSecondsToTicks(1);
-    protected int ticksSinceLastParticleSpawn = particleSpawnCooldown;
+    protected int PARTICLE_SPAWN_COOLDOWN = TickUnits.convertSecondsToTicks(2);
+    protected int ticksSinceLastParticleSpawn = PARTICLE_SPAWN_COOLDOWN;
 
 
     public CursorEntity(EntityType<?> pType, Level pLevel) {
@@ -371,11 +371,9 @@ public abstract class CursorEntity extends Entity
         if (this.level() != null && this.level().isClientSide)
         {
             ticksSinceLastParticleSpawn += 1;
-            if(ticksSinceLastParticleSpawn >= particleSpawnCooldown)
+            if(ticksSinceLastParticleSpawn >= PARTICLE_SPAWN_COOLDOWN)
             {
-                for (int i = 0; i < 2; ++i) {
-                    spawnParticleEffects();
-                }
+                spawnParticleEffects();
             }
             return;
         }
