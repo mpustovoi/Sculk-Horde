@@ -455,7 +455,7 @@ public class BlockAlgorithms {
         // If block is water loggable and in water and can survive, then place
         if(canBlockBeWaterLogged && fluidStateAtTargetPos.getType() == Fluids.WATER && blockState.canSurvive(world, targetPos))
         {
-            blockState.setValue(BlockStateProperties.WATERLOGGED, true); // This line doesnt work to set water logged
+            blockState.setValue(BlockStateProperties.WATERLOGGED, true); // This line doesn't work to set water logged
             world.setBlockAndUpdate(targetPos, blockState);
             world.setBlockAndUpdate(targetPos, world.getBlockState(targetPos).setValue(BlockStateProperties.WATERLOGGED, true)); // This one does though
         }
