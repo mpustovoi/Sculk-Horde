@@ -274,7 +274,6 @@ public class SculkSoulReaperEntity extends Monster implements GeoEntity, ISculkS
         this.goalSelector.addGoal(1, new SummonVexAttackGoal(this,1 , -1));
 
 
-
         // #### LEVEL 1 ####
 
         this.goalSelector.addGoal(1, new ReaperAttackSequenceGoal(this, TickUnits.convertSecondsToTicks(1), 1,1,
@@ -287,7 +286,7 @@ public class SculkSoulReaperEntity extends Monster implements GeoEntity, ISculkS
 
         // #### LEVEL 2 ####
 
-        this.goalSelector.addGoal(1, new ReaperAttackSequenceGoal(this, TickUnits.convertSecondsToTicks(5), 2,2,
+        this.goalSelector.addGoal(3, new ReaperAttackSequenceGoal(this, TickUnits.convertSecondsToTicks(1), 2,2,
                 new ZoltraakAttackGoal(this),
                 new FangsAttackGoal(this),
                 new ZoltraakAttackGoal(this),
@@ -295,12 +294,13 @@ public class SculkSoulReaperEntity extends Monster implements GeoEntity, ISculkS
                 new ShootElementalSoulProjectilesGoal(this)
         ));
 
-        this.goalSelector.addGoal(1, new ReaperAttackSequenceGoal(this, TickUnits.convertSecondsToTicks(5), 2,2,
+        this.goalSelector.addGoal(2, new ReaperAttackSequenceGoal(this, TickUnits.convertSecondsToTicks(5), 2,2,
                 new ZoltraakAttackGoal(this),
                 new ShootSoulSpearAttackGoal(this),
+                new RainSoulSpearsAttackGoal(this),
                 new ZoltraakAttackGoal(this),
                 new ShootSoulSpearAttackGoal(this),
-                new ZoltraakAttackGoal(this),
+                new RainSoulSpearsAttackGoal(this),
                 new FloorSoulSpearsAttackGoal(this)
         ));
 
@@ -342,12 +342,22 @@ public class SculkSoulReaperEntity extends Monster implements GeoEntity, ISculkS
 
         ));
 
-        this.goalSelector.addGoal(3, new ReaperAttackSequenceGoal(this, TickUnits.convertSecondsToTicks(5), 3,-1,
+        this.goalSelector.addGoal(3, new ReaperAttackSequenceGoal(this, TickUnits.convertSecondsToTicks(1), 3,-1,
                 new ZoltraakAttackGoal(this),
                 new ShootElementalSoulProjectilesGoal(this),
                 new ZoltraakAttackGoal(this),
                 new ShootElementalSoulProjectilesGoal(this),
                 new ZoltraakBarrageAttackGoal(this)
+
+        ));
+
+        this.goalSelector.addGoal(3, new ReaperAttackSequenceGoal(this, TickUnits.convertSecondsToTicks(1), 3,-1,
+                new ShootSoulSpearAttackGoal(this),
+                new RainSoulSpearsAttackGoal(this),
+                new ShootSoulSpearAttackGoal(this),
+                new RainSoulSpearsAttackGoal(this),
+                new ShootSoulSpearAttackGoal(this),
+                new FloorSoulSpearsAttackGoal(this)
 
         ));
 
