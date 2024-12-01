@@ -265,6 +265,24 @@ public class ModColaborationHelper {
         return entityModID.equals(COMPLETE_DISTORTION_INFECTION_ID);
     }
 
+    /// #### Pharyriosis Parasite Infection ####
+    public static String PHAYRIOSIS_PARASITE_INFECTION_ID = "phayriosis";
+    public static boolean isPharyriosisParasiteInfectionLoaded()
+    {
+        return ModList.get().isLoaded(PHAYRIOSIS_PARASITE_INFECTION_ID);
+    }
+
+    public static boolean doesEntityBelongToPharyriosisParasiteInfectionMod(LivingEntity entity)
+    {
+        if(!isPharyriosisParasiteInfectionLoaded())
+        {
+            return false;
+        }
+
+        String entityModID = extractModId(entity);
+        return entityModID.equals(PHAYRIOSIS_PARASITE_INFECTION_ID);
+    }
+
 
     /// #### ArsNouveau ####
 

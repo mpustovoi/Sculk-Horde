@@ -231,6 +231,77 @@ public class EntityAlgorithms {
         return entity.isInvulnerable() || !entity.isAttackable();
     }
 
+    public static boolean isLivingEntityAllyToSculkHorde(LivingEntity entity)
+    {
+        if(ModColaborationHelper.doesEntityBelongToFromAnotherWorldMod(entity) && !ModConfig.SERVER.target_faw_entities.get())
+        {
+            return true;
+        }
+
+        if(ModColaborationHelper.doesEntityBelongToSporeMod(entity) && !ModConfig.SERVER.target_spore_entities.get())
+        {
+            return true;
+        }
+
+        if(ModColaborationHelper.doesEntityBelongToDawnOfTheFloodMod(entity) && !ModConfig.SERVER.target_dawn_of_the_flood_entities.get())
+        {
+            return true;
+        }
+
+        if(ModColaborationHelper.doesEntityBelongToAnotherDimensionInvasionMod(entity) && !ModConfig.SERVER.target_another_dimension_infection_entities.get())
+        {
+            return true;
+        }
+
+        if(ModColaborationHelper.doesEntityBelongToSwarmInfectionMod(entity) && !ModConfig.SERVER.target_swarm_infection_entities.get())
+        {
+            return true;
+        }
+
+        if(ModColaborationHelper.doesEntityBelongToTheFleshThatHatesMod(entity) && !ModConfig.SERVER.target_the_flesh_that_hates_entities.get())
+        {
+            return true;
+        }
+
+        if(ModColaborationHelper.doesEntityBelongToWitheringAwayRebornMod(entity) && !ModConfig.SERVER.target_withering_away_reborn_entities.get())
+        {
+            return true;
+        }
+
+        if(ModColaborationHelper.doesEntityBelongToAbominationsInfectionMod(entity) && !ModConfig.SERVER.target_abominations_infection_entities.get())
+        {
+            return true;
+        }
+
+        if(ModColaborationHelper.doesEntityBelongToPrionInfectionMod(entity) && !ModConfig.SERVER.target_prion_infection_entities.get())
+        {
+            return true;
+        }
+
+        if(ModColaborationHelper.doesEntityBelongToBulbusMod(entity) && !ModConfig.SERVER.target_bulbus_infection_entities.get())
+        {
+            return true;
+        }
+
+        if(ModColaborationHelper.doesEntityBelongToEntomophobiaMod(entity) && !ModConfig.SERVER.target_entomophobia_entities.get())
+        {
+            return true;
+        }
+
+        if(ModColaborationHelper.doesEntityBelongToCompleteDistortionInfectionMod(entity) && !ModConfig.SERVER.target_complete_distortion_entities.get())
+        {
+            return true;
+        }
+
+        if(ModColaborationHelper.doesEntityBelongToPharyriosisParasiteInfectionMod(entity) && !ModConfig.SERVER.target_phayriosis_entities.get())
+        {
+            return true;
+        }
+
+
+        return false;
+    }
+
     /**
      * Determines if we should avoid targeting an entity at all costs.
      * @param entity The Given Entity
@@ -288,12 +359,7 @@ public class EntityAlgorithms {
             return true;
         }
 
-        if(ModColaborationHelper.doesEntityBelongToFromAnotherWorldMod(entity) && !ModConfig.SERVER.target_faw_entities.get())
-        {
-            return true;
-        }
-
-        if(ModColaborationHelper.doesEntityBelongToSporeMod(entity) && !ModConfig.SERVER.target_spore_entities.get())
+        if(isLivingEntityAllyToSculkHorde(entity))
         {
             return true;
         }

@@ -30,6 +30,19 @@ public class ModConfig {
 
         public final ForgeConfigSpec.ConfigValue<Boolean> target_faw_entities;
         public final ForgeConfigSpec.ConfigValue<Boolean> target_spore_entities;
+        public final ForgeConfigSpec.ConfigValue<Boolean> target_dawn_of_the_flood_entities;
+        public final ForgeConfigSpec.ConfigValue<Boolean> target_the_flesh_that_hates_entities;
+        public final ForgeConfigSpec.ConfigValue<Boolean> target_abominations_infection_entities;
+        public final ForgeConfigSpec.ConfigValue<Boolean> target_another_dimension_infection_entities;
+        public final ForgeConfigSpec.ConfigValue<Boolean> target_complete_distortion_entities;
+        public final ForgeConfigSpec.ConfigValue<Boolean> target_entomophobia_entities;
+        public final ForgeConfigSpec.ConfigValue<Boolean> target_phayriosis_entities;
+        public final ForgeConfigSpec.ConfigValue<Boolean> target_prion_infection_entities;
+        public final ForgeConfigSpec.ConfigValue<Boolean> target_swarm_infection_entities;
+        public final ForgeConfigSpec.ConfigValue<Boolean> target_bulbus_infection_entities;
+        public final ForgeConfigSpec.ConfigValue<Boolean> target_withering_away_reborn_entities;
+
+
 
         public final ForgeConfigSpec.ConfigValue<Boolean> block_infestation_enabled;
         public final ForgeConfigSpec.ConfigValue<Boolean> chunk_loading_enabled;
@@ -155,6 +168,18 @@ public class ModConfig {
             builder.push("Mod Compatability");
             target_faw_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'From Another World'? (Default false)").define("target_faw_entities",false);
             target_spore_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'Fungal Infection:Spore'? (Default false)").define("target_spore_entities",false);
+            target_the_flesh_that_hates_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'The Flesh That Hates'? (Default true)").define("target_the_flesh_that_hates_entities",true);
+            target_dawn_of_the_flood_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'Dawn of the Flood'? (Default true)").define("target_dawn_of_the_flood_entities",true);
+            target_prion_infection_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'Prion Infection'? (Default true)").define("target_prion_infection_entities",true);
+            target_withering_away_reborn_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'Withering Away: Reborn'? (Default true)").define("target_withering_away_reborn_entities",true);
+            target_entomophobia_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'Entomophobia'? (Default true)").define("target_entomophobia_entities",true);
+            target_abominations_infection_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'Abominations Infection'? (Default true)").define("target_abominations_infection_entities",true);
+            target_another_dimension_infection_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'Another Dimension Infection'? (Default true)").define("target_another_dimension_infection_entities",true);
+            target_phayriosis_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'Pharyriosis Parasite Infection'? (Default true)").define("target_phayriosis_entities",true);
+            target_complete_distortion_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'Complete Distortion: Infection from Otherworld'? (Default true)").define("target_complete_distortion_entities",true);
+            target_swarm_infection_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'Swarm Infection'? (Default true)").define("target_swarm_infection_entities",true);
+            target_bulbus_infection_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'The Bulbus Infection'? (Default true)").define("target_bulbus_infection_entities",true);
+
             builder.pop();
 
             builder.push("General Variables");
