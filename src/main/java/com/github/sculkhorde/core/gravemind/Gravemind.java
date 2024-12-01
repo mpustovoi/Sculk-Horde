@@ -119,6 +119,12 @@ public class Gravemind
         calulateCurrentState();
     }
 
+    public void resetGravemindState()
+    {
+        SculkHorde.savedData.setSculkAccumulatedMass(0);
+        calulateCurrentState();
+    }
+
 
     public void processReinforcementRequest(ReinforcementRequest context)
     {
