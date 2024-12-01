@@ -91,7 +91,6 @@ public class ModColaborationHelper {
 
     /// #### Another Dimension Invasion ####
     public static String ANOTHER_DIMENSION_INVASION_ID = "invasion";
-    private static TagKey<EntityType<?>> ANOTHER_DIMENSION_INVASION_TAG_KEY = TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation(ANOTHER_DIMENSION_INVASION_ID + ":infecteds"));
     public static boolean isAnotherDimensionInvasionLoaded()
     {
         return ModList.get().isLoaded(ANOTHER_DIMENSION_INVASION_ID);
@@ -104,7 +103,8 @@ public class ModColaborationHelper {
             return false;
         }
 
-        return entity.getType().is(ANOTHER_DIMENSION_INVASION_TAG_KEY);
+        String entityModID = extractModId(entity);
+        return entityModID.equals(ANOTHER_DIMENSION_INVASION_ID);
     }
 
 
@@ -190,7 +190,7 @@ public class ModColaborationHelper {
 
 
     /// #### Prion Infection ####
-    public static String PRION_INFECTION_ID = "prion_mod";
+    public static String PRION_INFECTION_ID = "prionmod";
     public static boolean isPrionInfectionLoaded()
     {
         return ModList.get().isLoaded(PRION_INFECTION_ID);
