@@ -68,12 +68,31 @@ public class ModColaborationHelper {
     }
 
 
+    /// #### Dawn of the Flood ####
+    public static String DEEPER_AND_DARKER = "deeper_and_darker";
+    public static boolean isDeeperAndDarkerLoaded()
+    {
+        return ModList.get().isLoaded(DEEPER_AND_DARKER);
+    }
+
+    public static boolean doesEntityBelongToDeeperAndDarkerMod(LivingEntity entity)
+    {
+        if(!isDeeperAndDarkerLoaded())
+        {
+            return false;
+        }
+
+        String entityModID = extractModId(entity);
+        return entityModID.equals(DEEPER_AND_DARKER);
+    }
+
+
 
     /// #### Dawn of the Flood ####
     public static String DAWN_OF_THE_FLOOD_ID = "dotf";
     public static boolean isDawnOfTheFloodLoaded()
     {
-        return ModList.get().isLoaded(DAWN_OF_THE_FLOOD_ID);
+        return ModList.get().isLoaded(DEEPER_AND_DARKER);
     }
 
     public static boolean doesEntityBelongToDawnOfTheFloodMod(LivingEntity entity)
@@ -84,7 +103,7 @@ public class ModColaborationHelper {
         }
 
         String entityModID = extractModId(entity);
-        return entityModID.equals(DAWN_OF_THE_FLOOD_ID);
+        return entityModID.equals(DEEPER_AND_DARKER);
     }
 
 
@@ -281,6 +300,44 @@ public class ModColaborationHelper {
 
         String entityModID = extractModId(entity);
         return entityModID.equals(PHAYRIOSIS_PARASITE_INFECTION_ID);
+    }
+
+
+
+    /// #### Mi Alliance ####
+    public static String MI_ALLIANCE_ID = "mialliance";
+    public static boolean isMiAllianceLoaded()
+    {
+        return ModList.get().isLoaded(MI_ALLIANCE_ID);
+    }
+
+    public static boolean doesEntityBelongToMIAllianceMod(LivingEntity entity)
+    {
+        if(!isMiAllianceLoaded())
+        {
+            return false;
+        }
+
+        String entityModID = extractModId(entity);
+        return entityModID.equals(MI_ALLIANCE_ID);
+    }
+
+    /// #### Scape and Run Parasites ####
+    public static String SCAPE_AND_RUN_PARASITES_ID = "srparasites";
+    public static boolean isScapeAndRunParasitesLoaded()
+    {
+        return ModList.get().isLoaded(SCAPE_AND_RUN_PARASITES_ID);
+    }
+
+    public static boolean doesEntityBelongToScapeAndRunParasitesMod(LivingEntity entity)
+    {
+        if(!isScapeAndRunParasitesLoaded())
+        {
+            return false;
+        }
+
+        String entityModID = extractModId(entity);
+        return entityModID.equals(SCAPE_AND_RUN_PARASITES_ID);
     }
 
 
