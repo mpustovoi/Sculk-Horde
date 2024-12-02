@@ -171,8 +171,8 @@ public class ModBlocks {
 	public static final RegistryObject<SlabBlock> INFESTED_STONE_SLAB =
 			slab(INFESTED_STONE);
 
-	public static final RegistryObject<InfestedTagBlock> INFESTED_LOG =
-			registerBlock("infested_log", () -> new InfestedTagBlock(BlockBehaviour.Properties.of()
+	public static final RegistryObject<InfestedPillarBlock> INFESTED_LOG =
+			registerBlock("infested_log", () -> new InfestedPillarBlock(BlockBehaviour.Properties.of()
 					.mapColor(MapColor.QUARTZ)
 					.strength(4f, 30f)//Hardness & Resistance
 					.destroyTime(5f)

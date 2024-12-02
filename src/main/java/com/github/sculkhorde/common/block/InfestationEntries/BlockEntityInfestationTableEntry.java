@@ -69,9 +69,7 @@ public abstract class BlockEntityInfestationTableEntry implements IBlockInfestat
         // copy block properties of normal block to infected block
         BlockState infectedState = ((Block)infectedVariant).defaultBlockState();
 
-        for(Property<?> prop : level.getBlockState(blockPos).getProperties()) {
-            infectedState = copyBlockProperty(level.getBlockState(blockPos), infectedState, prop);
-        }
+        infectedState = copyBlockProperties(level.getBlockState(blockPos), infectedState);
 
         return infectedState;
     }
