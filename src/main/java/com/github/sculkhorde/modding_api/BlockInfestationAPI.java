@@ -1,4 +1,4 @@
-package com.github.sculkhorde.ModdingAPI;
+package com.github.sculkhorde.modding_api;
 
 import com.github.sculkhorde.common.block.InfestationEntries.BlockInfestationTable;
 import com.github.sculkhorde.systems.BlockInfestationSystem;

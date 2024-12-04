@@ -435,7 +435,7 @@ public class ConfigCommand implements Command<CommandSourceStack> {
                     break;
 
 
-                    
+
                 //####  Sculk Raid Config ####
                 case "sculk_raid_enabled":
                     if (valueType.equals(Boolean.class)) {

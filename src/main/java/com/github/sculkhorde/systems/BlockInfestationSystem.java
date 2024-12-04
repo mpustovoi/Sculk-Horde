@@ -1,6 +1,6 @@
 package com.github.sculkhorde.systems;
 
-import com.github.sculkhorde.ModdingAPI.BlockInfestationAPI;
+import com.github.sculkhorde.modding_api.BlockInfestationAPI;
 import com.github.sculkhorde.common.block.InfestationEntries.BlockInfestationTable;
 import com.github.sculkhorde.common.block.SculkNodeBlock;
 import com.github.sculkhorde.common.blockentity.SculkBeeNestBlockEntity;
