@@ -319,6 +319,12 @@ public class ModSavedData extends SavedData {
      */
     public int getSculkAccumulatedMass() {
         setDirty();
+
+        if(SculkHorde.savedData.isHordeDefeated())
+        {
+            return 0;
+        }
+
         return sculkAccumulatedMass;
     }
 

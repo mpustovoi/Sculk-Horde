@@ -3,6 +3,7 @@ package com.github.sculkhorde.common.entity.infection;
 import com.github.sculkhorde.core.ModBlocks;
 import com.github.sculkhorde.core.ModConfig;
 import com.github.sculkhorde.core.ModEntities;
+import com.github.sculkhorde.core.SculkHorde;
 import com.github.sculkhorde.util.BlockAlgorithms;
 import com.github.sculkhorde.systems.BlockInfestationSystem;
 import net.minecraft.core.BlockPos;
@@ -79,6 +80,10 @@ public class CursorSurfaceInfectorEntity extends CursorEntity{
     protected boolean isObstructed(BlockState state, BlockPos pos)
     {
         if(!ModConfig.SERVER.block_infestation_enabled.get())
+        {
+            return true;
+        }
+        else if(SculkHorde.savedData.isHordeDefeated())
         {
             return true;
         }
