@@ -41,6 +41,9 @@ public class ModConfig {
         public final ForgeConfigSpec.ConfigValue<Boolean> target_swarm_infection_entities;
         public final ForgeConfigSpec.ConfigValue<Boolean> target_bulbus_infection_entities;
         public final ForgeConfigSpec.ConfigValue<Boolean> target_withering_away_reborn_entities;
+        public final ForgeConfigSpec.ConfigValue<Boolean> target_mi_alliance_entities;
+        public final ForgeConfigSpec.ConfigValue<Boolean> target_deeper_and_darker_entities;
+        public final ForgeConfigSpec.ConfigValue<Boolean> target_scape_and_run_parasites_entities;
 
 
 
@@ -168,6 +171,9 @@ public class ModConfig {
             builder.push("Mod Compatability");
             target_faw_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'From Another World'? (Default false)").define("target_faw_entities",false);
             target_spore_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'Fungal Infection:Spore'? (Default false)").define("target_spore_entities",false);
+            target_deeper_and_darker_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'Deeper and Darker'? (Default true)").define("target_deeper_and_darker_entities",true);
+            target_mi_alliance_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'Mi Alliance'? (Default true)").define("target_mi_alliance_entities",true);
+            target_scape_and_run_parasites_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'Scape and Run Parsites'? (Default true)").define("target_scape_and_run_parasites_entities",true);
             target_the_flesh_that_hates_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'The Flesh That Hates'? (Default true)").define("target_the_flesh_that_hates_entities",true);
             target_dawn_of_the_flood_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'Dawn of the Flood'? (Default true)").define("target_dawn_of_the_flood_entities",true);
             target_prion_infection_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'Prion Infection'? (Default true)").define("target_prion_infection_entities",true);
@@ -179,7 +185,6 @@ public class ModConfig {
             target_complete_distortion_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'Complete Distortion: Infection from Otherworld'? (Default true)").define("target_complete_distortion_entities",true);
             target_swarm_infection_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'Swarm Infection'? (Default true)").define("target_swarm_infection_entities",true);
             target_bulbus_infection_entities = builder.comment("Should the Sculk Horde attack mobs from the mod 'The Bulbus Infection'? (Default true)").define("target_bulbus_infection_entities",true);
-
             builder.pop();
 
             builder.push("General Variables");

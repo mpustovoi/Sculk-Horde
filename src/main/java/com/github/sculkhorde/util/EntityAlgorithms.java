@@ -298,6 +298,21 @@ public class EntityAlgorithms {
             return true;
         }
 
+        if(ModColaborationHelper.doesEntityBelongToScapeAndRunParasitesMod(entity) && !ModConfig.SERVER.target_phayriosis_entities.get())
+        {
+            return true;
+        }
+
+        if(ModColaborationHelper.doesEntityBelongToDeeperAndDarkerMod(entity) && !ModConfig.SERVER.target_phayriosis_entities.get())
+        {
+            return true;
+        }
+
+        if(ModColaborationHelper.doesEntityBelongToMIAllianceMod(entity) && !ModConfig.SERVER.target_phayriosis_entities.get())
+        {
+            return true;
+        }
+
 
         return false;
     }
