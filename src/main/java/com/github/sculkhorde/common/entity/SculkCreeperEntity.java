@@ -11,7 +11,9 @@ import com.github.sculkhorde.util.TargetParameters;
 import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.SwellGoal;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
@@ -24,8 +26,6 @@ import software.bernie.geckolib.core.animation.AnimationState;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
-
-import java.util.concurrent.TimeUnit;
 
 public class SculkCreeperEntity extends Creeper implements ISculkSmartEntity, GeoEntity
 {
@@ -103,6 +103,7 @@ public class SculkCreeperEntity extends Creeper implements ISculkSmartEntity, Ge
                 infector.setTickIntervalMilliseconds(3);
                 infector.setMaxTransformations(10);
                 infector.setMaxRange(10);
+                infector.setCanBeManuallyTicked(false);
                 this.level().addFreshEntity(infector);
             }
         }));
