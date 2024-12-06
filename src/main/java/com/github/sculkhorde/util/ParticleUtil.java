@@ -1,22 +1,31 @@
 package com.github.sculkhorde.util;
 
+import net.minecraft.core.particles.BlockParticleOption;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.world.level.block.Blocks;
 import org.joml.Vector3f;
 
 public class ParticleUtil {
 
+    public static void spawnBurrowedBurstParticles(ServerLevel level, Vector3f position, int amount) {
+
+        for (int i = 0; i < amount; i++) {
+            Vector3f deltaMovement = new Vector3f(); // Particles already have movement
+            spawnBurrowedParticle(level, position, deltaMovement);
+        }
+    }
+
+    public static void spawnBurrowedParticle(ServerLevel level, Vector3f position, Vector3f deltaMovement)
+    {
+        level.sendParticles(new BlockParticleOption(ParticleTypes.BLOCK, Blocks.SCULK.defaultBlockState()), position.x, position.y, position.z, 1, deltaMovement.x, deltaMovement.y, deltaMovement.z, 1);
+    }
+
+
     public static void spawnColoredDustParticle(ServerLevel level, String hexColor, float alpha, Vector3f position, Vector3f deltaMovement)
     {
         level.sendParticles(new DustParticleOptions(ColorUtil.hexToVector3F(hexColor), alpha), position.x, position.y, position.z, 1, deltaMovement.x, deltaMovement.y, deltaMovement.z, 1);
-        /*
-        level.addParticle(
-                new DustParticleOptions(ColorUtil.hexToVector3F(hexColor), alpha),
-                position.x, position.y, position.z,
-                deltaMovement.x ,deltaMovement.y ,deltaMovement.z);
-
-         */
     }
 
     public static void spawnSolidColoredDustParticle(ServerLevel level, String hexColor, Vector3f position, Vector3f deltaMovement)

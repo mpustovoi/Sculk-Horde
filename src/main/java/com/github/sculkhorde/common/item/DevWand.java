@@ -1,6 +1,6 @@
 package com.github.sculkhorde.common.item;
 
-import com.github.sculkhorde.core.SculkHorde;
+import com.github.sculkhorde.util.ParticleUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -9,9 +9,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.common.extensions.IForgeItem;
 import net.minecraftforge.server.ServerLifecycleHooks;
+import org.joml.Vector3f;
 
 public class DevWand extends Item implements IForgeItem {
 	/* NOTE:
@@ -75,7 +77,12 @@ public class DevWand extends Item implements IForgeItem {
 
 		ServerLevel serverLevel = (ServerLevel) level;
 
-		SculkHorde.beeNestActivitySystem.activate();
+		ClipContext rayTrace = new ClipContext(playerIn.getEyePosition(1.0F), playerIn.getEyePosition(1.0F).add(playerIn.getLookAngle().scale(5)), ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, playerIn);
+
+		//IF successful, try to place a node
+		Vector3f result = rayTrace.getTo().toVector3f();
+
+		ParticleUtil.spawnBurrowedBurstParticles(serverLevel, result, 10);
 
 		//LivingArmorEntity entity = new LivingArmorEntity(ModEntities.LIVING_ARMOR.get(), worldIn);
 		//entity.teleportTo(playerIn.blockPosition().getX(), playerIn.blockPosition().getY(), playerIn.blockPosition().getZ());

@@ -1,8 +1,12 @@
 package com.github.sculkhorde.common.effect;
 
 import com.github.sculkhorde.common.block.SculkMassBlock;
-import com.github.sculkhorde.core.*;
+import com.github.sculkhorde.core.ModBlocks;
+import com.github.sculkhorde.core.ModConfig;
+import com.github.sculkhorde.core.ModEntities;
+import com.github.sculkhorde.core.ModMobEffects;
 import com.github.sculkhorde.util.EntityAlgorithms;
+import com.github.sculkhorde.util.ParticleUtil;
 import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
@@ -66,6 +70,7 @@ public class SculkBurrowedEffect extends MobEffect {
         placeSculkMass(entity);
         //Do infectionDamage to victim per mite
         entity.hurt(entity.damageSources().magic(), infectionDamage);
+        ParticleUtil.spawnBurrowedBurstParticles((ServerLevel) entity.level(), entity.position().add(0, 0.66F, 0).toVector3f(), 15);
     }
 
     public static void placeSculkMass(LivingEntity entity)
