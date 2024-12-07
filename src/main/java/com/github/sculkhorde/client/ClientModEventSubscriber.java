@@ -1,5 +1,6 @@
 package com.github.sculkhorde.client;
 
+import com.github.sculkhorde.client.particle.BurrowedBurstParticle;
 import com.github.sculkhorde.client.particle.SculkCrustParticle;
 import com.github.sculkhorde.client.renderer.block.SculkSummonerBlockRenderer;
 import com.github.sculkhorde.client.renderer.block.SoulHarvesterBlockRenderer;
@@ -114,6 +115,7 @@ public class ClientModEventSubscriber {
     public static void registerRenderers(final RegisterParticleProvidersEvent event)
     {
         event.registerSpriteSet(ModParticles.SCULK_CRUST_PARTICLE.get(), SculkCrustParticle.Provider::new);
+        event.registerSpriteSet(ModParticles.BURROWED_BURST_PARTICLE.get(), BurrowedBurstParticle.Provider::new);
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent

@@ -10,5 +10,6 @@ public class ModParticles {
     public static final DeferredRegister<ParticleType<?>> PARTICLE_TYPES =  DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, SculkHorde.MOD_ID);
 
     public static final RegistryObject<SimpleParticleType> SCULK_CRUST_PARTICLE = PARTICLE_TYPES.register("sculk_crust_particle", () -> new SimpleParticleType(false));
+    public static final RegistryObject<SimpleParticleType> BURROWED_BURST_PARTICLE = PARTICLE_TYPES.register("burrowed_burst_particle", () -> new SimpleParticleType(false));
 
 }
