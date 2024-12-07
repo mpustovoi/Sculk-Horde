@@ -93,6 +93,7 @@ public class ModEntities {
     public static final RegistryObject<EntityType<ElementalPoisonMagicCircleEntity>> ELEMENTAL_POISON_MAGIC_CIRCLE = ENTITY_TYPES.register("elemental_poison_magic_circle", () -> EntityType.Builder.<ElementalPoisonMagicCircleEntity>of(ElementalPoisonMagicCircleEntity::new, MobCategory.MISC).sized(3f, 3f).clientTrackingRange(4).updateInterval(10).build("elemental_poison_magic_circle"));
     public static final RegistryObject<EntityType<ElementalIceMagicCircleEntity>> ELEMENTAL_ICE_MAGIC_CIRCLE = ENTITY_TYPES.register("elemental_ice_magic_circle", () -> EntityType.Builder.<ElementalIceMagicCircleEntity>of(ElementalIceMagicCircleEntity::new, MobCategory.MISC).sized(3f, 3f).clientTrackingRange(4).updateInterval(10).build("elemental_ice_magic_circle"));
     public static final RegistryObject<EntityType<ElementalBreezeMagicCircleEntity>> ELEMENTAL_BREEZE_MAGIC_CIRCLE = ENTITY_TYPES.register("elemental_breeze_magic_circle", () -> EntityType.Builder.<ElementalBreezeMagicCircleEntity>of(ElementalBreezeMagicCircleEntity::new, MobCategory.MISC).sized(3f, 3f).clientTrackingRange(4).updateInterval(10).build("elemental_breeze_magic_circle"));
+    public static final RegistryObject<EntityType<SoulSpearSummonerEntity>> SOUL_SPEAR_SUMMONER = ENTITY_TYPES.register("soul_spear_summoner_entity", () -> EntityType.Builder.<SoulSpearSummonerEntity>of(SoulSpearSummonerEntity::new, MobCategory.MISC).sized(3f, 3f).clientTrackingRange(4).updateInterval(10).build("soul_spear_summoner_entity"));
 
     public static class EntityTags
     {

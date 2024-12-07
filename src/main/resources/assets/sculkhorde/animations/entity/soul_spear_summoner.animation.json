@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"soul_spear_summoner.animation": {
+		"misc.living": {
 			"loop": true,
 			"animation_length": 4.0417,
 			"bones": {
