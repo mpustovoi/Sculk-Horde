@@ -82,7 +82,7 @@ public class DevWand extends Item implements IForgeItem {
 		//IF successful, try to place a node
 		Vector3f result = rayTrace.getTo().toVector3f();
 
-		ParticleUtil.spawnBurrowedBurstParticles(serverLevel, result, 10);
+		ParticleUtil.spawnBurrowedBurstParticles(serverLevel, result, 8, 0.3F);
 
 		//LivingArmorEntity entity = new LivingArmorEntity(ModEntities.LIVING_ARMOR.get(), worldIn);
 		//entity.teleportTo(playerIn.blockPosition().getX(), playerIn.blockPosition().getY(), playerIn.blockPosition().getZ());

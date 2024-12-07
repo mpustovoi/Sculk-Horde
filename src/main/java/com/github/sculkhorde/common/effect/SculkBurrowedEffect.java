@@ -70,7 +70,7 @@ public class SculkBurrowedEffect extends MobEffect {
         placeSculkMass(entity);
         //Do infectionDamage to victim per mite
         entity.hurt(entity.damageSources().magic(), infectionDamage);
-        ParticleUtil.spawnBurrowedBurstParticles((ServerLevel) entity.level(), entity.position().add(0, 0.66F, 0).toVector3f(), 15);
+        ParticleUtil.spawnBurrowedBurstParticles((ServerLevel) entity.level(), entity.position().add(0, 0.66F, 0).toVector3f(), 12, 0.2F);
     }
 
     public static void placeSculkMass(LivingEntity entity)

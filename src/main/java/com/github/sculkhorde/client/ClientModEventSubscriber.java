@@ -115,7 +115,7 @@ public class ClientModEventSubscriber {
     public static void registerRenderers(final RegisterParticleProvidersEvent event)
     {
         event.registerSpriteSet(ModParticles.SCULK_CRUST_PARTICLE.get(), SculkCrustParticle.Provider::new);
-        event.registerSpriteSet(ModParticles.BURROWED_BURST_PARTICLE.get(), BurrowedBurstParticle.Provider::new);
+        event.registerSpriteSet(ModParticles.BURROWED_BURST_PARTICLE.get(), BurrowedBurstParticle.Factory::new);
     }
 
     // You can use EventBusSubscriber to automatically register all static methods in the class annotated with @SubscribeEvent
