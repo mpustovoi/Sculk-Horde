@@ -191,7 +191,7 @@ public class InfestationPurifierEntity extends PathfinderMob implements GeoEntit
         ArrayList<LivingEntity> entities = (ArrayList<LivingEntity>) EntityAlgorithms.getLivingEntitiesInBoundingBox((ServerLevel) level(), this.getBoundingBox().inflate(10));
         for (LivingEntity entity : entities)
         {
-            if (entity != null && EntityAlgorithms.isSculkLivingEntity.test(entity))
+            if (entity != null && EntityAlgorithms.isSculkLivingEntity.test(entity) || EntityAlgorithms.isLivingEntityAllyToSculkHorde(entity))
             {
                 // Set entity on fire
                 entity.setSecondsOnFire(60);

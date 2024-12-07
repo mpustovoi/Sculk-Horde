@@ -1,10 +1,8 @@
 package com.github.sculkhorde.common.effect;
 
 import com.github.sculkhorde.core.ModMobEffects;
-import com.github.sculkhorde.core.SculkHorde;
 import com.github.sculkhorde.util.EntityAlgorithms;
 import com.github.sculkhorde.util.TickUnits;
-import net.minecraft.world.damagesource.DamageSources;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -59,7 +57,7 @@ public class PurityEffect extends MobEffect {
         }
 
         // If Sculk Living Entity, do damage
-        if(EntityAlgorithms.isSculkLivingEntity.test(entity))
+        if(EntityAlgorithms.isSculkLivingEntity.test(entity) || EntityAlgorithms.isLivingEntityAllyToSculkHorde(entity))
         {
             entity.hurt(entity.damageSources().magic(), 1);
         }

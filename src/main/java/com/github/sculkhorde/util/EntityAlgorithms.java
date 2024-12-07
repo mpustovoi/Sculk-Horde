@@ -313,6 +313,11 @@ public class EntityAlgorithms {
             return true;
         }
 
+        if(entity instanceof Player player)
+        {
+            return PlayerProfileHandler.isPlayerActiveVessel(player);
+        }
+
 
         return false;
     }
