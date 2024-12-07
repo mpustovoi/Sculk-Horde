@@ -1,19 +1,18 @@
 package com.github.sculkhorde.common.effect;
 
 import com.github.sculkhorde.common.block.SculkMassBlock;
-import com.github.sculkhorde.core.ModBlocks;
-import com.github.sculkhorde.core.ModConfig;
-import com.github.sculkhorde.core.ModEntities;
-import com.github.sculkhorde.core.ModMobEffects;
+import com.github.sculkhorde.core.*;
 import com.github.sculkhorde.util.EntityAlgorithms;
 import com.github.sculkhorde.util.ParticleUtil;
 import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
@@ -71,6 +70,8 @@ public class SculkBurrowedEffect extends MobEffect {
         //Do infectionDamage to victim per mite
         entity.hurt(entity.damageSources().magic(), infectionDamage);
         ParticleUtil.spawnBurrowedBurstParticles((ServerLevel) entity.level(), entity.position().add(0, 0.66F, 0).toVector3f(), 12, 0.2F);
+        //((ServerLevel) entity.level()).playSound(entity, entity.blockPosition(), ModSounds.BURROWED_BURST.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
+        entity.level().playSound((Player)null, entity.blockPosition().getX(), entity.blockPosition().getY(), entity.blockPosition().getZ(), ModSounds.BURROWED_BURST.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
     }
 
     public static void placeSculkMass(LivingEntity entity)

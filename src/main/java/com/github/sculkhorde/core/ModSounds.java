@@ -37,6 +37,7 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SCULK_VINDICATOR_IDLE = registerSoundEvent("sculk_vindicator_idle");
     public static final RegistryObject<SoundEvent> SCULK_VINDICATOR_HURT = registerSoundEvent("sculk_vindicator_hurt");
     public static final RegistryObject<SoundEvent> SCULK_VINDICATOR_DEATH = registerSoundEvent("sculk_vindicator_death");
+    public static final RegistryObject<SoundEvent> BURROWED_BURST = registerSoundEvent("burrowed_burst");
 
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {

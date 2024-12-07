@@ -364,5 +364,7 @@
   "item.sculkhorde.tome_of_veil": "Tome of Veil",
   "item.sculkhorde.tome_of_spore": "Tome of Spore",
   "item.sculkhorde.tome_of_sacrifice": "Tome of Sacrifice",
-  "item.sculkhorde.graveminds_symbiote": "Gravemind's Symbiote"
+  "item.sculkhorde.graveminds_symbiote": "Gravemind's Symbiote",
+
+  "sounds.sculkhorde.burrowed_burst": "A Mite bursts out of the body a creature."
 }
