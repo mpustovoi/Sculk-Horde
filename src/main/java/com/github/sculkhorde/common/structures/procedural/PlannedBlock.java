@@ -46,6 +46,7 @@ public class PlannedBlock
                 || validBlocksPredicate.is(BlockTags.REPLACEABLE)
                 || validBlocksPredicate.is(BlockTags.NEEDS_IRON_TOOL)
                 || validBlocksPredicate.is(BlockTags.NEEDS_STONE_TOOL)
+                || !validBlocksPredicate.requiresCorrectToolForDrops()
                 || validBlocksPredicate.getDestroySpeed(world, targetPos) <= 3.0F
                 || validBlocksPredicate.getBlock().equals(Blocks.AIR)
                 || validBlocksPredicate.getBlock().equals(Blocks.CAVE_AIR))
