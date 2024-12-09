@@ -45,6 +45,12 @@ public class SoulSpearSummonerEntity extends SpecialEffectEntity implements GeoE
         super(entityType, level);
     }
 
+    public SoulSpearSummonerEntity(Level level, LivingEntity owner)
+    {
+        this(ModEntities.SOUL_SPEAR_SUMMONER.get(), level);
+        setOwner(owner);
+    }
+
     protected void populateTargetList()
     {
         targets = EntityAlgorithms.getHostileEntitiesInBoundingBox((ServerLevel) level(), getBoundingBox().inflate(20));
