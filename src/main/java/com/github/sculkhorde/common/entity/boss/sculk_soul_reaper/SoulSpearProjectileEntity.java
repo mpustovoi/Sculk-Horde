@@ -2,6 +2,7 @@ package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper;
 
 import com.github.sculkhorde.common.entity.projectile.AbstractProjectileEntity;
 import com.github.sculkhorde.core.ModEntities;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
@@ -38,9 +39,14 @@ public class SoulSpearProjectileEntity extends AbstractProjectileEntity implemen
 
     }
 
+
+
     @Override
     public void trailParticles() {
-
+        if(level().isClientSide())
+        {
+            level().addParticle(ParticleTypes.SOUL, this.position().x, this.position().y, this.position().z, 0, 0,0);
+        }
     }
 
     @Override
