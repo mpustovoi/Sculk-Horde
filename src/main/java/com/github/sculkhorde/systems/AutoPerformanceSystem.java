@@ -178,7 +178,7 @@ public class AutoPerformanceSystem {
             SculkHorde.LOGGER.info("AutoPerformanceSystem | New Performance Mode = High");
             setMaxSculkUnitPopulation(ModConfig.SERVER.max_unit_population.get());
             setMaxNodesActive(ModConfig.SERVER.max_nodes_active.get());
-            setMaxInfectorCursorPopulation(200);
+            setMaxInfectorCursorPopulation(ModConfig.SERVER.max_infestation_cursor_population.get());
             setInfectorCursorPopulationThreshold(175);
             setCursorsToTickPerTick(50);
             setDelayBetweenCursorTicks(1);
