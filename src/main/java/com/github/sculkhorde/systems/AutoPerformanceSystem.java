@@ -179,7 +179,7 @@ public class AutoPerformanceSystem {
             setMaxSculkUnitPopulation(ModConfig.SERVER.max_unit_population.get());
             setMaxNodesActive(ModConfig.SERVER.max_nodes_active.get());
             setMaxInfectorCursorPopulation(ModConfig.SERVER.max_infestation_cursor_population.get());
-            setInfectorCursorPopulationThreshold(175);
+            setInfectorCursorPopulationThreshold(ModConfig.SERVER.max_infestation_cursor_population.get() - 25);
             setCursorsToTickPerTick(50);
             setDelayBetweenCursorTicks(1);
             setThanosSnapCursors(false);
