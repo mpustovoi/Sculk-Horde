@@ -374,6 +374,11 @@ public class EntityAlgorithms {
             return true;
         }
 
+        if(ModConfig.SERVER.isEntityOnSculkHordeTargetBlacklist(entity))
+        {
+            return true;
+        }
+
         if(entity.getType().is(ModEntities.EntityTags.SCULK_ENTITY))
         {
             return true;

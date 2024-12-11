@@ -5,6 +5,7 @@ import com.electronwill.nightconfig.core.file.CommentedFileConfig;
 import com.electronwill.nightconfig.core.io.WritingMode;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -88,6 +89,8 @@ public class ModConfig {
         public final ForgeConfigSpec.ConfigValue<Integer> minutes_required_for_performance_increase;
         public final ForgeConfigSpec.ConfigValue<Integer> seconds_required_for_performance_decrease;
 
+        private final ForgeConfigSpec.ConfigValue<List<? extends String>> sculk_horde_target_blacklist;
+
         public void loadItemsInfectionCursorsCanEat()
         {
             infection_cursor_item_eat_list.clear();
@@ -156,6 +159,19 @@ public class ModConfig {
             return false;
         }
 
+        public boolean isEntityOnSculkHordeTargetBlacklist(Entity entity)
+        {
+            ResourceLocation entityResourceLocation = BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType());
+            String entityNameSpace = entityResourceLocation.toString();
+
+            if(sculk_horde_target_blacklist.get().contains(entityNameSpace))
+            {
+                return true;
+            }
+
+            return false;
+        }
+
         public Server(ForgeConfigSpec.Builder builder) {
 
             Config.setInsertionOrderPreserved(true);
@@ -191,6 +207,7 @@ public class ModConfig {
             block_infestation_enabled = builder.comment("Should the Sculk Horde infest blocks? (Default true)").define("block_infestation_enabled",true);
             chunk_loading_enabled = builder.comment("Should the Sculk Horde load chunks? If disabled, and will ruin the intended experience. For example, raids wont work properly (Default true)").define("chunk_loading_enabled",true);
             disable_defeating_sculk_horde = builder.comment("Should players be able to defeat the Sculk Horde?").define("disable_defeating_sculk_horde",false);
+            sculk_horde_target_blacklist = builder.comment("Add entities to this list to stop the sculk horde from attacking them. I.E. minecraft:creeper. Be careful what you put in here, this can potentially lead to issues.").defineList("sculk_horde_target_blacklist", Arrays.asList(""), entry -> true);
             builder.pop();
 
             builder.push("Trigger Automatically Variables");
