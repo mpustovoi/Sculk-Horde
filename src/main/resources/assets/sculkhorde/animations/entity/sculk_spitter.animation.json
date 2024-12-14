@@ -1,27 +1,6 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"mite.walk": {
-			"loop": true,
-			"animation_length": 0.48,
-			"bones": {
-				"mite": {
-					"scale": {
-						"0.0": {
-							"vector": [0.8, 0.8, 0.8]
-						},
-						"0.24": {
-							"vector": [0.9, 0.9, 0.9],
-							"easing": "easeOutSine"
-						},
-						"0.48": {
-							"vector": [0.8, 0.8, 0.8],
-							"easing": "easeInSine"
-						}
-					}
-				}
-			}
-		},
 		"animation.spitty.idle": {
 			"loop": true,
 			"animation_length": 4.32,
@@ -764,27 +743,6 @@
 						"1.92": {
 							"vector": [27.94067, -9.99038, -2.53852],
 							"easing": "easeInOutSine"
-						}
-					}
-				}
-			}
-		},
-		"misc.living": {
-			"loop": true,
-			"animation_length": 0.48,
-			"bones": {
-				"mite": {
-					"scale": {
-						"0.0": {
-							"vector": [0.8, 0.8, 0.8]
-						},
-						"0.24": {
-							"vector": [0.9, 0.9, 0.9],
-							"easing": "easeOutSine"
-						},
-						"0.48": {
-							"vector": [0.8, 0.8, 0.8],
-							"easing": "easeInSine"
 						}
 					}
 				}
