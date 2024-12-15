@@ -53,7 +53,7 @@ public class SculkHatcherEntity extends Monster implements GeoEntity, ISculkSmar
      */
 
     //The Health
-    public static final float MAX_HEALTH = 20F;
+    public static final float MAX_HEALTH = 30F;
     //The armor of the mob
     public static final float ARMOR = 4F;
     //ATTACK_DAMAGE determines How much damage it's melee attacks do
