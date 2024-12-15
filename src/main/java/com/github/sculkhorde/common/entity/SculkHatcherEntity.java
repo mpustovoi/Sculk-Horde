@@ -22,6 +22,7 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
+import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -163,7 +164,7 @@ public class SculkHatcherEntity extends Monster implements GeoEntity, ISculkSmar
                         //SwimGoal(mob)
                         new FloatGoal(this),
                         new SquadHandlingGoal(this),
-                        //MeleeAttackGoal(mob, speedModifier, followingTargetEvenIfNotSeen)
+                        new ChuckMiteAttackGoal(this),
                         new AttackGoal(),
                         new FollowSquadLeader(this),
                         new PathFindToRaidLocation<>(this),
@@ -278,36 +279,32 @@ public class SculkHatcherEntity extends Monster implements GeoEntity, ISculkSmar
 
     /** ~~~~~~~~ CLASSES ~~~~~~~~ **/
 
-    public class SculkHatcherAttackGoal extends MeleeAttackGoal
+    public class ChuckMiteAttackGoal extends Goal
     {
 
-        private final SculkHatcherEntity thisMob;
-        private long tickCooldownForSpawn = 20 * 1;
-        private long ticksInCooldown = 0;
+        protected final SculkHatcherEntity mob;
+        protected long timeOfLastMiteSpawn = 0;
+        protected long MITE_SPAWN_COOLDOWN = TickUnits.convertSecondsToTicks(3);
 
         /**
          * The Constructor
          * @param mob The mob that called this
-         * @param speedModifier How fast can they attack?
-         * @param followTargetIfNotSeen Should the mob follow their target if they cant see them.
          */
-        public SculkHatcherAttackGoal(SculkHatcherEntity mob, double speedModifier, boolean followTargetIfNotSeen) {
-            super(mob, speedModifier, followTargetIfNotSeen);
-            this.thisMob = mob;
+        public ChuckMiteAttackGoal(SculkHatcherEntity mob) {
+            this.mob = mob;
         }
 
         @Override
         public boolean canUse()
         {
             boolean canWeUse = ((ISculkSmartEntity)this.mob).getTargetParameters().isEntityValidTarget(this.mob.getTarget(), true);
-            // If the mob is already targeting something valid, don't bother
             return canWeUse;
         }
 
         @Override
         public boolean canContinueToUse()
         {
-            return canUse();
+            return false;
         }
 
 
@@ -319,32 +316,54 @@ public class SculkHatcherEntity extends Monster implements GeoEntity, ISculkSmar
          * absolutely some sort of bug that I was unable to figure out. For the
          * time being (assuming I ever fix this), this will have to do.
          */
-        public void tick()
+        public void start()
         {
-            if(this.thisMob.getTarget() == null)
+            if(this.mob.getTarget() == null)
             {
-                stop();
+                return;
             }
-            else
+            if(Math.abs(mob.level().getGameTime() - timeOfLastMiteSpawn) < MITE_SPAWN_COOLDOWN)
             {
-                super.tick();
-                if(ticksInCooldown >= tickCooldownForSpawn && thisMob.getTarget() != null && thisMob.getHealth() > SculkMiteEntity.MAX_HEALTH)
-                {
-                    ticksInCooldown = 0;
-                    spawnMite();
-                }
-                else
-                {
-                    ticksInCooldown++;
-                }
+                return;
             }
+
+            if(mob.getHealth() <= SculkMiteEntity.MAX_HEALTH)
+            {
+                return;
+            }
+
+            timeOfLastMiteSpawn = mob.level().getGameTime();
+            spawnMite();
         }
     }
 
     protected void spawnMite()
     {
+
         level().getServer().tell(new TickTask(level().getServer().getTickCount() + 1, () -> {
-            ModEntities.SCULK_MITE.get().spawn((ServerLevel) this.level(), this.blockPosition(), MobSpawnType.SPAWNER);
+
+            SculkMiteEntity mite = ModEntities.SCULK_MITE.get().spawn((ServerLevel) this.level(), this.blockPosition().above(), MobSpawnType.SPAWNER);
+
+            // Get the target (can be null)
+            LivingEntity target = getTarget();
+
+            if (target != null) {
+                // Calculate the direction vector to the target
+                Vec3 targetPosition = target.getEyePosition().add(0,1,0);
+                Vec3 thisPosition = Vec3.atCenterOf(this.blockPosition());
+                Vec3 direction = targetPosition.subtract(thisPosition).normalize();
+                int targetDistance = (int) distanceTo(getTarget());
+
+
+                // Adjust the velocity magnitude.
+                double launchSpeed = Math.min(3, Math.max(1, targetDistance / 4));
+                Vec3 launchVelocity = direction.scale(launchSpeed);
+
+
+                mite.setDeltaMovement(launchVelocity);
+
+            }
+
             this.hurt(damageSources().generic(), SculkMiteEntity.MAX_HEALTH);
         }));
     }
@@ -352,15 +371,6 @@ public class SculkHatcherEntity extends Monster implements GeoEntity, ISculkSmar
     public boolean dampensVibrations() {
         return true;
     }
-
-
-    /* DO NOT USE THIS FOR ANYTHING, CAUSES DESYNC
-    @Override
-    public void onRemovedFromWorld() {
-        SculkHorde.savedData.addSculkAccumulatedMass((int) this.getHealth());
-        super.onRemovedFromWorld();
-    }
-    */
 
 
     /** ~~~~~~~~ CLASSES ~~~~~~~~ **/
