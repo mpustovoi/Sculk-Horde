@@ -1,21 +1,16 @@
 package com.github.sculkhorde.common.entity.projectile;
 
 import com.github.sculkhorde.common.effect.CorrodingEffect;
-import com.github.sculkhorde.common.entity.SculkMiteEntity;
 import com.github.sculkhorde.core.ModEntities;
 import com.github.sculkhorde.core.ModItems;
 import com.github.sculkhorde.util.EntityAlgorithms;
 import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
-import net.minecraft.tags.DamageTypeTags;
-import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.BlockHitResult;
@@ -98,7 +93,14 @@ public class SculkAcidicProjectileEntity extends CustomItemProjectileEntity {
                 return;
             }
 
-            CorrodingEffect.applyToEntity(owner, target, TickUnits.convertSecondsToTicks(5));
+            if(CorrodingEffect.isEntityAffectableByCorroded(target))
+            {
+                CorrodingEffect.applyToEntity(owner, target, TickUnits.convertSecondsToTicks(5));
+            }
+            else
+            {
+                EntityAlgorithms.doSculkTypeDamageToEntity(owner, target, 6F, 5F);
+            }
         }
     }
 

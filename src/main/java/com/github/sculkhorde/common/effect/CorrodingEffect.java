@@ -59,6 +59,17 @@ public class CorrodingEffect extends MobEffect {
         victim.addEffect(new MobEffectInstance(effect, duration, 0));
     }
 
+    public static boolean isEntityAffectableByCorroded(LivingEntity victim)
+    {
+        CorrodingEffect effect = ModMobEffects.CORRODED.get();
+        if(victim.hasEffect(effect))
+        {
+            return true;
+        }
+
+        return victim.canBeAffected(new MobEffectInstance(effect, 0, 0));
+    }
+
     public float getNextFloatBetweenInclusive(RandomSource rng, float min, float max)
     {
         return (rng.nextFloat() * (max-min)) + min;
