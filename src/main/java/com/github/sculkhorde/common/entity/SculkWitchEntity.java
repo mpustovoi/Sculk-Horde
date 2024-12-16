@@ -453,7 +453,7 @@ public class SculkWitchEntity extends Monster implements GeoEntity, ISculkSmartE
         public void start() {
             this.pathNav.moveTo(this.path, this.walkSpeedModifier);
 
-            if(!hasEffect(MobEffects.INVISIBILITY) && getHealth() <= getMaxHealth() / 2)
+            if(!hasEffect(MobEffects.INVISIBILITY) && getHealth() < getMaxHealth())
             {
                 level().playSound((Player)null, getX(), getY(), getZ(), SoundEvents.WITCH_DRINK, getSoundSource(), 1.0F, 0.8F + random.nextFloat() * 0.4F);
                 addEffect(new MobEffectInstance(MobEffects.INVISIBILITY, TickUnits.convertSecondsToTicks(10), 0));
