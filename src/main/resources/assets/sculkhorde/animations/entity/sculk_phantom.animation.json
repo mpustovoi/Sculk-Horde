@@ -762,6 +762,16 @@
 							"easing": "easeInOutSine"
 						}
 					}
+				},
+				"body_tendril1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"body_tendril2": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
 				}
 			}
 		},
@@ -1001,6 +1011,16 @@
 							"vector": [1.63, 5.45, 1.76],
 							"easing": "easeInOutSine"
 						}
+					}
+				},
+				"body_tendril1": {
+					"scale": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"body_tendril2": {
+					"scale": {
+						"vector": [0, 0, 0]
 					}
 				}
 			}
