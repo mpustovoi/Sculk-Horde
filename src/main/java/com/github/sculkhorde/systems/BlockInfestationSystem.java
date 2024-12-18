@@ -35,6 +35,13 @@ public class BlockInfestationSystem {
     public static BlockInfestationTable tagInfectableNonFullBlocks;
     public static BlockInfestationTable configInfectableBlocks;
 
+    public static int WEIGHT_SCULK_CATALYST = 1;
+    public static int WEIGHT_SCULK_SUMMONER = 2;
+    public static int WEIGHT_SCULK_SENSOR = 3;
+    public static int WEIGHT_SPIKE = 4;
+    public static int WEIGHT_SHROOMS = 6;
+    public static int WEIGHT_GRASS = 200;
+
     public static void initialize()
     {
         initializeInfestationTables();
@@ -44,14 +51,14 @@ public class BlockInfestationSystem {
     private static void initializeSculkFlora()
     {
         SculkHorde.randomSculkFlora = new PoolBlocks();
-        SculkHorde.randomSculkFlora.addEntry(Blocks.SCULK_CATALYST, 1);
-        SculkHorde.randomSculkFlora.addEntry(ModBlocks.SCULK_SUMMONER_BLOCK.get(), 2);
-        SculkHorde.randomSculkFlora.addEntry(Blocks.SCULK_SENSOR, 3);
-        SculkHorde.randomSculkFlora.addEntry(ModBlocks.SPIKE.get(), 4);
-        SculkHorde.randomSculkFlora.addEntry(ModBlocks.SMALL_SHROOM.get(), 6);
-        SculkHorde.randomSculkFlora.addEntry(ModBlocks.SCULK_SHROOM_CULTURE.get(), 6);
-        SculkHorde.randomSculkFlora.addEntry(ModBlocks.GRASS_SHORT.get(), 200);
-        SculkHorde.randomSculkFlora.addEntry(ModBlocks.GRASS.get(), 200);
+        SculkHorde.randomSculkFlora.addEntry(Blocks.SCULK_CATALYST, WEIGHT_SCULK_CATALYST);
+        SculkHorde.randomSculkFlora.addEntry(ModBlocks.SCULK_SUMMONER_BLOCK.get(), WEIGHT_SCULK_SUMMONER);
+        SculkHorde.randomSculkFlora.addEntry(Blocks.SCULK_SENSOR, WEIGHT_SCULK_SENSOR);
+        SculkHorde.randomSculkFlora.addEntry(ModBlocks.SPIKE.get(), WEIGHT_SPIKE);
+        SculkHorde.randomSculkFlora.addEntry(ModBlocks.SMALL_SHROOM.get(), WEIGHT_SHROOMS);
+        SculkHorde.randomSculkFlora.addEntry(ModBlocks.SCULK_SHROOM_CULTURE.get(), WEIGHT_SHROOMS);
+        SculkHorde.randomSculkFlora.addEntry(ModBlocks.GRASS_SHORT.get(), WEIGHT_GRASS);
+        SculkHorde.randomSculkFlora.addEntry(ModBlocks.GRASS.get(), WEIGHT_GRASS);
     }
 
     private static void initializeInfestationTables()
