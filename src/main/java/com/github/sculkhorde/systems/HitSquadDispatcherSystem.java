@@ -2,7 +2,6 @@ package com.github.sculkhorde.systems;
 
 import com.github.sculkhorde.core.ModSavedData;
 import com.github.sculkhorde.core.SculkHorde;
-import com.github.sculkhorde.core.gravemind.Gravemind;
 import com.github.sculkhorde.systems.events.HitSquadEvent;
 import com.github.sculkhorde.util.BlockAlgorithms;
 import com.github.sculkhorde.util.PlayerProfileHandler;
@@ -50,7 +49,7 @@ public class HitSquadDispatcherSystem {
                 continue;
             }
 
-            if(SculkHorde.gravemind.isCurrentEvolutionStateLessThan(Gravemind.evolution_states.Mature))
+            if(SculkHorde.gravemind.isEvolutionInMatureState())
             {
                 continue;
             }
@@ -91,7 +90,7 @@ public class HitSquadDispatcherSystem {
         if(nextTarget.isPresent())
         {
             SculkHorde.LOGGER.debug("HitSquadDispatcherSystem | The Next Target is " + nextTarget.get().getScoreboardName());
-            SculkHorde.eventHandler.addEvent(new HitSquadEvent(nextTarget.get().level().dimension(), nextTarget.get().getUUID()));
+            SculkHorde.eventSystem.addEvent(new HitSquadEvent(nextTarget.get().level().dimension(), nextTarget.get().getUUID()));
             PlayerProfileHandler.getOrCreatePlayerProfile(nextTarget.get()).setTimeOfLastHit(level.getGameTime());
         }
         else

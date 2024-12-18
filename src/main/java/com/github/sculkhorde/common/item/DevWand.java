@@ -1,6 +1,6 @@
 package com.github.sculkhorde.common.item;
 
-import com.github.sculkhorde.core.SculkHorde;
+import com.github.sculkhorde.util.ParticleUtil;
 import com.github.sculkhorde.util.StructureUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;

@@ -1,5 +1,6 @@
 package com.github.sculkhorde.common.pools;
 
+import com.github.sculkhorde.core.ModConfig;
 import net.minecraft.world.level.block.Block;
 
 import java.util.ArrayList;
@@ -32,7 +33,17 @@ public class PoolBlocks {
     public void addEntry(Block blockIn, int weightIn)
     {
         totalWeight += weightIn;
-        entries.add(new PoolEntry(blockIn, weightIn));
+        PoolEntry poolEntry = new PoolEntry(blockIn, weightIn);
+        entries.add(poolEntry);
+        Collections.sort(entries);
+    }
+
+    public void addExperimentalEntry(Block blockIn, int weightIn)
+    {
+        totalWeight += weightIn;
+        PoolEntry poolEntry = new PoolEntry(blockIn, weightIn);
+        poolEntry.requireExperimentalMode();
+        entries.add(poolEntry);
         Collections.sort(entries);
     }
 
@@ -47,6 +58,11 @@ public class PoolBlocks {
         int cumulativeSum = 0;
         for(PoolEntry entry : entries)
         {
+            if(entry.doesRequireExperimentalMode() && !ModConfig.isExperimentalFeaturesEnabled())
+            {
+                continue;
+            }
+
             cumulativeSum += entry.weight;
             if(cumulativeSum >= randomValue)
                 return entry.block;
@@ -58,8 +74,10 @@ public class PoolBlocks {
 
 class PoolEntry implements Comparable<PoolEntry>{
 
-    Block block;
-    int weight;
+    protected Block block;
+    protected int weight;
+
+    protected boolean requiresExperimentalMode = false;
 
     /**
      * Default Constructor
@@ -68,6 +86,16 @@ class PoolEntry implements Comparable<PoolEntry>{
     {
         block = blockIn;
         weight = weightIn;
+    }
+
+    public void requireExperimentalMode()
+    {
+        requiresExperimentalMode = true;
+    }
+
+    public boolean doesRequireExperimentalMode()
+    {
+        return requiresExperimentalMode;
     }
 
     @Override

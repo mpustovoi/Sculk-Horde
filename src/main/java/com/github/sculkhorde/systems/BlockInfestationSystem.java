@@ -35,12 +35,13 @@ public class BlockInfestationSystem {
     public static BlockInfestationTable tagInfectableNonFullBlocks;
     public static BlockInfestationTable configInfectableBlocks;
 
-    public static int WEIGHT_SCULK_CATALYST = 1;
-    public static int WEIGHT_SCULK_SUMMONER = 2;
-    public static int WEIGHT_SCULK_SENSOR = 3;
-    public static int WEIGHT_SPIKE = 4;
-    public static int WEIGHT_SHROOMS = 6;
-    public static int WEIGHT_GRASS = 200;
+    public static int WEIGHT_SOULITE = 100;
+    public static int WEIGHT_SCULK_CATALYST = 5000;
+    public static int WEIGHT_SCULK_SUMMONER = 7000;
+    public static int WEIGHT_SCULK_SENSOR = 9000;
+    public static int WEIGHT_SPIKE = 10000;
+    public static int WEIGHT_SHROOMS = 12000;
+    public static int WEIGHT_GRASS = 40000;
 
     public static void initialize()
     {
@@ -51,6 +52,7 @@ public class BlockInfestationSystem {
     private static void initializeSculkFlora()
     {
         SculkHorde.randomSculkFlora = new PoolBlocks();
+        SculkHorde.randomSculkFlora.addExperimentalEntry(ModBlocks.STRUCTURE_CORE_BLOCK.get(), WEIGHT_SOULITE);
         SculkHorde.randomSculkFlora.addEntry(Blocks.SCULK_CATALYST, WEIGHT_SCULK_CATALYST);
         SculkHorde.randomSculkFlora.addEntry(ModBlocks.SCULK_SUMMONER_BLOCK.get(), WEIGHT_SCULK_SUMMONER);
         SculkHorde.randomSculkFlora.addEntry(Blocks.SCULK_SENSOR, WEIGHT_SCULK_SENSOR);

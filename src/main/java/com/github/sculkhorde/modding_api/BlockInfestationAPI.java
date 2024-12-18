@@ -40,13 +40,13 @@ public class BlockInfestationAPI {
     /**
      * Adds a flora block to be spawned on top of Sculk Infected Blocks.
      * Please make sure you only call this once or I'll have your head.
-     * Here are some common weights used in {@link BlockInfestationSystem} <br>
-     *     WEIGHT_SCULK_CATALYST = 1 <br>
-     *     WEIGHT_SCULK_SUMMONER = 2 <br>
-     *     WEIGHT_SCULK_SENSOR = 3 <br>
-     *     WEIGHT_SPIKE = 4 <br>
-     *     WEIGHT_SHROOMS = 6 <br>
-     *     WEIGHT_GRASS = 200 <br>
+     * Check the weights used in {@link BlockInfestationSystem} <br>
+     *     WEIGHT_SCULK_CATALYST <br>
+     *     WEIGHT_SCULK_SUMMONER <br>
+     *     WEIGHT_SCULK_SENSOR <br>
+     *     WEIGHT_SPIKE <br>
+     *     WEIGHT_SHROOMS <br>
+     *     WEIGHT_GRASS <br>
      * @param flora The Block you want to spawn.
      * @param spawnWeight The chance it has of spawning.
      */

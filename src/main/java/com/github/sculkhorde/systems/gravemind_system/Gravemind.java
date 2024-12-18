@@ -207,4 +207,9 @@ public class Gravemind
         }
         return false;
     }
+
+    public boolean isEvolutionInMatureState()
+    {
+        return evolution_state == evolution_states.Mature;
+    }
 }
