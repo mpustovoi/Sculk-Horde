@@ -4,23 +4,27 @@ import com.github.sculkhorde.common.advancement.ContributeTrigger;
 import com.github.sculkhorde.common.block.FleshyCompostBlock;
 import com.github.sculkhorde.common.effect.SculkBurrowedEffect;
 import com.github.sculkhorde.core.*;
-import com.github.sculkhorde.systems.gravemind_system.Gravemind;
-import com.github.sculkhorde.systems.raid_system.RaidHandler;
+import com.github.sculkhorde.misc.StatisticsData;
+import com.github.sculkhorde.systems.AutoPerformanceSystem;
+import com.github.sculkhorde.systems.BeeNestActivitySystem;
 import com.github.sculkhorde.systems.SculkNodesSystem;
 import com.github.sculkhorde.systems.event_system.EventSystem;
-import com.github.sculkhorde.misc.StatisticsData;
-import com.github.sculkhorde.systems.BeeNestActivitySystem;
-import com.github.sculkhorde.systems.AutoPerformanceSystem;
+import com.github.sculkhorde.systems.gravemind_system.Gravemind;
+import com.github.sculkhorde.systems.raid_system.RaidHandler;
 import com.github.sculkhorde.util.ChunkLoading.BlockEntityChunkLoaderHelper;
 import com.github.sculkhorde.util.ChunkLoading.EntityChunkLoaderHelper;
 import net.minecraft.core.BlockPos;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.MobEffectEvent;
@@ -256,6 +260,26 @@ public class ForgeEventSubscriber {
     {
         if (event.phase == TickEvent.Phase.START) {
             SculkHorde.autoPerformanceSystem.onServerTick();
+        }
+    }
+
+    @SubscribeEvent
+    public static void onEntityJoinLevelEvent(EntityJoinLevelEvent event)
+    {
+        if(event.getLevel().isClientSide())
+        {
+            return;
+        }
+
+        // Event has no phases
+        if(event.getEntity() instanceof Mob mob)
+        {
+            if(EntityAlgorithms.isLivingEntityExplicitDenyTarget(mob) || !mob.getAttributes().hasAttribute(Attributes.ATTACK_DAMAGE))
+            {
+                return;
+            }
+
+            mob.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(mob, LivingEntity.class, true, EntityAlgorithms.isSculkLivingEntity));
         }
     }
 }

@@ -2,7 +2,6 @@ package com.github.sculkhorde.core;
 
 import com.github.sculkhorde.common.loot.ModLootModifier;
 import com.github.sculkhorde.common.pools.PoolBlocks;
-import com.github.sculkhorde.core.gravemind.*;
 import com.github.sculkhorde.systems.*;
 import com.github.sculkhorde.systems.gravemind_system.*;
 import com.github.sculkhorde.systems.gravemind_system.entity_factory.EntityFactory;
