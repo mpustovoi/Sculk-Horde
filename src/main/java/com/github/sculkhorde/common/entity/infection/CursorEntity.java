@@ -384,11 +384,11 @@ public abstract class CursorEntity extends Entity
 
             if(ticksRemainingBeforeCheckingIfInCursorList <= 0)
             {
-                SculkHorde.cursorHandler.computeIfAbsent(this);
+                SculkHorde.cursorSystem.computeIfAbsent(this);
                 ticksRemainingBeforeCheckingIfInCursorList = CHECK_DELAY_TICKS;
             }
         }
-        boolean canBeManuallyTickedAndManualControlIsNotOn = (canBeManuallyTicked() && !SculkHorde.cursorHandler.isManualControlOfTickingEnabled());
+        boolean canBeManuallyTickedAndManualControlIsNotOn = (canBeManuallyTicked() && !SculkHorde.cursorSystem.isManualControlOfTickingEnabled());
         boolean cannotBeManuallyTicked = !canBeManuallyTicked();
 
         boolean shouldTick = canBeManuallyTickedAndManualControlIsNotOn || cannotBeManuallyTicked;

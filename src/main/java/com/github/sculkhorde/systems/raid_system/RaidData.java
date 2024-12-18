@@ -1,4 +1,4 @@
-package com.github.sculkhorde.systems.gravemind_system;
+package com.github.sculkhorde.systems.raid_system;
 
 import com.github.sculkhorde.common.entity.ISculkSmartEntity;
 import com.github.sculkhorde.common.entity.boss.sculk_enderman.SculkEndermanEntity;

@@ -1,6 +1,6 @@
 package com.github.sculkhorde.common.command;
 
-import com.github.sculkhorde.systems.gravemind_system.RaidHandler;
+import com.github.sculkhorde.systems.raid_system.RaidHandler;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.ArgumentBuilder;

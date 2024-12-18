@@ -111,7 +111,7 @@ public class SculkBeeInfectorEntity extends SculkBeeHarvesterEntity implements G
     @Override
     protected void executeCodeOnPollination()
     {
-        if(!ModConfig.SERVER.block_infestation_enabled.get() || SculkHorde.cursorHandler.isCursorPopulationAtMax())
+        if(!ModConfig.SERVER.block_infestation_enabled.get() || SculkHorde.cursorSystem.isCursorPopulationAtMax())
         {
             return;
         }

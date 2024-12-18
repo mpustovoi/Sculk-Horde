@@ -1,7 +1,7 @@
 package com.github.sculkhorde.common.entity.goal;
 
 import com.github.sculkhorde.common.entity.ISculkSmartEntity;
-import com.github.sculkhorde.systems.gravemind_system.RaidHandler;
+import com.github.sculkhorde.systems.raid_system.RaidHandler;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.Goal;
 

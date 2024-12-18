@@ -45,7 +45,7 @@ public class StatusAllCommand implements Command<CommandSourceStack> {
                         + "\n"
                         + "BlockEntity Chunk load Requests: " + SculkHorde.blockEntityChunkLoaderHelper.getBlockChunkLoadRequests().size()
                         + "\n"
-                        + "Events in Queue: " + SculkHorde.eventHandler.getEvents().size()
+                        + "Events in Queue: " + SculkHorde.eventSystem.getEvents().size()
                         + "\n"
                         + "Performance Mode: " + SculkHorde.autoPerformanceSystem.getPerformanceMode().toString()
                         + "\n"
@@ -57,7 +57,7 @@ public class StatusAllCommand implements Command<CommandSourceStack> {
                         + "\n"
                         + "Performance Mode Max Nodes Active: " + SculkHorde.autoPerformanceSystem.getMaxNodesActive()
                         + "\n"
-                        + "Cursors being Ticked: " + SculkHorde.cursorHandler.getSizeOfCursorList() + " / " + SculkHorde.autoPerformanceSystem.getMaxInfectorCursorPopulation()
+                        + "Cursors being Ticked: " + SculkHorde.cursorSystem.getSizeOfCursorList() + " / " + SculkHorde.autoPerformanceSystem.getMaxInfectorCursorPopulation()
                         + "\n"
                         + "Sculk Unit Population: " + SculkHorde.populationHandler.getPopulationSize() + " / " + SculkHorde.populationHandler.getMaxPopulation()
                 ), false);

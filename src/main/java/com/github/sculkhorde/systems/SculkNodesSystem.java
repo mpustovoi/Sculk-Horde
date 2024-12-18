@@ -1,23 +1,23 @@
-package com.github.sculkhorde.systems.gravemind_system;
+package com.github.sculkhorde.systems;
 
 import com.github.sculkhorde.core.ModConfig;
 import com.github.sculkhorde.core.ModSavedData;
 import com.github.sculkhorde.core.SculkHorde;
-import com.github.sculkhorde.systems.gravemind_system.events.Event;
-import com.github.sculkhorde.systems.gravemind_system.events.SpawnPhantomsEvent;
+import com.github.sculkhorde.systems.event_system.Event;
+import com.github.sculkhorde.systems.event_system.SpawnPhantomsEvent;
 import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.server.level.ServerLevel;
 
 import java.util.ArrayList;
 
-public class SculkNodesHandler {
+public class SculkNodesSystem {
 
     protected boolean isActive = false;
     protected long TICK_COOLDOWN = TickUnits.convertMinutesToTicks(5);
     protected long lastTimeSinceTick = 0;
 
 
-    public SculkNodesHandler() {
+    public SculkNodesSystem() {
         isActive = true;
     }
 
@@ -124,7 +124,7 @@ public class SculkNodesHandler {
         Event phantomEvent = SpawnPhantomsEvent.createEvent(nodeWithLongestTimeOfInactivity.getDimension().dimension());
         phantomEvent.setEventID(nodeWithLongestTimeOfInactivity.getPosition().asLong());
         phantomEvent.setEventLocation(nodeWithLongestTimeOfInactivity.getPosition());
-        SculkHorde.eventHandler.addEvent(phantomEvent);
+        SculkHorde.eventSystem.addEvent(phantomEvent);
     }
 
     protected void DeactivateAllNodes()

@@ -1,5 +1,7 @@
 package com.github.sculkhorde.systems;
 
+import com.github.sculkhorde.common.pools.PoolBlocks;
+import com.github.sculkhorde.core.SculkHorde;
 import com.github.sculkhorde.modding_api.BlockInfestationAPI;
 import com.github.sculkhorde.common.block.InfestationEntries.BlockInfestationTable;
 import com.github.sculkhorde.common.block.SculkNodeBlock;
@@ -33,9 +35,23 @@ public class BlockInfestationSystem {
     public static BlockInfestationTable tagInfectableNonFullBlocks;
     public static BlockInfestationTable configInfectableBlocks;
 
-    public static void initializeBlockInfestationSystem()
+    public static void initialize()
     {
         initializeInfestationTables();
+        initializeSculkFlora();
+    }
+
+    private static void initializeSculkFlora()
+    {
+        SculkHorde.randomSculkFlora = new PoolBlocks();
+        SculkHorde.randomSculkFlora.addEntry(Blocks.SCULK_CATALYST, 1);
+        SculkHorde.randomSculkFlora.addEntry(ModBlocks.SCULK_SUMMONER_BLOCK.get(), 2);
+        SculkHorde.randomSculkFlora.addEntry(Blocks.SCULK_SENSOR, 3);
+        SculkHorde.randomSculkFlora.addEntry(ModBlocks.SPIKE.get(), 4);
+        SculkHorde.randomSculkFlora.addEntry(ModBlocks.SMALL_SHROOM.get(), 6);
+        SculkHorde.randomSculkFlora.addEntry(ModBlocks.SCULK_SHROOM_CULTURE.get(), 6);
+        SculkHorde.randomSculkFlora.addEntry(ModBlocks.GRASS_SHORT.get(), 200);
+        SculkHorde.randomSculkFlora.addEntry(ModBlocks.GRASS.get(), 200);
     }
 
     private static void initializeInfestationTables()

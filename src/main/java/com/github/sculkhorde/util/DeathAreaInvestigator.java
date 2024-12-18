@@ -5,7 +5,7 @@ import com.github.sculkhorde.core.ModConfig;
 import com.github.sculkhorde.core.ModSavedData;
 import com.github.sculkhorde.core.SculkHorde;
 import com.github.sculkhorde.systems.gravemind_system.Gravemind;
-import com.github.sculkhorde.systems.gravemind_system.RaidHandler;
+import com.github.sculkhorde.systems.raid_system.RaidHandler;
 import net.minecraft.server.level.ServerLevel;
 
 import java.util.Optional;

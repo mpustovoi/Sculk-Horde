@@ -1,4 +1,4 @@
-package com.github.sculkhorde.systems.gravemind_system;
+package com.github.sculkhorde.systems;
 
 import com.github.sculkhorde.common.entity.ISculkSmartEntity;
 import com.github.sculkhorde.common.entity.SculkBeeHarvesterEntity;
@@ -13,14 +13,14 @@ import net.minecraftforge.server.ServerLifecycleHooks;
 import java.util.ArrayList;
 import java.util.Collection;
 
-public class SculkPopulationHandler {
+public class SculkPopulationSystem {
 
     Collection<ISculkSmartEntity> population = new ArrayList<>();
 
     private long lastTimeOfPopulationRecount = 0;
     private int populationRecountInterval = TickUnits.convertSecondsToTicks(30);
 
-    public SculkPopulationHandler()
+    public SculkPopulationSystem()
     {
 
     }

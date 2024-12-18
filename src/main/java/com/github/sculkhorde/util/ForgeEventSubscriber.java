@@ -5,9 +5,9 @@ import com.github.sculkhorde.common.block.FleshyCompostBlock;
 import com.github.sculkhorde.common.effect.SculkBurrowedEffect;
 import com.github.sculkhorde.core.*;
 import com.github.sculkhorde.systems.gravemind_system.Gravemind;
-import com.github.sculkhorde.systems.gravemind_system.RaidHandler;
-import com.github.sculkhorde.systems.gravemind_system.SculkNodesHandler;
-import com.github.sculkhorde.systems.gravemind_system.events.EventHandler;
+import com.github.sculkhorde.systems.raid_system.RaidHandler;
+import com.github.sculkhorde.systems.SculkNodesSystem;
+import com.github.sculkhorde.systems.event_system.EventSystem;
 import com.github.sculkhorde.misc.StatisticsData;
 import com.github.sculkhorde.systems.BeeNestActivitySystem;
 import com.github.sculkhorde.systems.AutoPerformanceSystem;
@@ -55,10 +55,10 @@ public class ForgeEventSubscriber {
             SculkHorde.gravemind = new Gravemind(); //Initialize Gravemind
             SculkHorde.deathAreaInvestigator = new DeathAreaInvestigator(); //Initialize Death Area Investigator
             SculkHorde.raidHandler = new RaidHandler((ServerLevel) event.getLevel()); //Initialize Raid Handler
-            SculkHorde.sculkNodesHandler = new SculkNodesHandler(); //Initialize Sculk Nodes Handler
+            SculkHorde.sculkNodesSystem = new SculkNodesSystem(); //Initialize Sculk Nodes Handler
             SculkHorde.entityChunkLoaderHelper = new EntityChunkLoaderHelper(); //Initialize Entity Chunk Loader Helper
             SculkHorde.blockEntityChunkLoaderHelper = new BlockEntityChunkLoaderHelper(); //Initialize Block Entity Chunk Loader Helper
-            SculkHorde.eventHandler = new EventHandler(); //Initialize Event Handler
+            SculkHorde.eventSystem = new EventSystem(); //Initialize Event Handler
             SculkHorde.beeNestActivitySystem = new BeeNestActivitySystem();
             SculkHorde.autoPerformanceSystem = new AutoPerformanceSystem();
             ModConfig.SERVER.loadItemsInfectionCursorsCanEat();
@@ -96,9 +96,9 @@ public class ForgeEventSubscriber {
 
         SculkHorde.raidHandler.raidTick(); // Tick the raid handler
         SculkHorde.deathAreaInvestigator.tick();
-        SculkHorde.sculkNodesHandler.tick();
-        SculkHorde.eventHandler.serverTick();
-        SculkHorde.cursorHandler.serverTick();
+        SculkHorde.sculkNodesSystem.tick();
+        SculkHorde.eventSystem.serverTick();
+        SculkHorde.cursorSystem.serverTick();
         SculkHorde.populationHandler.serverTick();
         SculkHorde.blockEntityChunkLoaderHelper.processBlockChunkLoadRequests();
         SculkHorde.entityChunkLoaderHelper.processEntityChunkLoadRequests();

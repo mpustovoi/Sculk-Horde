@@ -237,7 +237,7 @@ public class SculkSporeSpewerEntity extends Monster implements GeoEntity, ISculk
         boolean isTheHordeNotDefeated = !SculkHorde.savedData.isHordeDefeated();
         boolean canSpawnCursor = passRandomChance && isCursorNullOrDead && isBlockInfestationEnabled && isTheHordeNotDefeated;
 
-        if (canSpawnCursor && !SculkHorde.cursorHandler.isCursorPopulationAtMax()) {
+        if (canSpawnCursor && !SculkHorde.cursorSystem.isCursorPopulationAtMax()) {
             // Spawn Block Traverser
             tellServerToSpawnCursorNextTick();
             triggerAnim("spread_controller", "spread_animation");

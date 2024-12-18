@@ -3,6 +3,7 @@ package com.github.sculkhorde.common.pools;
 import net.minecraft.world.level.block.Block;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -30,17 +31,9 @@ public class PoolBlocks {
      */
     public void addEntry(Block blockIn, int weightIn)
     {
-        //Dont allow weights greater than 100
-        if(weightIn > 100)
-        {
-            totalWeight += 100;
-            entries.add(new PoolEntry(blockIn, 100));
-        }
-        else
-        {
-            totalWeight += weightIn;
-            entries.add(new PoolEntry(blockIn, weightIn));
-        }
+        totalWeight += weightIn;
+        entries.add(new PoolEntry(blockIn, weightIn));
+        Collections.sort(entries);
     }
 
     /**
@@ -63,7 +56,7 @@ public class PoolBlocks {
 
 }
 
-class PoolEntry{
+class PoolEntry implements Comparable<PoolEntry>{
 
     Block block;
     int weight;
@@ -77,4 +70,9 @@ class PoolEntry{
         weight = weightIn;
     }
 
+    @Override
+    public int compareTo(PoolEntry other) {
+        // Compare based on weight in ascending order
+        return Integer.compare(this.weight, other.weight);
+    }
 }

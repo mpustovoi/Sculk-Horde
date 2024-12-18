@@ -1,4 +1,4 @@
-package com.github.sculkhorde.systems.gravemind_system;
+package com.github.sculkhorde.systems.raid_system;
 
 import com.github.sculkhorde.systems.gravemind_system.entity_factory.EntityFactoryEntry;
 

@@ -1,4 +1,4 @@
-package com.github.sculkhorde.systems.gravemind_system.events;
+package com.github.sculkhorde.systems.event_system;
 
 import com.github.sculkhorde.core.SculkHorde;
 import com.github.sculkhorde.util.TickUnits;
@@ -7,7 +7,7 @@ import net.minecraftforge.server.ServerLifecycleHooks;
 
 import java.util.HashMap;
 
-public class EventHandler {
+public class EventSystem {
 
     //Hash Map of Events using event IDs as keys
     private HashMap<Long, Event> events;
@@ -15,7 +15,7 @@ public class EventHandler {
     private long lastGameTimeOfExecution;
     private final long EXECUTION_COOLDOWN_TICKS = TickUnits.convertMinutesToTicks(1);
 
-    public EventHandler()
+    public EventSystem()
     {
         events = new HashMap<Long, Event>();
     }
@@ -103,23 +103,23 @@ public class EventHandler {
 
     public static void save(CompoundTag tag)
     {
-        SculkHorde.LOGGER.info("Saving " + SculkHorde.eventHandler.getEvents().size() + " events.");
+        SculkHorde.LOGGER.info("Saving " + SculkHorde.eventSystem.getEvents().size() + " events.");
         CompoundTag eventsTag = new CompoundTag();
         long startTime = System.currentTimeMillis();
-        for(Event event : SculkHorde.eventHandler.getEvents().values())
+        for(Event event : SculkHorde.eventSystem.getEvents().values())
         {
             CompoundTag eventTag = new CompoundTag();
             event.save(eventTag);
             eventsTag.put(event.getClass().getName(), eventTag);
         }
         tag.put("events", eventsTag);
-        SculkHorde.LOGGER.info("Saved " + SculkHorde.eventHandler.getEvents().size() + " events. Took " + (System.currentTimeMillis() - startTime) + " Milliseconds.");
+        SculkHorde.LOGGER.info("Saved " + SculkHorde.eventSystem.getEvents().size() + " events. Took " + (System.currentTimeMillis() - startTime) + " Milliseconds.");
     }
 
-    public static EventHandler load(CompoundTag tag)
+    public static EventSystem load(CompoundTag tag)
     {
 
-        EventHandler eventHandler = new EventHandler();
+        EventSystem eventSystem = new EventSystem();
         CompoundTag eventsTag = tag.getCompound("events");
 
         SculkHorde.LOGGER.info("Loading " + eventsTag.getAllKeys().size() + " events.");
@@ -128,10 +128,10 @@ public class EventHandler {
         {
             CompoundTag eventTag = eventsTag.getCompound(key);
             Event event = Event.load(eventTag);
-            eventHandler.addEvent(event);
+            eventSystem.addEvent(event);
         }
-        SculkHorde.LOGGER.info("Loaded " + eventHandler.getEvents().size() + " events. Took " + (System.currentTimeMillis() - startTime) + " Milliseconds.");
-        return eventHandler;
+        SculkHorde.LOGGER.info("Loaded " + eventSystem.getEvents().size() + " events. Took " + (System.currentTimeMillis() - startTime) + " Milliseconds.");
+        return eventSystem;
     }
 
 }

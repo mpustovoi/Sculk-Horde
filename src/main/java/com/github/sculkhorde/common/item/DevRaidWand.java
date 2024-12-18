@@ -1,6 +1,6 @@
 package com.github.sculkhorde.common.item;
 
-import com.github.sculkhorde.systems.gravemind_system.RaidHandler;
+import com.github.sculkhorde.systems.raid_system.RaidHandler;
 import com.github.sculkhorde.util.EntityAlgorithms;
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;

@@ -1,4 +1,4 @@
-package com.github.sculkhorde.systems.gravemind_system;
+package com.github.sculkhorde.systems;
 
 import com.github.sculkhorde.common.entity.infection.CursorEntity;
 import com.github.sculkhorde.core.SculkHorde;
@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 import java.util.UUID;
 
-public class CursorHandler {
+public class CursorSystem {
 
     SortedCursorList cursors = new SortedCursorList();
     private int index = 0;

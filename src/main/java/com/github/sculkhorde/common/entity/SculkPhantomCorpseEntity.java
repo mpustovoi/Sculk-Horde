@@ -235,7 +235,7 @@ public class SculkPhantomCorpseEntity extends Monster implements GeoEntity, IScu
         boolean isTheHordeNotDefeated = !SculkHorde.savedData.isHordeDefeated();
         boolean canSpawnCursor = passRandomChance && isCursorNullOrDead && isBlockInfestationEnabled && isTheHordeNotDefeated;
 
-        if (canSpawnCursor && !SculkHorde.cursorHandler.isCursorPopulationAtMax()) {
+        if (canSpawnCursor && !SculkHorde.cursorSystem.isCursorPopulationAtMax()) {
             level().getServer().tell(new net.minecraft.server.TickTask(level().getServer().getTickCount() + 1, () -> {
                 // Spawn Block Traverser
                 cursor = new CursorSurfaceInfectorEntity(level());

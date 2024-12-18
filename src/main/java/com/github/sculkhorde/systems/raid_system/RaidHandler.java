@@ -1,4 +1,4 @@
-package com.github.sculkhorde.systems.gravemind_system;
+package com.github.sculkhorde.systems.raid_system;
 
 import com.github.sculkhorde.common.entity.ISculkSmartEntity;
 import com.github.sculkhorde.common.entity.SculkCreeperEntity;
@@ -6,6 +6,7 @@ import com.github.sculkhorde.common.entity.SculkPhantomEntity;
 import com.github.sculkhorde.common.entity.boss.sculk_enderman.SculkEndermanEntity;
 import com.github.sculkhorde.common.entity.SculkSporeSpewerEntity;
 import com.github.sculkhorde.core.*;
+import com.github.sculkhorde.systems.gravemind_system.Gravemind;
 import com.github.sculkhorde.systems.gravemind_system.entity_factory.EntityFactory;
 import com.github.sculkhorde.systems.gravemind_system.entity_factory.EntityFactoryEntry;
 import com.github.sculkhorde.util.BlockAlgorithms;

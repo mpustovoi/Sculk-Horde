@@ -7,8 +7,8 @@ import com.github.sculkhorde.common.entity.SculkSporeSpewerEntity;
 import com.github.sculkhorde.common.entity.infection.AncientNodePurificationHandler;
 import com.github.sculkhorde.common.entity.infection.SculkNodeInfectionHandler;
 import com.github.sculkhorde.core.*;
-import com.github.sculkhorde.systems.gravemind_system.events.Event;
-import com.github.sculkhorde.systems.gravemind_system.events.SpawnPhantomsEvent;
+import com.github.sculkhorde.systems.event_system.Event;
+import com.github.sculkhorde.systems.event_system.SpawnPhantomsEvent;
 import com.github.sculkhorde.util.*;
 import com.github.sculkhorde.util.ChunkLoading.BlockEntityChunkLoaderHelper;
 import com.mojang.serialization.Dynamic;
@@ -299,14 +299,14 @@ public class SculkAncientNodeBlockEntity extends BlockEntity implements GameEven
 
         long timeElapsed = TimeUnit.SECONDS.convert(System.nanoTime() - blockEntity.tickedAt, TimeUnit.NANOSECONDS);
 
-        if(!SculkHorde.eventHandler.doesEventExist("ancient_node_spawn_phantom".hashCode()))
+        if(!SculkHorde.eventSystem.doesEventExist("ancient_node_spawn_phantom".hashCode()))
         {
             Event phantomEvent = SpawnPhantomsEvent.createEvent(level.dimension());
             phantomEvent.setEventID("ancient_node_spawn_phantom".hashCode());
             phantomEvent.setEventLocation(blockPos);
             phantomEvent.setEventReocurring(true);
             phantomEvent.setEXECUTION_COOLDOWN(TickUnits.convertHoursToTicks(1));
-            SculkHorde.eventHandler.addEvent(phantomEvent);
+            SculkHorde.eventSystem.addEvent(phantomEvent);
         }
 
 
