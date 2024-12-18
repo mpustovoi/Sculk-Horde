@@ -1,7 +1,7 @@
 package com.github.sculkhorde.common.entity.boss.sculk_enderman;
 
-import com.github.sculkhorde.core.gravemind.entity_factory.EntityFactory;
-import com.github.sculkhorde.core.gravemind.entity_factory.EntityFactoryEntry;
+import com.github.sculkhorde.systems.gravemind_system.entity_factory.EntityFactory;
+import com.github.sculkhorde.systems.gravemind_system.entity_factory.EntityFactoryEntry;
 import com.github.sculkhorde.util.BlockAlgorithms;
 import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.core.BlockPos;
@@ -14,7 +14,7 @@ import java.util.Collections;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-import static com.github.sculkhorde.core.gravemind.entity_factory.EntityFactoryEntry.StrategicValues.Combat;
+import static com.github.sculkhorde.systems.gravemind_system.entity_factory.EntityFactoryEntry.StrategicValues.Combat;
 
 public class SummonRandomAttackUnits extends MeleeAttackGoal
 {

@@ -2,10 +2,10 @@ package com.github.sculkhorde.core;
 
 import com.github.sculkhorde.common.block.SculkBeeNestBlock;
 import com.github.sculkhorde.common.blockentity.SculkNodeBlockEntity;
-import com.github.sculkhorde.core.gravemind.Gravemind;
-import com.github.sculkhorde.core.gravemind.RaidData;
-import com.github.sculkhorde.core.gravemind.RaidHandler;
-import com.github.sculkhorde.core.gravemind.events.EventHandler;
+import com.github.sculkhorde.systems.gravemind_system.Gravemind;
+import com.github.sculkhorde.systems.gravemind_system.RaidData;
+import com.github.sculkhorde.systems.gravemind_system.RaidHandler;
+import com.github.sculkhorde.systems.gravemind_system.events.EventHandler;
 import com.github.sculkhorde.misc.StatisticsData;
 import com.github.sculkhorde.util.BlockAlgorithms;
 import com.github.sculkhorde.util.ChunkLoading.BlockEntityChunkLoaderHelper;

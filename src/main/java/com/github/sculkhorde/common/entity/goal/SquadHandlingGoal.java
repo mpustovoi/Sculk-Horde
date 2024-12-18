@@ -1,9 +1,8 @@
 package com.github.sculkhorde.common.entity.goal;
 
 import com.github.sculkhorde.common.entity.ISculkSmartEntity;
-import com.github.sculkhorde.core.ModConfig;
 import com.github.sculkhorde.core.SculkHorde;
-import com.github.sculkhorde.core.gravemind.Gravemind;
+import com.github.sculkhorde.systems.gravemind_system.Gravemind;
 import com.github.sculkhorde.util.SquadHandler;
 import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -15,7 +14,6 @@ import net.minecraft.world.phys.AABB;
 import java.util.Comparator;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Optional;
 
 public class SquadHandlingGoal extends Goal {
 

@@ -1,4 +1,4 @@
-package com.github.sculkhorde.core.gravemind.events;
+package com.github.sculkhorde.systems.gravemind_system.events;
 
 
 import com.github.sculkhorde.common.entity.SculkPhantomEntity;

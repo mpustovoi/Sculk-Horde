@@ -1,7 +1,6 @@
-package com.github.sculkhorde.core.gravemind.events;
+package com.github.sculkhorde.systems.gravemind_system.events;
 
 import com.github.sculkhorde.core.SculkHorde;
-import com.github.sculkhorde.core.gravemind.RaidHandler;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;

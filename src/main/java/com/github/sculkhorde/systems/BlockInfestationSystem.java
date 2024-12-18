@@ -33,7 +33,12 @@ public class BlockInfestationSystem {
     public static BlockInfestationTable tagInfectableNonFullBlocks;
     public static BlockInfestationTable configInfectableBlocks;
 
-    public static void initializeInfestationTables()
+    public static void initializeBlockInfestationSystem()
+    {
+        initializeInfestationTables();
+    }
+
+    private static void initializeInfestationTables()
     {
         // Used to infect blocks that are explicitly listed. Priority Matters
         explicitInfectableBlocks = new BlockInfestationTable(0, false);

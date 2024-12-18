@@ -1,4 +1,4 @@
-package com.github.sculkhorde.core.gravemind;
+package com.github.sculkhorde.systems.gravemind_system;
 
 import com.github.sculkhorde.common.entity.infection.CursorEntity;
 import com.github.sculkhorde.core.SculkHorde;

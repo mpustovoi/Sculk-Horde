@@ -1,10 +1,10 @@
-package com.github.sculkhorde.core.gravemind;
+package com.github.sculkhorde.systems.gravemind_system;
 
 import com.github.sculkhorde.core.ModConfig;
 import com.github.sculkhorde.core.ModSavedData;
 import com.github.sculkhorde.core.SculkHorde;
-import com.github.sculkhorde.core.gravemind.events.Event;
-import com.github.sculkhorde.core.gravemind.events.SpawnPhantomsEvent;
+import com.github.sculkhorde.systems.gravemind_system.events.Event;
+import com.github.sculkhorde.systems.gravemind_system.events.SpawnPhantomsEvent;
 import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.server.level.ServerLevel;
 

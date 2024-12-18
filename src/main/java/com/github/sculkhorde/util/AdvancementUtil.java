@@ -2,9 +2,8 @@ package com.github.sculkhorde.util;
 
 import com.github.sculkhorde.common.advancement.*;
 import com.github.sculkhorde.core.SculkHorde;
-import com.github.sculkhorde.core.gravemind.Gravemind;
+import com.github.sculkhorde.systems.gravemind_system.Gravemind;
 import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.critereon.SimpleCriterionTrigger;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
