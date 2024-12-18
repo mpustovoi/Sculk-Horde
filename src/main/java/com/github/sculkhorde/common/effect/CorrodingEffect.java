@@ -70,6 +70,7 @@ public class CorrodingEffect extends MobEffect {
         return victim.canBeAffected(new MobEffectInstance(effect, 0, 0));
     }
 
+    
     public float getNextFloatBetweenInclusive(RandomSource rng, float min, float max)
     {
         return (rng.nextFloat() * (max-min)) + min;

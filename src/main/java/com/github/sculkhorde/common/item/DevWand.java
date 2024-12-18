@@ -1,6 +1,7 @@
 package com.github.sculkhorde.common.item;
 
-import com.github.sculkhorde.util.ParticleUtil;
+import com.github.sculkhorde.core.SculkHorde;
+import com.github.sculkhorde.util.StructureUtil;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
@@ -22,6 +23,7 @@ public class DevWand extends Item implements IForgeItem {
 	 * Also this is just an example item, I don't intend for this to be used
 	*/
 
+	StructureUtil.StructurePlacer structurePlacer;
 
 	/**
 	 * The Constructor that takes in properties

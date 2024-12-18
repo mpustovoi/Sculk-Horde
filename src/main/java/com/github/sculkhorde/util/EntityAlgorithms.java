@@ -14,6 +14,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.TickTask;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -24,6 +25,8 @@ import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.animal.WaterAnimal;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.ClipContext;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
@@ -467,6 +470,17 @@ public class EntityAlgorithms {
         return list;
     }
 
+    public static List<LivingEntity> getEntitiesExceptOwnerInBoundingBox(LivingEntity entity, ServerLevel serverLevel, AABB boundingBox)
+    {
+        List<LivingEntity> list = serverLevel.getEntitiesOfClass(LivingEntity.class, boundingBox, new Predicate<LivingEntity>() {
+            @Override
+            public boolean test(LivingEntity livingEntity) {
+                return entity == null || livingEntity.getUUID() != entity.getUUID();
+            }
+        });
+        return list;
+    }
+
     public static Optional<LivingEntity> getNearestHostile(ServerLevel serverLevel, BlockPos position, AABB boundingBox) {
 
         // Get the list of hostile entities within the bounding box
@@ -500,6 +514,23 @@ public class EntityAlgorithms {
         return entities;
     }
 
+    public static List<Player> getPlayersInBoundingBox(ServerLevel serverLevel, AABB boundingBox, Predicate<Entity> predicate)
+    {
+        List<Player> entities = serverLevel.getEntitiesOfClass(Player.class, boundingBox, predicate);
+        return entities;
+    }
+
+    public static List<LivingEntity> getNonSculkUnitsInBoundingBox(Level serverLevel, AABB boundingBox)
+    {
+        List<LivingEntity> entities = serverLevel.getEntitiesOfClass(LivingEntity.class, boundingBox, new Predicate<LivingEntity>() {
+            @Override
+            public boolean test(LivingEntity livingEntity) {
+                return !(EntityAlgorithms.isSculkLivingEntity.test(livingEntity));
+            }
+        });
+        return entities;
+    }
+
     public static AABB createBoundingBoxCubeAtBlockPos(Vec3 origin, int squareLength)
     {
         double halfLength = squareLength/2;
@@ -529,11 +560,68 @@ public class EntityAlgorithms {
         return livingEntitiesInRange;
     }
 
+    public static HitResult getHitScan(Entity entity, Vec3 origin, float xRot, float yRot, float maxDistance) {
+        // Calculate direction vectors
+        float cosYaw = Mth.cos(-yRot * ((float) Math.PI / 180F) - (float) Math.PI);
+        float sinYaw = Mth.sin(-yRot * ((float) Math.PI / 180F) - (float) Math.PI);
+        float cosPitch = -Mth.cos(-xRot * ((float) Math.PI / 180F));
+        float sinPitch = Mth.sin(-xRot * ((float) Math.PI / 180F));
+        float directionX = sinYaw * cosPitch;
+        float directionZ = cosYaw * cosPitch;
+
+        Vec3 endPosition = origin.add((double) directionX * maxDistance, (double) sinPitch * maxDistance, (double) directionZ * maxDistance);
+        return entity.level().clip(new ClipContext(origin, endPosition, ClipContext.Block.OUTLINE, ClipContext.Fluid.NONE, entity));
+    }
+
+    public static HitResult getHitScanAtTarget(Entity entity, Vec3 origin, Entity target, float maxDistance) {
+        Vec3 startPosition = origin;
+        Vec3 targetPosition = target.getEyePosition();
+
+        // Calculate the difference in positions
+        double deltaX = targetPosition.x - startPosition.x;
+        double deltaY = targetPosition.y - startPosition.y;
+        double deltaZ = targetPosition.z - startPosition.z;
+
+        // Calculate the horizontal distance
+        double horizontalDistance = Math.sqrt(deltaX * deltaX + deltaZ * deltaZ);
+
+        // Calculate rotations
+        float xRot = (float) -(Math.atan2(deltaY, horizontalDistance) * (180F / Math.PI));
+        float yRot = (float) (Math.atan2(deltaZ, deltaX) * (180F / Math.PI)) - 90F;
+
+        return getHitScan(entity, origin, xRot, yRot, maxDistance);
+    }
+
 
 
     public static void announceToAllPlayers(ServerLevel level, Component message)
     {
         level.players().forEach((player) -> player.displayClientMessage(message, false));
+    }
+
+    public static double getHeightOffGround(Entity entity) {
+        // Starting point of the ray (entity's position)
+        Vec3 startPos = entity.position();
+
+        // Ending point of the ray (directly below the entity)
+        Vec3 endPos = startPos.subtract(0, entity.getY() + 256, 0); // 256 blocks down should be enough
+
+        // Perform the ray trace
+        HitResult hitResult = entity.level().clip(new ClipContext(
+                startPos,
+                endPos,
+                ClipContext.Block.COLLIDER,
+                ClipContext.Fluid.NONE,
+                entity
+        ));
+
+        // Calculate the distance from the entity to the hit point
+        if (hitResult.getType() == HitResult.Type.BLOCK) {
+            return startPos.y - hitResult.getLocation().y;
+        } else {
+            // If no block is hit, return a large number indicating the entity is very high off the ground
+            return Double.MAX_VALUE;
+        }
     }
 
     public static class DelayedHurtScheduler

@@ -39,6 +39,8 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SCULK_VINDICATOR_DEATH = registerSoundEvent("sculk_vindicator_death");
     public static final RegistryObject<SoundEvent> BURROWED_BURST = registerSoundEvent("burrowed_burst");
 
+    public static final RegistryObject<SoundEvent> ZOLTRAAK_ATTACK = registerSoundEvent("zoltraak");
+
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         ResourceLocation id = new ResourceLocation(SculkHorde.MOD_ID, name);

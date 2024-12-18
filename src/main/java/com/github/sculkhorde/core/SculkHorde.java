@@ -1,5 +1,6 @@
 package com.github.sculkhorde.core;
 
+import com.github.sculkhorde.common.block.InfestationEntries.BlockInfestationTable;
 import com.github.sculkhorde.common.loot.ModLootModifier;
 import com.github.sculkhorde.common.pools.PoolBlocks;
 import com.github.sculkhorde.systems.*;
@@ -9,6 +10,9 @@ import com.github.sculkhorde.systems.event_system.EventSystem;
 import com.github.sculkhorde.misc.StatisticsData;
 import com.github.sculkhorde.misc.contributions.ContributionHandler;
 import com.github.sculkhorde.systems.raid_system.RaidHandler;
+import com.github.sculkhorde.systems.AutoPerformanceSystem;
+import com.github.sculkhorde.systems.BeeNestActivitySystem;
+import com.github.sculkhorde.systems.HitSquadDispatcherSystem;
 import com.github.sculkhorde.util.ChunkLoading.BlockEntityChunkLoaderHelper;
 import com.github.sculkhorde.util.ChunkLoading.EntityChunkLoaderHelper;
 import com.github.sculkhorde.util.DeathAreaInvestigator;
@@ -36,6 +40,11 @@ public class SculkHorde {
     public static Gravemind gravemind;
     public static ModSavedData savedData;
     public static final Logger LOGGER = LogUtils.getLogger();
+    public static BlockInfestationTable explicitInfectableBlocks;
+    public static BlockInfestationTable tagInfectableBlocks;
+    public static BlockInfestationTable tagInfectableStairsAndSlabsBlocks;
+    public static BlockInfestationTable configInfectableBlocks;
+    public static BlockInfestationTable[] INFESTATION_TABLES;
     public static PoolBlocks randomSculkFlora;
     public static DeathAreaInvestigator deathAreaInvestigator;
     public static RaidHandler raidHandler;
@@ -47,6 +56,7 @@ public class SculkHorde {
     public static EntityChunkLoaderHelper entityChunkLoaderHelper = new EntityChunkLoaderHelper();
     public static final ContributionHandler contributionHandler = new ContributionHandler();
     public static final SculkPopulationSystem populationHandler = new SculkPopulationSystem();
+    public static final HitSquadDispatcherSystem hitSquadDispatcherSystem = new HitSquadDispatcherSystem();
     public static BeeNestActivitySystem beeNestActivitySystem;
 
     public static AutoPerformanceSystem autoPerformanceSystem;

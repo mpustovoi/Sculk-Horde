@@ -167,5 +167,11 @@
     "sounds": [
       "sculkhorde:burrowed_burst"
     ]
+    },
+  "zoltraak": {
+    "subtitle": "sounds.sculkhorde.zoltraak",
+    "sounds": [
+      "sculkhorde:zoltraak"
+    ]
   }
 }

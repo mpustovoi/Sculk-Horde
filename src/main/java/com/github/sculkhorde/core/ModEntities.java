@@ -5,6 +5,11 @@ import com.github.sculkhorde.common.entity.boss.sculk_enderman.ChaosTeleporation
 import com.github.sculkhorde.common.entity.boss.sculk_enderman.EnderBubbleAttackEntity;
 import com.github.sculkhorde.common.entity.boss.sculk_enderman.SculkEndermanEntity;
 import com.github.sculkhorde.common.entity.boss.sculk_enderman.SculkSpineSpikeAttackEntity;
+import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.*;
+import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.ElementalBreezeMagicCircleEntity;
+import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.ElementalFireMagicCircleEntity;
+import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.ElementalIceMagicCircleEntity;
+import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.ElementalPoisonMagicCircleEntity;
 import com.github.sculkhorde.common.entity.infection.*;
 import com.github.sculkhorde.common.entity.projectile.CustomItemProjectileEntity;
 import com.github.sculkhorde.common.entity.projectile.PurificationFlaskProjectileEntity;
@@ -56,8 +61,10 @@ public class ModEntities {
     public static final RegistryObject<EntityType<SculkPufferfishEntity>> SCULK_PUFFERFISH = registerMob("sculk_pufferfish", SculkPufferfishEntity::new, 0.9f, 0.9f, 0x000000, 0x000000);
     public static final RegistryObject<EntityType<SculkWitchEntity>> SCULK_WITCH = registerMob("sculk_witch", SculkWitchEntity::new, 0.9f, 2.8f, 0x000000, 0x000000);
 
-    //public static final RegistryObject<EntityType<SculkSoulReaperEntity>> SCULK_SOUL_REAPER = registerMob("sculk_soul_reaper", SculkSoulReaperEntity::new, 0.9f, 2.8f, 0x000000, 0x000000);
-    //public static final RegistryObject<EntityType<SculkVexEntity>> SCULK_VEX = registerMob("sculk_vex", SculkVexEntity::new, 0.8f, 0.8f, 0x000000, 0x000000);
+    public static final RegistryObject<EntityType<LivingArmorEntity>> LIVING_ARMOR = registerMob("living_armor", LivingArmorEntity::new, 0.6f, 1.95f, 0x000000, 0x000000);
+
+    public static final RegistryObject<EntityType<SculkSoulReaperEntity>> SCULK_SOUL_REAPER = registerMob("sculk_soul_reaper", SculkSoulReaperEntity::new, 0.9f, 1.9f, 0x000000, 0x000000);
+    public static final RegistryObject<EntityType<SculkVexEntity>> SCULK_VEX = registerMob("sculk_vex", SculkVexEntity::new, 0.8f, 0.8f, 0x000000, 0x000000);
 
 
     public static final RegistryObject<EntityType<CursorProberEntity>> CURSOR_PROBER = ENTITY_TYPES.register("cursor_prober", () -> EntityType.Builder.<CursorProberEntity>of(CursorProberEntity::new, MobCategory.MISC).sized(1f, 1f).clientTrackingRange(4).updateInterval(10).build("cursor_prober"));
@@ -74,6 +81,19 @@ public class ModEntities {
     public static final RegistryObject<EntityType<InfestationPurifierEntity>> INFESTATION_PURIFIER = ENTITY_TYPES.register("infestation_purifier", () -> EntityType.Builder.<InfestationPurifierEntity>of(InfestationPurifierEntity::new, MobCategory.MISC).sized(1f, 1f).clientTrackingRange(4).updateInterval(10).build("infestation_purifier"));
     public static final RegistryObject<EntityType<AreaEffectSphericalCloudEntity>> AREA_EFFECT_SPHERICAL_CLOUD = ENTITY_TYPES.register("area_effect_spherical_cloud", () -> EntityType.Builder.<AreaEffectSphericalCloudEntity>of(AreaEffectSphericalCloudEntity::new, MobCategory.MISC).sized(1f, 1f).clientTrackingRange(4).updateInterval(10).build("area_effect_spherical_cloud"));
 
+    public static final RegistryObject<EntityType<SoulFireProjectileEntity>> SOUL_FIRE_PROJECTILE = ENTITY_TYPES.register("soul_fire_projectile", () -> EntityType.Builder.<SoulFireProjectileEntity>of(SoulFireProjectileEntity::new, MobCategory.MISC).sized(0.9F, 0.9F).clientTrackingRange(4).updateInterval(4).build("soul_fire_projectile"));
+    public static final RegistryObject<EntityType<SoulPoisonProjectileEntity>> SOUL_POISON_PROJECTILE = ENTITY_TYPES.register("soul_poison_projectile", () -> EntityType.Builder.<SoulPoisonProjectileEntity>of(SoulPoisonProjectileEntity::new, MobCategory.MISC).sized(0.9F, 0.9F).clientTrackingRange(4).updateInterval(4).build("soul_poison_projectile"));
+    public static final RegistryObject<EntityType<SoulIceProjectileEntity>> SOUL_ICE_PROJECTILE = ENTITY_TYPES.register("soul_ice_projectile", () -> EntityType.Builder.<SoulIceProjectileEntity>of(SoulIceProjectileEntity::new, MobCategory.MISC).sized(0.9F, 0.9F).clientTrackingRange(4).updateInterval(4).build("soul_ice_projectile"));
+    public static final RegistryObject<EntityType<SoulBreezeProjectileEntity>> SOUL_BREEZE_PROJECTILE = ENTITY_TYPES.register("soul_breeze_projectile", () -> EntityType.Builder.<SoulBreezeProjectileEntity>of(SoulBreezeProjectileEntity::new, MobCategory.MISC).sized(0.9F, 0.9F).clientTrackingRange(4).updateInterval(4).build("soul_breeze_projectile"));
+    public static final RegistryObject<EntityType<SoulSpearProjectileEntity>> SOUL_SPEAR_PROJECTILE = ENTITY_TYPES.register("soul_spear_projectile", () -> EntityType.Builder.<SoulSpearProjectileEntity>of(SoulSpearProjectileEntity::new, MobCategory.MISC).sized(0.9F, 0.9F).clientTrackingRange(4).updateInterval(4).build("soul_poison_projectile"));
+    public static final RegistryObject<EntityType<SoulFlySwatterProjectileEntity>> SOUL_FLY_SWATTER_PROJECTILE = ENTITY_TYPES.register("soul_fly_swatter_projectile", () -> EntityType.Builder.<SoulFlySwatterProjectileEntity>of(SoulFlySwatterProjectileEntity::new, MobCategory.MISC).sized(3.0F, 3.0F).clientTrackingRange(4).updateInterval(1).build("soul_fly_swatter_projectile"));
+    public static final RegistryObject<EntityType<FloorSoulSpearsEntity>> FLOOR_SOUL_SPEARS = ENTITY_TYPES.register("floor_soul_spears", () -> EntityType.Builder.<FloorSoulSpearsEntity>of(FloorSoulSpearsEntity::new, MobCategory.MISC).sized(0.9F, 2.0F).clientTrackingRange(4).updateInterval(1).build("floor_soul_spears"));
+
+    public static final RegistryObject<EntityType<ElementalFireMagicCircleEntity>> ELEMENTAL_FIRE_MAGIC_CIRCLE = ENTITY_TYPES.register("elemental_fire_magic_circle", () -> EntityType.Builder.<ElementalFireMagicCircleEntity>of(ElementalFireMagicCircleEntity::new, MobCategory.MISC).sized(3f, 3f).clientTrackingRange(4).updateInterval(10).build("elemental_fire_magic_circle"));
+    public static final RegistryObject<EntityType<ElementalPoisonMagicCircleEntity>> ELEMENTAL_POISON_MAGIC_CIRCLE = ENTITY_TYPES.register("elemental_poison_magic_circle", () -> EntityType.Builder.<ElementalPoisonMagicCircleEntity>of(ElementalPoisonMagicCircleEntity::new, MobCategory.MISC).sized(3f, 3f).clientTrackingRange(4).updateInterval(10).build("elemental_poison_magic_circle"));
+    public static final RegistryObject<EntityType<ElementalIceMagicCircleEntity>> ELEMENTAL_ICE_MAGIC_CIRCLE = ENTITY_TYPES.register("elemental_ice_magic_circle", () -> EntityType.Builder.<ElementalIceMagicCircleEntity>of(ElementalIceMagicCircleEntity::new, MobCategory.MISC).sized(3f, 3f).clientTrackingRange(4).updateInterval(10).build("elemental_ice_magic_circle"));
+    public static final RegistryObject<EntityType<ElementalBreezeMagicCircleEntity>> ELEMENTAL_BREEZE_MAGIC_CIRCLE = ENTITY_TYPES.register("elemental_breeze_magic_circle", () -> EntityType.Builder.<ElementalBreezeMagicCircleEntity>of(ElementalBreezeMagicCircleEntity::new, MobCategory.MISC).sized(3f, 3f).clientTrackingRange(4).updateInterval(10).build("elemental_breeze_magic_circle"));
+    public static final RegistryObject<EntityType<SoulSpearSummonerEntity>> SOUL_SPEAR_SUMMONER = ENTITY_TYPES.register("soul_spear_summoner_entity", () -> EntityType.Builder.<SoulSpearSummonerEntity>of(SoulSpearSummonerEntity::new, MobCategory.MISC).sized(3f, 3f).clientTrackingRange(4).updateInterval(10).build("soul_spear_summoner_entity"));
 
     public static class EntityTags
     {

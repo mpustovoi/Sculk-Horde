@@ -15,5 +15,7 @@ public class ModMobEffects {
     public static final RegistryObject<DiseasedCystsEffect> DISEASED_CYSTS = EFFECTS.register("diseased_cysts", DiseasedCystsEffect::new);
     public static final RegistryObject<SculkVesselEffect> SCULK_VESSEL = EFFECTS.register("sculk_vessel", SculkVesselEffect::new);
     public static final RegistryObject<CorrodingEffect> CORRODED = EFFECTS.register("corroded", CorrodingEffect::new);
+    public static final RegistryObject<DenseEffect> DENSE = EFFECTS.register("dense", DenseEffect::new);
+    public static final RegistryObject<SoulDisruptionEffect> SOUL_DISRUPTION = EFFECTS.register("soul_disruption", SoulDisruptionEffect::new);
 
 }

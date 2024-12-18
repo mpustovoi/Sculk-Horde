@@ -1,53 +1,27 @@
-package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper;
+package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.goals;
 
-import com.github.sculkhorde.util.TickUnits;
+import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SculkSoulReaperEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.projectile.EvokerFangs;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.shapes.VoxelShape;
 
-import java.util.EnumSet;
-
-public class FangsAttackGoal extends Goal
+public class FangsAttackGoal extends ReaperCastSpellGoal
 {
-    private final Mob mob;
-    protected final int executionCooldown = TickUnits.convertSecondsToTicks(5);
-    protected long lastTimeOfExecution;
-
-
-    public FangsAttackGoal(PathfinderMob mob) {
-        this.mob = mob;
-        this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
-    }
-
-    public boolean requiresUpdateEveryTick() {
-        return true;
-    }
-
-    private SculkSoulReaperEntity getEntity()
-    {
-        return (SculkSoulReaperEntity)this.mob;
+    public FangsAttackGoal(SculkSoulReaperEntity mob) {
+        super(mob);
     }
 
     @Override
     public boolean canUse()
     {
-
-        if(mob.level().getGameTime() - lastTimeOfExecution < executionCooldown)
+        if(!super.canUse())
         {
             return false;
         }
-        if(mob.getTarget() == null)
-        {
-            return false;
-        }
-
         if(!mob.getTarget().onGround())
         {
             return false;
@@ -57,17 +31,9 @@ public class FangsAttackGoal extends Goal
     }
 
     @Override
-    public boolean canContinueToUse()
-    {
-        return false;
-    }
-
-    @Override
-    public void start()
-    {
-        super.start();
+    protected void doAttackTick() {
         performSpellCasting();
-        lastTimeOfExecution = mob.level().getGameTime();
+        setSpellCompleted();
     }
 
     // Performs the spell casting action
@@ -131,5 +97,4 @@ public class FangsAttackGoal extends Goal
             mob.level().addFreshEntity(new EvokerFangs(mob.level(), x, (double)blockPos.getY() + yOffset, z, angle, delay, mob));
         }
     }
-
 }

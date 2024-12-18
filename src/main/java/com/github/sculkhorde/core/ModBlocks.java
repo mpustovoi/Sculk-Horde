@@ -1,11 +1,6 @@
 package com.github.sculkhorde.core;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Supplier;
-
 import com.github.sculkhorde.common.block.*;
-
 import com.mojang.blaze3d.platform.InputConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -28,10 +23,13 @@ import org.lwjgl.glfw.GLFW;
 import oshi.util.tuples.Pair;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
 
 public class ModBlocks {
-    public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, SculkHorde.MOD_ID);
-    public static final List<Pair<RegistryObject<? extends Block>, ResourceLocation>> BLOCKS_TO_DATAGEN = new ArrayList<>();
+	public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, SculkHorde.MOD_ID);
+	public static final List<Pair<RegistryObject<? extends Block>, ResourceLocation>> BLOCKS_TO_DATAGEN = new ArrayList<>();
 
 	//Method to Register Blocks & Register them as items
 	private static <T extends Block> RegistryObject<T> registerBlock(String name, Supplier<T> block)
@@ -104,25 +102,25 @@ public class ModBlocks {
 
 	//NOTE: Learned from https://www.youtube.com/watch?v=4igJ_nsFAZs "Creating a Block - Minecraft Forge 1.16.4 Modding Tutorial"
 
-    //Register Ancient Large Bricks
-    public static final RegistryObject<Block> ANCIENT_LARGE_BRICKS =
+	//Register Ancient Large Bricks
+	public static final RegistryObject<Block> ANCIENT_LARGE_BRICKS =
 			registerBlock("ancient_large_bricks", () -> new Block(BlockBehaviour.Properties.of()
-							.mapColor(MapColor.TERRACOTTA_BLUE)
-							.strength(4f, 30f)
-							.requiresCorrectToolForDrops()
-							.destroyTime(10f)
-							.sound(SoundType.ANCIENT_DEBRIS)
-    					));
+					.mapColor(MapColor.TERRACOTTA_BLUE)
+					.strength(4f, 30f)
+					.requiresCorrectToolForDrops()
+					.destroyTime(10f)
+					.sound(SoundType.ANCIENT_DEBRIS)
+			));
 
-    //Ancient Large Tile
-    public static final RegistryObject<Block> ANCIENT_LARGE_TILE =
+	//Ancient Large Tile
+	public static final RegistryObject<Block> ANCIENT_LARGE_TILE =
 			registerBlock("ancient_large_tile", () -> new Block(BlockBehaviour.Properties.of()
-							.mapColor(MapColor.TERRACOTTA_BLUE)
-							.strength(4f, 30f)//Hardness & Resistance
-							.requiresCorrectToolForDrops()
-							.destroyTime(10f)
-							.sound(SoundType.ANCIENT_DEBRIS)
-    					));
+					.mapColor(MapColor.TERRACOTTA_BLUE)
+					.strength(4f, 30f)//Hardness & Resistance
+					.requiresCorrectToolForDrops()
+					.destroyTime(10f)
+					.sound(SoundType.ANCIENT_DEBRIS)
+			));
 	public static final RegistryObject<SculkArachnoidBlock> SCULK_ARACHNOID =
 			registerBlock("sculk_arachnoid", SculkArachnoidBlock::new);
 	public static final RegistryObject<SculkDuraMatterBlock> SCULK_DURA_MATTER =
@@ -131,11 +129,11 @@ public class ModBlocks {
 
 	public static final RegistryObject<Block> CALCITE_ORE =
 			registerBlock("calcite_ore", () -> new Block(BlockBehaviour.Properties.of()
-						.mapColor(MapColor.QUARTZ)
-						.strength(4f, 30f)//Hardness & Resistance
-						.destroyTime(5f)
-						.requiresCorrectToolForDrops()
-						.sound(SoundType.ANCIENT_DEBRIS)
+					.mapColor(MapColor.QUARTZ)
+					.strength(4f, 30f)//Hardness & Resistance
+					.destroyTime(5f)
+					.requiresCorrectToolForDrops()
+					.sound(SoundType.ANCIENT_DEBRIS)
 			)
 			{
 				@Override
@@ -164,7 +162,7 @@ public class ModBlocks {
 					.requiresCorrectToolForDrops()
 					.sound(SoundType.ANCIENT_DEBRIS)
 			));
-	
+
 	public static final RegistryObject<StairBlock> INFESTED_STONE_STAIRS =
 			stairs(INFESTED_STONE);
 
@@ -521,7 +519,7 @@ public class ModBlocks {
 					.requiresCorrectToolForDrops()
 					.sound(SoundType.STONE)
 			));
-	
+
 	public static final RegistryObject<StairBlock> INFESTED_COBBLESTONE_STAIRS =
 			stairs(INFESTED_COBBLESTONE);
 
@@ -656,7 +654,7 @@ public class ModBlocks {
 					.requiresCorrectToolForDrops()
 					.sound(SoundType.STONE)
 			));
-	
+
 	public static final RegistryObject<StairBlock> INFESTED_MOSSY_COBBLESTONE_STAIRS =
 			stairs(INFESTED_MOSSY_COBBLESTONE);
 
@@ -737,7 +735,7 @@ public class ModBlocks {
 					.requiresCorrectToolForDrops()
 					.sound(SoundType.WOOD)
 			));
-	
+
 	public static final RegistryObject<InfestedStairBlock> INFESTED_WOOD_STAIRS =
 			registerBlock("infested_wood_stairs", () -> new InfestedStairBlock(BlockBehaviour.Properties.of()
 					.mapColor(MapColor.QUARTZ)
@@ -954,6 +952,22 @@ public class ModBlocks {
 
 	public static final RegistryObject<DiseasedKelpBlock> DISEASED_KELP_BLOCK =
 			registerBlock("diseased_kelp_block", DiseasedKelpBlock::new);
+
+	public static final RegistryObject<SouliteBlock> SOULITE_BLOCK =
+			registerBlock("soulite_block", SouliteBlock::new);
+
+	public static final RegistryObject<SouliteClusterBlock> SOULITE_CLUSTER_BLOCK =
+			registerBlock("soulite_cluster", SouliteClusterBlock::new);
+	public static final RegistryObject<DepletedSouliteBlock> DEPLETED_SOULITE_BLOCK =
+			registerBlock("depleted_soulite_block", DepletedSouliteBlock::new);
+
+	public static final RegistryObject<BuddingSouliteBlock> BUDDING_SOULITE_BLOCK =
+			registerBlock("budding_soulite_block", BuddingSouliteBlock::new);
+	public static final RegistryObject<StructureOriginBlock> STRUCTURE_ORIGIN_BLOCK =
+			registerBlock("structure_origin_block", StructureOriginBlock::new);
+
+	public static final RegistryObject<StructureCoreBlock> STRUCTURE_CORE_BLOCK =
+			registerBlock("structure_core_block", StructureCoreBlock::new);
 
 	static {
 		datagen(INFESTED_STONE_BRICKS);
