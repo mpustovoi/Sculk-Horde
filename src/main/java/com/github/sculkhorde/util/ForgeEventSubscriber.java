@@ -104,10 +104,14 @@ public class ForgeEventSubscriber {
         SculkHorde.eventSystem.serverTick();
         SculkHorde.cursorSystem.serverTick();
         SculkHorde.populationHandler.serverTick();
-        SculkHorde.hitSquadDispatcherSystem.serverTick();
         SculkHorde.blockEntityChunkLoaderHelper.processBlockChunkLoadRequests();
         SculkHorde.entityChunkLoaderHelper.processEntityChunkLoadRequests();
         SculkHorde.beeNestActivitySystem.serverTick();
+
+        if(ModConfig.isExperimentalFeaturesEnabled())
+        {
+            SculkHorde.hitSquadDispatcherSystem.serverTick();
+        }
 
         // Only run stuff below every 5 minutes
         if (event.level.getGameTime() - time_save_point < TickUnits.convertMinutesToTicks(5))
