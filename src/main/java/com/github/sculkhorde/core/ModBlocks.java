@@ -969,6 +969,9 @@ public class ModBlocks {
 	public static final RegistryObject<StructureCoreBlock> STRUCTURE_CORE_BLOCK =
 			registerBlock("structure_core_block", StructureCoreBlock::new);
 
+	public static final RegistryObject<SouliteCoreBlock> SOULITE_CORE_BLOCK =
+			registerBlock("soulite_core_block", SouliteCoreBlock::new);
+
 	static {
 		datagen(INFESTED_STONE_BRICKS);
 		datagen(INFESTED_MOSSY_STONE_BRICKS, "infested_stone_bricks");

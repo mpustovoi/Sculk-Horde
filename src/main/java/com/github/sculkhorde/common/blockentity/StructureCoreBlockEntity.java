@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlaceSettings;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
@@ -36,6 +37,11 @@ public class StructureCoreBlockEntity extends BlockEntity
     public StructureCoreBlockEntity(BlockPos blockPos, BlockState blockState)
     {
         super(ModBlockEntities.STRUCTURE_CORE_BLOCK_ENTITY.get(), blockPos, blockState);
+    }
+
+    public StructureCoreBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState)
+    {
+        super(blockEntityType, blockPos, blockState);
     }
 
 
