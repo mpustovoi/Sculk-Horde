@@ -958,6 +958,9 @@ public class ModBlocks {
 
 	public static final RegistryObject<SouliteClusterBlock> SOULITE_CLUSTER_BLOCK =
 			registerBlock("soulite_cluster", SouliteClusterBlock::new);
+
+	public static final RegistryObject<SouliteBudBlock> SOULITE_BUD_BLOCK =
+			registerBlock("soulite_bud_block", SouliteBudBlock::new);
 	public static final RegistryObject<DepletedSouliteBlock> DEPLETED_SOULITE_BLOCK =
 			registerBlock("depleted_soulite_block", DepletedSouliteBlock::new);
 

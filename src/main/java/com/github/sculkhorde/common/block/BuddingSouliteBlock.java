@@ -89,32 +89,32 @@ public class BuddingSouliteBlock extends HalfTransparentBlock implements IForgeB
         BlockPos down = pos.below();
         if(level.getBlockState(north).canBeReplaced())
         {
-            level.setBlockAndUpdate(north, ModBlocks.SOULITE_CLUSTER_BLOCK.get().defaultBlockState().setValue(SouliteClusterBlock.FACING, Direction.NORTH));
+            level.setBlockAndUpdate(north, ModBlocks.SOULITE_BUD_BLOCK.get().defaultBlockState().setValue(SouliteClusterBlock.FACING, Direction.NORTH));
         }
 
         if(level.getBlockState(east).canBeReplaced())
         {
-            level.setBlockAndUpdate(east, ModBlocks.SOULITE_CLUSTER_BLOCK.get().defaultBlockState().setValue(SouliteClusterBlock.FACING, Direction.EAST));
+            level.setBlockAndUpdate(east, ModBlocks.SOULITE_BUD_BLOCK.get().defaultBlockState().setValue(SouliteClusterBlock.FACING, Direction.EAST));
         }
 
         if(level.getBlockState(south).canBeReplaced())
         {
-            level.setBlockAndUpdate(south, ModBlocks.SOULITE_CLUSTER_BLOCK.get().defaultBlockState().setValue(SouliteClusterBlock.FACING, Direction.SOUTH));
+            level.setBlockAndUpdate(south, ModBlocks.SOULITE_BUD_BLOCK.get().defaultBlockState().setValue(SouliteClusterBlock.FACING, Direction.SOUTH));
         }
 
         if(level.getBlockState(west).canBeReplaced())
         {
-            level.setBlockAndUpdate(west, ModBlocks.SOULITE_CLUSTER_BLOCK.get().defaultBlockState().setValue(SouliteClusterBlock.FACING, Direction.WEST));
+            level.setBlockAndUpdate(west, ModBlocks.SOULITE_BUD_BLOCK.get().defaultBlockState().setValue(SouliteClusterBlock.FACING, Direction.WEST));
         }
 
         if(level.getBlockState(up).canBeReplaced())
         {
-            level.setBlockAndUpdate(up, ModBlocks.SOULITE_CLUSTER_BLOCK.get().defaultBlockState().setValue(SouliteClusterBlock.FACING, Direction.UP));
+            level.setBlockAndUpdate(up, ModBlocks.SOULITE_BUD_BLOCK.get().defaultBlockState().setValue(SouliteClusterBlock.FACING, Direction.UP));
         }
 
         if(level.getBlockState(down).canBeReplaced())
         {
-            level.setBlockAndUpdate(down, ModBlocks.SOULITE_CLUSTER_BLOCK.get().defaultBlockState().setValue(SouliteClusterBlock.FACING, Direction.DOWN));
+            level.setBlockAndUpdate(down, ModBlocks.SOULITE_BUD_BLOCK.get().defaultBlockState().setValue(SouliteClusterBlock.FACING, Direction.DOWN));
         }
     }
 
