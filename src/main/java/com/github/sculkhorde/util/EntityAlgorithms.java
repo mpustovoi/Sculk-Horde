@@ -90,11 +90,12 @@ public class EntityAlgorithms {
         {
             return false;
         }
-
+		
+		boolean isEntityImmune = !entity.canBeAffected(new MobEffectInstance(debuff, 5, 0));
         boolean isEntityInvulnerable = entity.isInvulnerable();
         boolean isEntityAttackable = entity.isAttackable();
         boolean doesEntityHaveDebuffAlready = entity.hasEffect(debuff);
-        if(isEntityInvulnerable || !isEntityAttackable || doesEntityHaveDebuffAlready)
+        if(isEntityImmune || isEntityInvulnerable || !isEntityAttackable || doesEntityHaveDebuffAlready)
         {
             return false;
         }

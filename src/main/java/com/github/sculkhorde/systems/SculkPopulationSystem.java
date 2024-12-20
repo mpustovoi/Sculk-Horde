@@ -97,8 +97,8 @@ public class SculkPopulationSystem {
             {
                 ((LivingEntity) entity).discard();
                 SculkHorde.savedData.addSculkAccumulatedMass((int) ((LivingEntity) entity).getHealth());
+                SculkHorde.statisticsData.addTotalMassFromDespawns((int) ((LivingEntity) entity).getHealth());
             }
         }
     }
 }
-
