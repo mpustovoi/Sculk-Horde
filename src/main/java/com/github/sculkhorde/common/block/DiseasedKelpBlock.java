@@ -128,7 +128,7 @@ public class DiseasedKelpBlock extends Block implements IForgeBlock, LiquidBlock
 
         entity.makeStuckInBlock(blockState, new Vec3(0.8F, 0.75D, (double)0.8F));
         entity.hurt(entity.damageSources().generic(), 1.0F);
-        EntityAlgorithms.applyEffectToTarget(((LivingEntity) entity), ModMobEffects.DISEASED_CYSTS.get(), TickUnits.convertSecondsToTicks(10), 0);
+        EntityAlgorithms.applyEffectToTarget(((LivingEntity) entity), ModMobEffects.SCULK_INFECTION.get(), TickUnits.convertSecondsToTicks(30), 0);
     }
 
     @Override
