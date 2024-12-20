@@ -35,13 +35,13 @@ public class BlockInfestationSystem {
     public static BlockInfestationTable tagInfectableNonFullBlocks;
     public static BlockInfestationTable configInfectableBlocks;
 
-    public static int WEIGHT_SOULITE = 100;
-    public static int WEIGHT_SCULK_CATALYST = 5000;
-    public static int WEIGHT_SCULK_SUMMONER = 7000;
-    public static int WEIGHT_SCULK_SENSOR = 9000;
+    public static int WEIGHT_SOULITE = 10;
+    public static int WEIGHT_SCULK_CATALYST = 500;
+    public static int WEIGHT_SCULK_SUMMONER = 4000;
+    public static int WEIGHT_SCULK_SENSOR = 7000;
     public static int WEIGHT_SPIKE = 10000;
     public static int WEIGHT_SHROOMS = 12000;
-    public static int WEIGHT_GRASS = 40000;
+    public static int WEIGHT_GRASS = 80000;
 
     public static void initialize()
     {
