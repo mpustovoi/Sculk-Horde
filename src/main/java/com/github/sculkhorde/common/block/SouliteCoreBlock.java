@@ -2,8 +2,6 @@ package com.github.sculkhorde.common.block;
 
 import com.github.sculkhorde.common.blockentity.SouliteCoreBlockEntity;
 import com.github.sculkhorde.core.ModBlockEntities;
-import com.github.sculkhorde.core.ModBlocks;
-import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.SoundType;
@@ -83,9 +81,6 @@ public class SouliteCoreBlock extends StructureCoreBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
         SouliteCoreBlockEntity blockEntity = new SouliteCoreBlockEntity(blockPos, state);
-        blockEntity.setStructureResourceLocation("sculkhorde:test_soulite_structure");
-        blockEntity.setBlockPlacementCooldown(TickUnits.convertSecondsToTicks(0.2F));
-        blockEntity.setBlockToConvertToAfterBuilding(ModBlocks.BUDDING_SOULITE_BLOCK.get().defaultBlockState());
         return blockEntity;
     }
 }

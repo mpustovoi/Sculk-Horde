@@ -1,13 +1,13 @@
 package com.github.sculkhorde.common.blockentity;
 
 import com.github.sculkhorde.core.ModBlockEntities;
+import com.github.sculkhorde.core.ModBlocks;
 import com.github.sculkhorde.util.StructureUtil;
 import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -15,6 +15,8 @@ import net.minecraft.world.level.levelgen.structure.templatesystem.StructurePlac
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate;
 import net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplateManager;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Optional;
 
 
@@ -23,11 +25,9 @@ public class StructureCoreBlockEntity extends BlockEntity
     StructureUtil.StructurePlacer structurePlacer;
     protected long tickedAt = 0;
 
-    protected long blockPlacementCooldown = TickUnits.convertSecondsToTicks(0.5F);
     protected String structureResourceLocation = "sculkhorde:test_soulite_structure";
 
-    protected BlockState blockToConvertToAfterBuilding = Blocks.DIRT.defaultBlockState();
-
+    ArrayList<String> structureVariants = new ArrayList<>();
 
     /**
      * The Constructor that takes in properties
@@ -36,36 +36,53 @@ public class StructureCoreBlockEntity extends BlockEntity
      */
     public StructureCoreBlockEntity(BlockPos blockPos, BlockState blockState)
     {
-        super(ModBlockEntities.STRUCTURE_CORE_BLOCK_ENTITY.get(), blockPos, blockState);
+        this(ModBlockEntities.STRUCTURE_CORE_BLOCK_ENTITY.get(), blockPos, blockState);
     }
 
     public StructureCoreBlockEntity(BlockEntityType<?> blockEntityType, BlockPos blockPos, BlockState blockState)
     {
         super(blockEntityType, blockPos, blockState);
+        loadStructureVariants();
+        setRandomStructureVariant();
     }
 
 
     /** Accessors **/
+
+    protected int getBlockPlacementCooldown()
+    {
+        return TickUnits.convertSecondsToTicks(0.2F);
+    }
+
+    protected BlockState getBlockToConvertToAfterBuilding()
+    {
+        return ModBlocks.BUDDING_SOULITE_BLOCK.get().defaultBlockState();
+    }
+
+    protected void setRandomStructureVariant()
+    {
+        Collections.shuffle(structureVariants);
+        setStructureResourceLocation(structureVariants.get(0));
+    }
+
+    /** Modifiers **/
 
     public void setStructureResourceLocation(String value)
     {
         structureResourceLocation = value;
     }
 
-    public void setBlockPlacementCooldown(long value)
+    protected void addStructureVariant(String str)
     {
-        blockPlacementCooldown = value;
+        structureVariants.add(str);
     }
-
-    public void setBlockToConvertToAfterBuilding(BlockState blockState)
-    {
-        blockToConvertToAfterBuilding = blockState;
-    }
-
-    /** Modifiers **/
 
 
     /** Events **/
+
+    protected void loadStructureVariants()
+    {
+    }
 
     public static void tick(Level level, BlockPos blockPos, BlockState blockState, StructureCoreBlockEntity blockEntity)
     {
@@ -73,7 +90,7 @@ public class StructureCoreBlockEntity extends BlockEntity
 
         ServerLevel serverLevel = (ServerLevel) level;
 
-        if(Math.abs(level.getGameTime() - blockEntity.tickedAt) < blockEntity.blockPlacementCooldown)
+        if(Math.abs(level.getGameTime() - blockEntity.tickedAt) < blockEntity.getBlockPlacementCooldown())
         {
             return;
         }
@@ -92,9 +109,9 @@ public class StructureCoreBlockEntity extends BlockEntity
             blockEntity.structurePlacer.appendIgnoreBlockPosList(blockPos);
         }
 
-        if(blockEntity.structurePlacer.isFinished() && blockEntity.blockToConvertToAfterBuilding != null)
+        if(blockEntity.structurePlacer.isFinished() && blockEntity.getBlockToConvertToAfterBuilding() != null)
         {
-            level.setBlockAndUpdate(blockPos, blockEntity.blockToConvertToAfterBuilding);
+            level.setBlockAndUpdate(blockPos, blockEntity.getBlockToConvertToAfterBuilding());
             return;
         }
 

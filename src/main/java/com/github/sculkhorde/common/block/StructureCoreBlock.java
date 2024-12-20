@@ -2,8 +2,6 @@ package com.github.sculkhorde.common.block;
 
 import com.github.sculkhorde.common.blockentity.StructureCoreBlockEntity;
 import com.github.sculkhorde.core.ModBlockEntities;
-import com.github.sculkhorde.core.ModBlocks;
-import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
@@ -42,7 +40,6 @@ public class StructureCoreBlock extends BaseEntityBlock implements IForgeBlock {
      * 1,200f = obsidian
      */
     public static float BLAST_RESISTANCE = 6f;
-
 
     /**
      * The Constructor that takes in properties
@@ -99,9 +96,6 @@ public class StructureCoreBlock extends BaseEntityBlock implements IForgeBlock {
     @Override
     public BlockEntity newBlockEntity(BlockPos blockPos, BlockState state) {
         StructureCoreBlockEntity blockEntity = new StructureCoreBlockEntity(blockPos, state);
-        blockEntity.setStructureResourceLocation("sculkhorde:test_soulite_structure");
-        blockEntity.setBlockPlacementCooldown(TickUnits.convertSecondsToTicks(0.2F));
-        blockEntity.setBlockToConvertToAfterBuilding(ModBlocks.BUDDING_SOULITE_BLOCK.get().defaultBlockState());
         return blockEntity;
     }
 

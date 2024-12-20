@@ -18,4 +18,14 @@ public class SouliteCoreBlockEntity extends StructureCoreBlockEntity
         super(ModBlockEntities.SOULITE_CORE_BLOCK_ENTITY.get(), blockPos, blockState);
     }
 
+    @Override
+    protected void loadStructureVariants()
+    {
+        addStructureVariant("sculkhorde:soulite_crystal_structure1");
+        addStructureVariant("sculkhorde:soulite_crystal_structure2");
+        addStructureVariant("sculkhorde:soulite_crystal_structure3");
+        addStructureVariant("sculkhorde:soulite_crystal_structure4");
+        addStructureVariant("sculkhorde:soulite_crystal_structure5");
+    }
+
 }
