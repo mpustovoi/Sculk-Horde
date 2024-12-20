@@ -36,9 +36,4 @@ public class ToolTaglInfestationTableEntry extends BlockEntityInfestationTableEn
 
         return blockState.is(toolRequiredTag);
     }
-
-    public BlockState getInfectedVariant(Level level, BlockPos blockPos)
-    {
-        return ((Block)infectedVariant).defaultBlockState();
-    }
 }
