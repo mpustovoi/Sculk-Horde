@@ -33,6 +33,7 @@ public class ModCreativeModeTab {
                 if(ModConfig.isExperimentalFeaturesEnabled()) event.accept(ModBlocks.FUNGAL_SHROOM_CORE_BLOCK.get());
                 if(ModConfig.isExperimentalFeaturesEnabled()) event.accept(ModBlocks.FUNGAL_SCULK_BLOCK.get());
                 if(ModConfig.isExperimentalFeaturesEnabled()) event.accept(ModBlocks.FUNGAL_SCULK_STEM_BLOCK.get());
+                if(ModConfig.isExperimentalFeaturesEnabled()) event.accept(ModBlocks.TENDRIL_CORE_BLOCK.get());
 
 
                 event.accept(ModItems.SCULK_SPORE_SPEWER_SPAWN_EGG.get());

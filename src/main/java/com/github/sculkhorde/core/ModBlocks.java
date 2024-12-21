@@ -996,6 +996,9 @@ public class ModBlocks {
 					.sound(SoundType.STONE)
 			));
 
+	public static final RegistryObject<TendrilCoreBlock> TENDRIL_CORE_BLOCK =
+			registerBlock("tendril_core_block", TendrilCoreBlock::new);
+
 	static {
 		datagen(INFESTED_STONE_BRICKS);
 		datagen(INFESTED_MOSSY_STONE_BRICKS, "infested_stone_bricks");

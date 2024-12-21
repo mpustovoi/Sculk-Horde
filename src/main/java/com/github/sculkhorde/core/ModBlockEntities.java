@@ -82,6 +82,10 @@ public class ModBlockEntities {
             BLOCK_ENTITIES.register("fungal_shroom_core_block_entity", () -> BlockEntityType.Builder.of(
                     FungalShroomCoreBlockEntity::new, ModBlocks.FUNGAL_SHROOM_CORE_BLOCK.get()).build(null));
 
+    public static RegistryObject<BlockEntityType<TendrilCoreBlockEntity>> TENDRIL_CORE_BLOCK_ENTITY =
+            BLOCK_ENTITIES.register("tendril_core_block_entity", () -> BlockEntityType.Builder.of(
+                    TendrilCoreBlockEntity::new, ModBlocks.TENDRIL_CORE_BLOCK.get()).build(null));
+
     public static void register(IEventBus eventBus) {
         BLOCK_ENTITIES.register(eventBus);
     }
