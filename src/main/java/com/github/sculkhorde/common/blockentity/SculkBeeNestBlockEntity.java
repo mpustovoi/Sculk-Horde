@@ -46,27 +46,31 @@ public class SculkBeeNestBlockEntity extends BlockEntity
     public static final String TICKS_IN_HIVE = "TicksInHive";
     public static final String HAS_NECTAR = "HasNectar";
     public static final String BEES = "Bees";
-    private static final List<String> IGNORED_BEE_TAGS = Arrays.asList("Air", "ArmorDropChances", "ArmorItems", "Brain", "CanPickUpLoot", "DeathTime", "FallDistance", "FallFlying", "Fire", "HandDropChances", "HandItems", "HurtByTimestamp", "HurtTime", "LeftHanded", "Motion", "NoGravity", "OnGround", "PortalCooldown", "Pos", "Rotation", "CannotEnterHiveTicks", "TicksSincePollination", "CropsGrownSincePollination", "HivePos", "Passengers", "Leash", "UUID");
+    protected static final List<String> IGNORED_BEE_TAGS = Arrays.asList("Air", "ArmorDropChances", "ArmorItems", "Brain", "CanPickUpLoot", "DeathTime", "FallDistance", "FallFlying", "Fire", "HandDropChances", "HandItems", "HurtByTimestamp", "HurtTime", "LeftHanded", "Motion", "NoGravity", "OnGround", "PortalCooldown", "Pos", "Rotation", "CannotEnterHiveTicks", "TicksSincePollination", "CropsGrownSincePollination", "HivePos", "Passengers", "Leash", "UUID");
     public static final int MAX_OCCUPANTS = 4;
-    private static final int MIN_TICKS_BEFORE_REENTERING_HIVE = 400;
-    private static final int MIN_OCCUPATION_TICKS_NECTAR = 2400;
+    protected static final int MIN_TICKS_BEFORE_REENTERING_HIVE = 400;
+    protected static final int MIN_OCCUPATION_TICKS_NECTAR = 2400;
     public static final int MIN_OCCUPATION_TICKS_NECTARLESS = 600;
-    private final List<BeeData> stored = Lists.newArrayList();
+    protected final List<BeeData> stored = Lists.newArrayList();
     @Nullable
-    private BlockPos savedFlowerPos;
+    protected BlockPos savedFlowerPos;
 
     //The procedural structure that will be built
-    private SculkBeeNestProceduralStructure beeNestStructure;
+    protected SculkBeeNestProceduralStructure beeNestStructure;
 
     //Used for ticking this block at an interval
-    private int tickTracker = 0;
+    protected int tickTracker = 0;
 
     //Keep track of last time since repair so we know when to restart
-    private long lastTimeSinceRepair = -1;
+    protected long lastTimeSinceRepair = -1;
 
     //Game Timestamp for last time this bee hive was ticked
-    private long lastGameTimeOfTick = -1;
-    private long intervalBetweenTicks = TickUnits.convertSecondsToTicks(5);
+    protected long lastGameTimeOfTick = -1;
+    protected long intervalBetweenTicks = TickUnits.convertSecondsToTicks(5);
+    
+    
+    protected long timeOfLastCursorSpawn = 0;
+    protected long CURSOR_SPAWN_COOLDOWN = TickUnits.convertMinutesToTicks(1);
 
     public SculkBeeNestBlockEntity(BlockPos p_155134_, BlockState p_155135_) {
         super(ModBlockEntities.SCULK_BEE_NEST_BLOCK_ENTITY.get(), p_155134_, p_155135_);
@@ -80,7 +84,7 @@ public class SculkBeeNestBlockEntity extends BlockEntity
      * @param beeDataList The list of bee data
      * @param blockPos1 The block position
      */
-    private static void tickOccupants(Level level, BlockPos blockPos, BlockState blockState, List<BeeData> beeDataList, @Nullable BlockPos blockPos1) {
+    protected static void tickOccupants(Level level, BlockPos blockPos, BlockState blockState, List<BeeData> beeDataList, @Nullable BlockPos blockPos1) {
         boolean beeWasRemoved = false;
 
         BeeData beehiveblockentity$beedata;
@@ -218,7 +222,7 @@ public class SculkBeeNestBlockEntity extends BlockEntity
 
     }
 
-    private List<Entity> releaseAllOccupants(BlockState p_58760_, BeeReleaseStatus p_58761_) {
+    protected List<Entity> releaseAllOccupants(BlockState p_58760_, BeeReleaseStatus p_58761_) {
         List<Entity> list = Lists.newArrayList();
         this.stored.removeIf((p_272556_) -> {
             return releaseOccupant(this.level, this.worldPosition, p_58760_, p_272556_, list, p_58761_, this.savedFlowerPos);
@@ -284,8 +288,9 @@ public class SculkBeeNestBlockEntity extends BlockEntity
 
 
                 //Summon Surface Infestor
-                if(ModConfig.SERVER.block_infestation_enabled.get())
+                if(ModConfig.SERVER.block_infestation_enabled.get() && Math.abs(level.getGameTime() - timeOfLastCursorSpawn) >= CURSOR_SPAWN_COOLDOWN)
                 {
+                    timeOfLastCursorSpawn = level.getGameTime();
                     CursorSurfaceInfectorEntity cursor = new CursorSurfaceInfectorEntity(level);
                     cursor.setPos(blockpos.getX(), blockpos.getY() - 1, blockpos.getZ());
                     cursor.setMaxTransformations(100);
@@ -306,7 +311,7 @@ public class SculkBeeNestBlockEntity extends BlockEntity
         this.stored.add(new BeeData(p_155158_, p_155159_, p_155160_ ? MIN_OCCUPATION_TICKS_NECTAR : MIN_OCCUPATION_TICKS_NECTARLESS));
     }
 
-    private static boolean releaseOccupant(Level level, BlockPos blockPos, BlockState blockState, BeeData beeData, @Nullable List<Entity> entities, BeeReleaseStatus beeReleaseStatus, @Nullable BlockPos blockPos1) {
+    protected static boolean releaseOccupant(Level level, BlockPos blockPos, BlockState blockState, BeeData beeData, @Nullable List<Entity> entities, BeeReleaseStatus beeReleaseStatus, @Nullable BlockPos blockPos1) {
         if (beeReleaseStatus == BeeReleaseStatus.EMERGENCY)
         {
             return false;
@@ -396,11 +401,11 @@ public class SculkBeeNestBlockEntity extends BlockEntity
 
     }
 
-    private static void setBeeReleaseData(int p_58737_, SculkBeeHarvesterEntity p_58738_)
+    protected static void setBeeReleaseData(int p_58737_, SculkBeeHarvesterEntity p_58738_)
     {
     }
 
-    private boolean hasSavedFlowerPos() {
+    protected boolean hasSavedFlowerPos() {
         return this.savedFlowerPos != null;
     }
 
