@@ -24,10 +24,15 @@ public class ModCreativeModeTab {
                 if(!FMLLoader.isProduction()) event.accept(ModItems.DEV_CONVERSION_WAND.get());
                 if(!FMLLoader.isProduction()) event.accept(ModItems.DEV_RAID_WAND.get());
                 if(ModConfig.isExperimentalFeaturesEnabled()) event.accept(ModBlocks.STRUCTURE_ORIGIN_BLOCK.get());
-                if(ModConfig.isExperimentalFeaturesEnabled()) event.accept(ModBlocks.STRUCTURE_CORE_BLOCK.get());
                 if(ModConfig.isExperimentalFeaturesEnabled()) event.accept(ModBlocks.SOULITE_CORE_BLOCK.get());
+                if(ModConfig.isExperimentalFeaturesEnabled()) event.accept(ModBlocks.BUDDING_SOULITE_BLOCK.get());
+                if(ModConfig.isExperimentalFeaturesEnabled()) event.accept(ModBlocks.SOULITE_BLOCK.get());
+                if(ModConfig.isExperimentalFeaturesEnabled()) event.accept(ModBlocks.DEPLETED_SOULITE_BLOCK .get());
                 if(ModConfig.isExperimentalFeaturesEnabled()) event.accept(ModBlocks.SOULITE_BUD_BLOCK.get());
                 if(ModConfig.isExperimentalFeaturesEnabled()) event.accept(ModBlocks.SOULITE_CLUSTER_BLOCK.get());
+                if(ModConfig.isExperimentalFeaturesEnabled()) event.accept(ModBlocks.FUNGAL_SHROOM_CORE_BLOCK.get());
+                if(ModConfig.isExperimentalFeaturesEnabled()) event.accept(ModBlocks.FUNGAL_SCULK_BLOCK.get());
+                if(ModConfig.isExperimentalFeaturesEnabled()) event.accept(ModBlocks.FUNGAL_SCULK_STEM_BLOCK.get());
 
 
                 event.accept(ModItems.SCULK_SPORE_SPEWER_SPAWN_EGG.get());

@@ -975,6 +975,27 @@ public class ModBlocks {
 	public static final RegistryObject<SouliteCoreBlock> SOULITE_CORE_BLOCK =
 			registerBlock("soulite_core_block", SouliteCoreBlock::new);
 
+	public static final RegistryObject<FungalShroomCoreBlock> FUNGAL_SHROOM_CORE_BLOCK =
+			registerBlock("fungal_shroom_core_block", FungalShroomCoreBlock::new);
+
+	public static final RegistryObject<Block> FUNGAL_SCULK_STEM_BLOCK =
+			registerBlock("fungal_sculk_stem_block", () -> new Block(BlockBehaviour.Properties.of()
+					.mapColor(MapColor.TERRACOTTA_BLUE)
+					.strength(4f, 30f)//Hardness & Resistance
+					.destroyTime(5f)
+					.requiresCorrectToolForDrops()
+					.sound(SoundType.STONE)
+			));
+
+	public static final RegistryObject<Block> FUNGAL_SCULK_BLOCK =
+			registerBlock("fungal_sculk_block", () -> new Block(BlockBehaviour.Properties.of()
+					.mapColor(MapColor.TERRACOTTA_BLUE)
+					.strength(4f, 30f)//Hardness & Resistance
+					.destroyTime(5f)
+					.requiresCorrectToolForDrops()
+					.sound(SoundType.STONE)
+			));
+
 	static {
 		datagen(INFESTED_STONE_BRICKS);
 		datagen(INFESTED_MOSSY_STONE_BRICKS, "infested_stone_bricks");

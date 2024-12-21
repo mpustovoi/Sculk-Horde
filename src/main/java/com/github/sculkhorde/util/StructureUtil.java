@@ -35,10 +35,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.BitSetDiscreteVoxelShape;
 import net.minecraft.world.phys.shapes.DiscreteVoxelShape;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.processBlockInfos;
 import static net.minecraft.world.level.levelgen.structure.templatesystem.StructureTemplate.processEntityInfos;
@@ -371,20 +368,22 @@ public class StructureUtil {
                 // Get the list of blocks from the selected palette
                 rawBlockInfoList = settings.getRandomPalette(palettes, startPos).blocks();
 
+
+
                 if (rawBlockInfoList.isEmpty()) {
-                    SculkHorde.LOGGER.debug("StructurePlacer | Failure, blockInfoList is Empty");
+                    SculkHorde.LOGGER.error("StructurePlacer | Failure, blockInfoList is Empty");
                     setState(State.FINISHED);
                     return;
                 }
 
                 if (settings.isIgnoreEntities() && structureTemplateAccessor.getEntityInfoList().isEmpty()) {
-                    SculkHorde.LOGGER.debug("StructurePlacer | Failure, entityInfoList is Empty");
+                    SculkHorde.LOGGER.error("StructurePlacer | Failure, entityInfoList is Empty");
                     setState(State.FINISHED);
                     return;
                 }
 
                 if (structureTemplateAccessor.getSize().getX() < 1 || structureTemplateAccessor.getSize().getY() < 1 || structureTemplateAccessor.getSize().getZ() < 1) {
-                    SculkHorde.LOGGER.debug("StructurePlacer | Failure, a dimension of structure size is 0.");
+                    SculkHorde.LOGGER.error("StructurePlacer | Failure, a dimension of structure size is 0.");
                     setState(State.FINISHED);
                     return;
                 }

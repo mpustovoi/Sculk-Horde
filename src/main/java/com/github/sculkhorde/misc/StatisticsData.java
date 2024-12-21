@@ -1,6 +1,5 @@
 package com.github.sculkhorde.misc;
 
-import com.github.sculkhorde.core.ModConfig;
 import com.github.sculkhorde.core.SculkHorde;
 import net.minecraft.nbt.CompoundTag;
 
@@ -71,7 +70,6 @@ public class StatisticsData {
     }
 
     public void incrementTotalVictimsInfested() {
-    	if (!ModConfig.SERVER.add_mass_if_inactive.get() && SculkHorde.savedData.isHordeUnactivated()) return;
         this.totalVictimsInfested++;
     }
 
@@ -84,7 +82,6 @@ public class StatisticsData {
     }
 
     public void incrementTotalBlocksInfested() {
-    	if (!ModConfig.SERVER.add_mass_if_inactive.get() && SculkHorde.savedData.isHordeUnactivated()) return;
         this.totalBlocksInfested++;
     }
 
@@ -109,7 +106,6 @@ public class StatisticsData {
     }
 
     public void addTotalMassFromBees(int value) {
-    	if (!ModConfig.SERVER.add_mass_if_inactive.get() && SculkHorde.savedData.isHordeUnactivated()) return;
         this.totalMassFromBees += value;
     }
 
@@ -122,7 +118,6 @@ public class StatisticsData {
     }
 
     public void addTotalMassFromBurrowed(int value) {
-    	if (!ModConfig.SERVER.add_mass_if_inactive.get() && SculkHorde.savedData.isHordeUnactivated()) return;
         this.totalMassFromBurrowed += value;
     }
 
@@ -135,7 +130,6 @@ public class StatisticsData {
     }
 
     public void addTotalMassFromDiseasedCysts(int value) {
-    	if (!ModConfig.SERVER.add_mass_if_inactive.get() && SculkHorde.savedData.isHordeUnactivated()) return;
         this.totalMassFromDiseasedCysts += value;
     }
 
@@ -148,7 +142,6 @@ public class StatisticsData {
     }
 
     public void addTotalMassFromNodes(int value) {
-    	if (!ModConfig.SERVER.add_mass_if_inactive.get() && SculkHorde.savedData.isHordeUnactivated()) return;
         this.totalMassFromNodes += value;
     }
 
@@ -173,7 +166,6 @@ public class StatisticsData {
     }
 
     public void addTotalMassFromDespawns(int value) {
-    	if (!ModConfig.SERVER.add_mass_if_inactive.get() && SculkHorde.savedData.isHordeUnactivated()) return;
         this.totalMassFromDespawns += value;
     }
     
@@ -186,7 +178,6 @@ public class StatisticsData {
     }
 
     public void addTotalMassFromFleshyCompost(int value) {
-    	if (!ModConfig.SERVER.add_mass_if_inactive.get() && SculkHorde.savedData.isHordeUnactivated()) return;
         this.totalMassFromFleshyCompost += value;
     }
 
@@ -201,7 +192,6 @@ public class StatisticsData {
 
     public void addTotalMassFromInfestedCursorItemEating(long value)
     {
-    	if (!ModConfig.SERVER.add_mass_if_inactive.get() && SculkHorde.savedData.isHordeUnactivated()) return;
         setTotalMassFromInfestedCursorItemEating(getTotalMassFromInfestedCursorItemEating() + value);
     }
 
