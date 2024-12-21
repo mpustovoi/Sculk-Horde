@@ -8,6 +8,10 @@
     "sculkhorde:infested_wood_fence",
     "sculkhorde:infested_wood_fence_gate",
     "sculkhorde:sculk_bee_nest",
-    "sculkhorde:sculk_bee_nest_cell"
+    "sculkhorde:sculk_bee_nest_cell",
+
+    "sculkhorde:fungal_shroom_core_block",
+    "sculkhorde:fungal_sculk_block",
+    "sculkhorde:fungal_sculk_stem_block"
   ]
 }
