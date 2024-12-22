@@ -375,7 +375,7 @@ public class SculkSoulReaperEntity extends Monster implements GeoEntity, ISculkS
 
         for (LivingEntity entity : entitiesHit) {
             // Handle entity hit logic here
-            if(entity.getUUID() != sourceEntity.getUUID())
+            if(entity.getUUID() != sourceEntity.getUUID() && !entity.isBlocking())
             {
                 entity.hurt(sourceEntity.damageSources().magic(), damage);
             }

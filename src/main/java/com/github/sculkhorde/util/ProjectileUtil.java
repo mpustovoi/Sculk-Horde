@@ -165,5 +165,22 @@ public final class ProjectileUtil {
 
         return abstractarrow;
     }
+
+    public static boolean isEntityBlockingProjectile(LivingEntity entity, Entity projectile)
+    {
+        if (entity.isBlocking()) {
+            Vec3 projectilePos = projectile.position();
+            if (projectilePos != null) {
+                Vec3 targetViewVector = entity.getViewVector(1.0F);
+                Vec3 vec31 = projectilePos.vectorTo(entity.position()).normalize();
+                vec31 = new Vec3(vec31.x, 0.0D, vec31.z);
+                if (vec31.dot(targetViewVector) < 0.0D) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }
 

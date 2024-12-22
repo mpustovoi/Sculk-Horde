@@ -89,12 +89,19 @@ public abstract class AbstractProjectileEntity extends Projectile {
 
     @Override
     protected boolean canHitEntity(Entity entityIn) {
-        if (!entityIn.canBeHitByProjectile()) {
+        if (!entityIn.canBeHitByProjectile())
+        {
             return false;
-        } else {
-            Entity entity = this.getOwner();
-            return entity == null || !entity.isPassengerOfSameVehicle(entityIn);
         }
+        else if(entityIn instanceof LivingEntity livingEntity)
+        {
+            if(ProjectileUtil.isEntityBlockingProjectile(livingEntity, this))
+            {
+                return false;
+            }
+        }
+        Entity entity = this.getOwner();
+        return entity == null || !entity.isPassengerOfSameVehicle(entityIn);
     }
 
     abstract protected void applyEffectToEntity(LivingEntity entity);
