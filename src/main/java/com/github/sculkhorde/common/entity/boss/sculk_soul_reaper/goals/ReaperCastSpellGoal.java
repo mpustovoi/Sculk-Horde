@@ -87,12 +87,12 @@ public class ReaperCastSpellGoal extends AttackStepGoal {
 
     protected void playCastingAnimation()
     {
-
+        mob.triggerAnim(SculkSoulReaperEntity.COMBAT_ATTACK_ANIMATION_CONTROLLER_ID, SculkSoulReaperEntity.ATTACK_SPELL_CHARGE_ID);
     }
 
     protected void playAttackAnimation()
     {
-
+        mob.triggerAnim(SculkSoulReaperEntity.COMBAT_ATTACK_ANIMATION_CONTROLLER_ID, SculkSoulReaperEntity.ATTACK_SPELL_USE_ID);
     }
 
     protected void doAttackTick()
@@ -120,6 +120,7 @@ public class ReaperCastSpellGoal extends AttackStepGoal {
         {
             return;
         }
+        playAttackAnimation();
         doAttackTick();
     }
 

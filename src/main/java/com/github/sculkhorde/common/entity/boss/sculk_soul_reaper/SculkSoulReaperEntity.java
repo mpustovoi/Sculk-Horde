@@ -44,6 +44,9 @@ import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
+import software.bernie.geckolib.core.animation.AnimationController;
+import software.bernie.geckolib.core.animation.RawAnimation;
+import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
@@ -486,11 +489,23 @@ public class SculkSoulReaperEntity extends Monster implements GeoEntity, ISculkS
 
     // ####### Animation Code ###########
 
+    public static final String ATTACK_SPELL_CHARGE_ID = "attack.spell_charge";
+    private static final RawAnimation ATTACK_SPELL_CHARGE = RawAnimation.begin().thenLoop(ATTACK_SPELL_CHARGE_ID);
+    public static final String ATTACK_SPELL_USE_ID = "attack.spell_use";
+    private static final RawAnimation ATTACK_SPELL_USE = RawAnimation.begin().thenPlay(ATTACK_SPELL_USE_ID);
+
+    public static final String COMBAT_ATTACK_ANIMATION_CONTROLLER_ID = "attack_controller";
+    private final AnimationController COMBAT_ATTACK_ANIMATION_CONTROLLER = new AnimationController<>(this, COMBAT_ATTACK_ANIMATION_CONTROLLER_ID, state -> PlayState.STOP)
+            .transitionLength(5)
+            .triggerableAnim(ATTACK_SPELL_CHARGE_ID, ATTACK_SPELL_CHARGE)
+            .triggerableAnim(ATTACK_SPELL_USE_ID, ATTACK_SPELL_USE);
+
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers)
     {
         controllers.add(
-                DefaultAnimations.genericWalkIdleController(this).transitionLength(5)
+                DefaultAnimations.genericWalkIdleController(this).transitionLength(5),
+                COMBAT_ATTACK_ANIMATION_CONTROLLER
         );
     }
 

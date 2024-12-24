@@ -1,9 +1,6 @@
 {
 	"format_version": "1.8.0",
 	"animations": {
-		"sculk_soul_reaper.animation": {
-			"loop": true
-		},
 		"misc.idle": {
 			"loop": true,
 			"animation_length": 2,
@@ -323,6 +320,59 @@
 						"0.5": {
 							"vector": [0, 0, 0],
 							"easing": "linear"
+						}
+					}
+				}
+			}
+		},
+		"attack.spell_charge": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"right_arm": {
+					"rotation": {
+						"0.0": {
+							"vector": [-150, 0, 0]
+						},
+						"0.5": {
+							"vector": [-200, -15, -15]
+						},
+						"1.0": {
+							"vector": [-150, 0, 0]
+						}
+					}
+				},
+				"leftArm": {
+					"rotation": {
+						"0.0": {
+							"vector": [-150, 0, 0]
+						},
+						"0.5": {
+							"vector": [-200, 15, 15]
+						},
+						"1.0": {
+							"vector": [-150, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"attack.spell_use": {
+			"animation_length": 0.75,
+			"bones": {
+				"right_arm": {
+					"rotation": {
+						"0.0": {
+							"vector": [-170, 0, 0]
+						},
+						"0.25": {
+							"vector": [-92.5, 0, 0]
+						},
+						"0.5": {
+							"vector": [-92.5, 0, 0]
+						},
+						"0.75": {
+							"vector": [0, 0, 0]
 						}
 					}
 				}
