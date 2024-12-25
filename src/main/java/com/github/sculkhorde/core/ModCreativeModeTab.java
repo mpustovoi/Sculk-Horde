@@ -34,6 +34,9 @@ public class ModCreativeModeTab {
                 if(ModConfig.isExperimentalFeaturesEnabled()) event.accept(ModBlocks.FUNGAL_SCULK_BLOCK.get());
                 if(ModConfig.isExperimentalFeaturesEnabled()) event.accept(ModBlocks.FUNGAL_SCULK_STEM_BLOCK.get());
                 if(ModConfig.isExperimentalFeaturesEnabled()) event.accept(ModBlocks.TENDRIL_CORE_BLOCK.get());
+                if(ModConfig.isExperimentalFeaturesEnabled()) event.accept(ModItems.FERRISCULK.get());
+                if(ModConfig.isExperimentalFeaturesEnabled()) event.accept(ModItems.DIASCULK.get());
+                if(ModConfig.isExperimentalFeaturesEnabled()) event.accept(ModItems.SOUL_DISRUPTER.get());
 
 
                 event.accept(ModItems.SCULK_SPORE_SPEWER_SPAWN_EGG.get());
@@ -66,7 +69,6 @@ public class ModCreativeModeTab {
                 event.accept(ModBlocks.INFESTED_CRYING_OBSIDIAN.get());
                 event.accept(ModItems.CRYING_SOULS.get());
                 event.accept(ModItems.PURE_SOULS.get());
-                event.accept(ModItems.SOUL_DISRUPTER.get());
                 event.accept(ModItems.SCULK_ENDERMAN_CLEAVER.get());
                 event.accept(ModItems.SCULK_SWEEPER_SWORD.get());
                 event.accept(ModBlocks.SCULK_ANCIENT_NODE_BLOCK.get());
