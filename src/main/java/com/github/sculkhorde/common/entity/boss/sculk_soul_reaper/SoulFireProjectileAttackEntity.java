@@ -3,7 +3,7 @@ package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper;
 import com.github.sculkhorde.common.entity.projectile.AbstractProjectileEntity;
 import com.github.sculkhorde.core.ModEntities;
 import com.github.sculkhorde.util.ParticleUtil;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
@@ -42,7 +42,7 @@ public class SoulFireProjectileAttackEntity extends AbstractProjectileEntity imp
         float spawnY = (float) (getY() + level().getRandom().nextFloat());
         float spawnZ = (float) (getZ() + level().getRandom().nextFloat());
         Vector3f spawn = new Vector3f(spawnX, spawnY, spawnZ);
-        ParticleUtil.spawnFlameParticle((ServerLevel) level(), spawn, new Vector3f(0,0,0));
+        ParticleUtil.spawnFlameParticleOnClient((ClientLevel) level(), spawn, new Vector3f(0,0,0));
     }
 
     @Override

@@ -5,7 +5,7 @@ import com.github.sculkhorde.util.ColorUtil;
 import com.github.sculkhorde.util.EntityAlgorithms;
 import com.github.sculkhorde.util.ParticleUtil;
 import com.github.sculkhorde.util.TickUnits;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
@@ -79,7 +79,7 @@ public class CorrodingEffect extends MobEffect {
 
     @Override
     public void applyEffectTick(LivingEntity victimEntity, int amp) {
-        if(!victimEntity.level().isClientSide())
+        if(victimEntity.level().isClientSide())
         {
             float spawnWidth = victimEntity.getBbWidth() / 2;
             float spawnHeight = victimEntity.getBbHeight() / 2;
@@ -105,7 +105,7 @@ public class CorrodingEffect extends MobEffect {
         float randomY = (float) (victimEntity.getY() + getNextFloatBetweenInclusive(victimEntity.getRandom(),-maxHeightOffset, maxHeightOffset) + maxHeightOffset);
         float randomZ = (float) (victimEntity.getZ() + getNextFloatBetweenInclusive(victimEntity.getRandom(),-maxWidthOffset, maxWidthOffset));
         //victimEntity.level().addParticle(new DustParticleOptions(Vec3.fromRGB24(2726783).toVector3f(), 2.0F), randomX, randomY, randomZ, 0.0D, victimEntity.getRandom().nextDouble() * - 1, 0.0D);
-        ParticleUtil.spawnColoredDustParticle((ServerLevel) victimEntity.level(),
+        ParticleUtil.spawnColoredDustParticleOnClient((ClientLevel) victimEntity.level(),
                 ColorUtil.getRandomHexAcidColor(victimEntity.getRandom()),
                 0.8F,
                 new Vector3f(randomX, randomY, randomZ),

@@ -5,7 +5,7 @@ import com.github.sculkhorde.core.ModEntities;
 import com.github.sculkhorde.util.ColorUtil;
 import com.github.sculkhorde.util.ParticleUtil;
 import com.github.sculkhorde.util.TickUnits;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -47,7 +47,7 @@ public class SoulPoisonProjectileAttackEntity extends AbstractProjectileEntity i
         float spawnZ = (float) (getZ() + level().getRandom().nextFloat());
         Vector3f spawn = new Vector3f(spawnX, spawnY, spawnZ);
         Vector3f deltaMovement = new Vector3f(0, 0, 0);
-        ParticleUtil.spawnColoredDustParticle((ServerLevel) level(), ColorUtil.getRandomHexAcidColor(level().getRandom()), 0.8F, spawn, deltaMovement);
+        ParticleUtil.spawnColoredDustParticleOnClient((ClientLevel) level(), ColorUtil.getRandomHexAcidColor(level().getRandom()), 0.8F, spawn, deltaMovement);
     }
 
     @Override

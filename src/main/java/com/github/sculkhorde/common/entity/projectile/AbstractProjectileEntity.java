@@ -143,7 +143,7 @@ public abstract class AbstractProjectileEntity extends Projectile {
             discard();
             return;
         }
-        if (!level().isClientSide) {
+        if (level().isClientSide) {
             trailParticles();
         }
         handleHitDetection();

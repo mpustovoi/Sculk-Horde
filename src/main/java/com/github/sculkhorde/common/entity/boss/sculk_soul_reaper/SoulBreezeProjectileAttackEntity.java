@@ -3,7 +3,7 @@ package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper;
 import com.github.sculkhorde.common.entity.projectile.AbstractProjectileEntity;
 import com.github.sculkhorde.core.ModEntities;
 import com.github.sculkhorde.util.ParticleUtil;
-import net.minecraft.server.level.ServerLevel;
+import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
@@ -55,7 +55,7 @@ public class SoulBreezeProjectileAttackEntity extends AbstractProjectileEntity i
         Vector3f spawn = new Vector3f(spawnX, spawnY, spawnZ);
         Vector3f deltaMovement = new Vector3f(0, 0, 0);
         String breezeColor = "958DD3";
-        ParticleUtil.spawnColoredDustParticle((ServerLevel) level(), breezeColor, 0.8F, spawn, deltaMovement);
+        ParticleUtil.spawnColoredDustParticleOnClient((ClientLevel) level(), breezeColor, 0.8F, spawn, deltaMovement);
     }
 
     @Override
