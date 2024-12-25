@@ -73,7 +73,6 @@
 			}
 		},
 		"attack": {
-			"loop": "hold_on_last_frame",
 			"animation_length": 1,
 			"bones": {
 				"root": {
@@ -88,6 +87,51 @@
 						"1.0": {
 							"vector": [1.5, 1.5, 1.5],
 							"easing": "easeInOutSine"
+						}
+					}
+				}
+			}
+		},
+		"misc.die": {
+			"animation_length": 0.6667,
+			"bones": {
+				"base_plane": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0],
+							"easing": "easeInOutSine"
+						},
+						"0.5": {
+							"vector": [0, 360, 0]
+						}
+					},
+					"scale": {
+						"0.0": {
+							"vector": [1, 1, 1],
+							"easing": "easeInOutSine"
+						},
+						"0.5": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"upper_plane": {
+					"rotation": {
+						"0.125": {
+							"vector": [0, 0, 0],
+							"easing": "easeInOutSine"
+						},
+						"0.6667": {
+							"vector": [0, -360, 0]
+						}
+					},
+					"scale": {
+						"0.125": {
+							"vector": [1, 1, 1],
+							"easing": "easeInOutSine"
+						},
+						"0.6667": {
+							"vector": [0, 0, 0]
 						}
 					}
 				}

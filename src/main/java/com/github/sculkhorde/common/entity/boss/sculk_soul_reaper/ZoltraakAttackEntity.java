@@ -36,6 +36,10 @@ public class ZoltraakAttackEntity extends SpecialEffectEntity implements GeoEnti
     public static int ATTACK_DELAY = TickUnits.convertSecondsToTicks(1);
     protected static int ATTACK_ANIOMATION_DELAY = TickUnits.convertSecondsToTicks(1);
     public int attackDelayRemaining = ATTACK_DELAY;
+
+    protected long timeOfDespawnStart = 0;
+    protected final int DESPAWN_DELAY = TickUnits.convertSecondsToTicks(1);
+
     protected float DAMAGE = 5F;
 
     protected Optional<LivingEntity> target = Optional.empty();
@@ -147,13 +151,19 @@ public class ZoltraakAttackEntity extends SpecialEffectEntity implements GeoEnti
             {
 
                 performTargetedZoltraakAttack(target.get());
+                timeOfDespawnStart = level().getGameTime();
                 completedAttack = true;
+                triggerAnim(DESPAWN_ANIMATION_CONTROLLER_ID, DESPAWN_ANIMATION_ID);
             }
             else if(targetPos.isPresent())
             {
                 // TODO Implement zoltraak without living entity target
             }
+        }
 
+        if(completedAttack && Math.abs(timeOfDespawnStart - level().getGameTime()) >= DESPAWN_DELAY)
+        {
+            discard();
         }
 
     }
@@ -219,20 +229,29 @@ public class ZoltraakAttackEntity extends SpecialEffectEntity implements GeoEnti
     // ### GECKOLIB Animation Code ###
 
     public static final String ATTACK_ID = "attack";
-    private static final RawAnimation ATTACK = RawAnimation.begin().thenPlay(ATTACK_ID);
+    protected static final RawAnimation ATTACK = RawAnimation.begin().thenPlay(ATTACK_ID);
 
     public static final String ATTACK_ANIMATION_CONTROLLER_ID = "attack_controller";
-    private final AnimationController ATTACK_ANIMATION_CONTROLLER = new AnimationController<>(this, ATTACK_ANIMATION_CONTROLLER_ID, state -> PlayState.STOP)
+    protected final AnimationController ATTACK_ANIMATION_CONTROLLER = new AnimationController<>(this, ATTACK_ANIMATION_CONTROLLER_ID, state -> PlayState.STOP)
             .transitionLength(5)
             .triggerableAnim(ATTACK_ID, ATTACK);
-    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
+
+    public static final String DESPAWN_ANIMATION_CONTROLLER_ID = "depsawn_controller";
+    public static final RawAnimation DESPAWN = RawAnimation.begin().thenPlayAndHold("misc.die");
+    public static final String DESPAWN_ANIMATION_ID = "die";
+    protected final AnimationController DESPAWN_ANIMATION_CONTROLLER  = new AnimationController<>(this, DESPAWN_ANIMATION_CONTROLLER_ID, state -> PlayState.STOP)
+            .transitionLength(5)
+            .triggerableAnim(DESPAWN_ANIMATION_ID, DESPAWN);
+
+    protected final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
 
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(
                 DefaultAnimations.genericLivingController(this),
                 DefaultAnimations.getSpawnController(this, AnimationState::getAnimatable, 0),
-                ATTACK_ANIMATION_CONTROLLER
+                ATTACK_ANIMATION_CONTROLLER,
+                DESPAWN_ANIMATION_CONTROLLER
         );
     }
 
