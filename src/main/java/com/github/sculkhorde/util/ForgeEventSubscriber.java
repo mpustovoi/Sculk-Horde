@@ -34,6 +34,8 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.server.ServerLifecycleHooks;
 
+import java.util.function.Predicate;
+
 
 @Mod.EventBusSubscriber(modid = SculkHorde.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ForgeEventSubscriber {
@@ -284,7 +286,12 @@ public class ForgeEventSubscriber {
                 return;
             }
 
-            mob.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(mob, LivingEntity.class, true, EntityAlgorithms.isSculkLivingEntity));
+            mob.targetSelector.addGoal(0, new NearestAttackableTargetGoal<>(mob, LivingEntity.class, true, shouldEntitiesAttackTheSculkHorde));
         }
     }
+
+    public static Predicate<LivingEntity> shouldEntitiesAttackTheSculkHorde = (e) ->
+    {
+        return ModConfig.SERVER.should_all_other_mobs_attack_the_sculk_horde.get() && EntityAlgorithms.isSculkLivingEntity.test(e);
+    };
 }
