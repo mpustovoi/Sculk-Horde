@@ -83,19 +83,21 @@ public class HitSquadDispatcherSystem {
             return;
         }
 
-        SculkHorde.LOGGER.debug("HitSquadDispatcherSystem | Checking To See if its time for hit event.");
+        if(SculkHorde.isDebugMode()) {
+            SculkHorde.LOGGER.info("HitSquadDispatcherSystem | Checking To See if its time for hit event.");
+        }
 
         Optional<Player> nextTarget = getNextTarget();
 
         if(nextTarget.isPresent())
         {
-            SculkHorde.LOGGER.debug("HitSquadDispatcherSystem | The Next Target is " + nextTarget.get().getScoreboardName());
+            SculkHorde.LOGGER.info("HitSquadDispatcherSystem | The Next Target is " + nextTarget.get().getScoreboardName());
             SculkHorde.eventSystem.addEvent(new HitSquadEvent(nextTarget.get().level().dimension(), nextTarget.get().getUUID()));
             PlayerProfileHandler.getOrCreatePlayerProfile(nextTarget.get()).setTimeOfLastHit(level.getGameTime());
         }
-        else
+        else if(SculkHorde.isDebugMode())
         {
-            SculkHorde.LOGGER.debug("HitSquadDispatcherSystem | No Available Targets :(");
+            SculkHorde.LOGGER.info("HitSquadDispatcherSystem | No Available Targets :(");
         }
 
         timeOfLastCheckForDispatch = level.getGameTime();

@@ -161,7 +161,9 @@ public class HitSquadEvent extends Event {
         }
         else
         {
-            SculkHorde.LOGGER.info("HitSquadEvent | FAILURE, Could not find good spawn pos.");
+            if(SculkHorde.isDebugMode()) {
+                SculkHorde.LOGGER.info("HitSquadEvent | FAILURE, Could not find good spawn pos.");
+            }
             setState(State.FAILURE);
         }
     }
