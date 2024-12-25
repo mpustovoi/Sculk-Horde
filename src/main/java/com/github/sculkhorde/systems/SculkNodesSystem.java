@@ -4,7 +4,7 @@ import com.github.sculkhorde.core.ModConfig;
 import com.github.sculkhorde.core.ModSavedData;
 import com.github.sculkhorde.core.SculkHorde;
 import com.github.sculkhorde.systems.event_system.Event;
-import com.github.sculkhorde.systems.event_system.SpawnPhantomsEvent;
+import com.github.sculkhorde.systems.event_system.events.SpawnPhantomsEvent;
 import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.server.level.ServerLevel;
 

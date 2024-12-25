@@ -8,7 +8,7 @@ import com.github.sculkhorde.common.entity.infection.AncientNodePurificationHand
 import com.github.sculkhorde.common.entity.infection.SculkNodeInfectionHandler;
 import com.github.sculkhorde.core.*;
 import com.github.sculkhorde.systems.event_system.Event;
-import com.github.sculkhorde.systems.event_system.SpawnPhantomsEvent;
+import com.github.sculkhorde.systems.event_system.events.SpawnPhantomsEvent;
 import com.github.sculkhorde.util.*;
 import com.github.sculkhorde.util.ChunkLoading.BlockEntityChunkLoaderHelper;
 import com.mojang.serialization.Dynamic;
