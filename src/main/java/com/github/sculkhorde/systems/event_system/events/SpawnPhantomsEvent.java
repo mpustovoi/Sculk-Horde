@@ -1,14 +1,15 @@
-package com.github.sculkhorde.systems.event_system;
+package com.github.sculkhorde.systems.event_system.events;
 
 
 import com.github.sculkhorde.common.entity.SculkPhantomEntity;
 import com.github.sculkhorde.core.ModConfig;
+import com.github.sculkhorde.systems.event_system.Event;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 
 import java.util.Random;
 
-public class SpawnPhantomsEvent extends Event{
+public class SpawnPhantomsEvent extends Event {
 
 
     public SpawnPhantomsEvent(ResourceKey<net.minecraft.world.level.Level> dimension) {

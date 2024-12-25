@@ -1,4 +1,4 @@
-package com.github.sculkhorde.systems.events;
+package com.github.sculkhorde.systems.event_system.events;
 
 import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SculkSoulReaperEntity;
 import com.github.sculkhorde.core.ModSavedData;
