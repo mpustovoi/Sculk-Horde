@@ -1,9 +1,8 @@
 package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper;
 
-import com.github.sculkhorde.common.effect.DenseEffect;
 import com.github.sculkhorde.common.entity.projectile.AbstractProjectileEntity;
 import com.github.sculkhorde.core.ModEntities;
-import com.github.sculkhorde.util.TickUnits;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
@@ -18,15 +17,15 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.Optional;
 
-public class SoulFlySwatterProjectileEntity extends AbstractProjectileEntity implements GeoEntity {
-    public SoulFlySwatterProjectileEntity(EntityType<? extends Projectile> pEntityType, Level pLevel) {
+public class SoulSpearProjectileAttackEntity extends AbstractProjectileEntity implements GeoEntity {
+    public SoulSpearProjectileAttackEntity(EntityType<? extends Projectile> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         setNoGravity(true);
     }
 
-    public SoulFlySwatterProjectileEntity(Level level, LivingEntity shooter, float damage)
+    public SoulSpearProjectileAttackEntity(Level level, LivingEntity shooter, float damage)
     {
-        this(ModEntities.SOUL_FLY_SWATTER_PROJECTILE.get(), level);
+        this(ModEntities.SOUL_SPEAR_PROJECTILE.get(), level);
         setOwner(shooter);
         setDamage(damage);
     }
@@ -37,19 +36,17 @@ public class SoulFlySwatterProjectileEntity extends AbstractProjectileEntity imp
 
     @Override
     protected void applyEffectToEntity(LivingEntity entity) {
-        entity.push(0, -10, 0);
-
-        if(getOwner() != null && getOwner() instanceof LivingEntity e)
-        {
-            e.doHurtTarget(entity);
-            DenseEffect.applyToEntity((LivingEntity) getOwner(), e, TickUnits.convertSecondsToTicks(20));
-        }
 
     }
 
+
+
     @Override
     public void trailParticles() {
-
+        if(level().isClientSide())
+        {
+            level().addParticle(ParticleTypes.SOUL, this.position().x, this.position().y, this.position().z, 0, 0,0);
+        }
     }
 
     @Override

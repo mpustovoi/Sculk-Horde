@@ -1,7 +1,7 @@
 package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.goals;
 
 import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SculkSoulReaperEntity;
-import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SoulFlySwatterProjectileEntity;
+import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SoulFlySwatterProjectileAttackEntity;
 import com.github.sculkhorde.common.entity.projectile.AbstractProjectileEntity;
 import com.github.sculkhorde.util.EntityAlgorithms;
 import com.github.sculkhorde.util.TickUnits;
@@ -55,7 +55,7 @@ public class ShootSoulFlySwatterAttackGoal extends ReaperCastSpellGoal
             return;
         }
 
-        AbstractProjectileEntity projectile =  new SoulFlySwatterProjectileEntity(mob.level(), mob, 10F);
+        AbstractProjectileEntity projectile =  new SoulFlySwatterProjectileAttackEntity(mob.level(), mob, 10F);
         projectile.setPos(mob.position().add(0, mob.getEyeHeight() - projectile.getBoundingBox().getYsize() * .5f, 0));
 
         double spawnPosX = mob.getX();

@@ -11,23 +11,21 @@ import com.github.sculkhorde.common.entity.goal.NearestLivingEntityTargetGoal;
 import com.github.sculkhorde.common.entity.goal.TargetAttacker;
 import com.github.sculkhorde.core.ModEntities;
 import com.github.sculkhorde.core.ModMobEffects;
-import com.github.sculkhorde.core.ModSounds;
-import com.github.sculkhorde.util.*;
+import com.github.sculkhorde.util.SquadHandler;
+import com.github.sculkhorde.util.TargetParameters;
+import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerBossEvent;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -37,8 +35,6 @@ import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
-import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.constant.DefaultAnimations;
@@ -49,7 +45,6 @@ import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-import java.util.List;
 import java.util.Optional;
 
 public class SculkSoulReaperEntity extends Monster implements GeoEntity, ISculkSmartEntity {
@@ -369,54 +364,6 @@ public class SculkSoulReaperEntity extends Monster implements GeoEntity, ISculkS
         }
 
         return super.hurt(damageSource, amount);
-    }
-
-    public static void doMagicDamageToTargetsInHitBox(LivingEntity sourceEntity, AABB hitbox, float damage)
-    {
-        // Check for entities within the hitbox
-        List<LivingEntity> entitiesHit = EntityAlgorithms.getNonSculkUnitsInBoundingBox(sourceEntity.level(), hitbox);
-
-        for (LivingEntity entity : entitiesHit) {
-            // Handle entity hit logic here
-            if(entity.getUUID() != sourceEntity.getUUID() && !entity.isBlocking())
-            {
-                entity.hurt(sourceEntity.damageSources().magic(), damage);
-            }
-        }
-    }
-
-    public static void performTargetedZoltraakAttack(LivingEntity reaper, Vec3 origin, Entity target, float damage)
-    {
-        // Perform ray trace
-        HitResult hitResult = EntityAlgorithms.getHitScanAtTarget(reaper, reaper.getEyePosition(), target, 128);
-
-        performZoltraakAttack(reaper, hitResult, origin, damage);
-    }
-
-    public static void performZoltraakAttack(LivingEntity reaper, HitResult hitResult, Vec3 origin, float damage)
-    {
-        Vec3 hitVector = hitResult.getLocation();
-
-        Vec3 targetVector = hitVector.subtract(origin);
-        Vec3 direction = targetVector.normalize();
-
-        Vec3 beamPath = hitVector.subtract(origin);
-
-        float radius = 0.3F;
-        float thickness = 10F;
-
-        // Create a hitbox along the beam path
-        AABB hitbox = new AABB(origin, hitVector).inflate(radius);
-
-        // Damage entities in hit box
-        doMagicDamageToTargetsInHitBox(reaper, hitbox, damage);
-
-        // Spawn magic particles
-        ParticleUtil.spawnParticleBeam((ServerLevel) reaper.level(), ParticleTypes.SOUL_FIRE_FLAME, origin, direction, (float) beamPath.length(), radius, thickness);
-
-        // Make Sound
-        reaper.level().playSound(reaper,reaper.blockPosition(), ModSounds.ZOLTRAAK_ATTACK.get(), SoundSource.HOSTILE, 1.0F, 1.0F);
-
     }
 
 

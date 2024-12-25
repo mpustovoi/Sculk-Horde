@@ -64,11 +64,11 @@ public class ShootElementalSoulProjectilesGoal extends ReaperCastSpellGoal
     public AbstractProjectileEntity getProjectile()
     {
         return switch (projectileType) {
-            case 0 -> new SoulFireProjectileEntity(mob.level(), mob, 2.5F);
-            case 1 -> new SoulPoisonProjectileEntity(mob.level(), mob, 2.5F);
-            case 2 -> new SoulIceProjectileEntity(mob.level(), mob, 2.5F);
-            case 3 -> new SoulBreezeProjectileEntity(mob.level(), mob, 2.5F);
-            default -> new SoulFireProjectileEntity(mob.level(), mob, 2.5F);
+            case 0 -> new SoulFireProjectileAttackEntity(mob.level(), mob, 2.5F);
+            case 1 -> new SoulPoisonProjectileAttackEntity(mob.level(), mob, 2.5F);
+            case 2 -> new SoulIceProjectileAttackEntity(mob.level(), mob, 2.5F);
+            case 3 -> new SoulBreezeProjectileAttackEntity(mob.level(), mob, 2.5F);
+            default -> new SoulFireProjectileAttackEntity(mob.level(), mob, 2.5F);
         };
     }
 

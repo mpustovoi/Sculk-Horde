@@ -3,13 +3,13 @@ package com.github.sculkhorde.client.model.enitity;// Made with Blockbench 4.10.
 // Paste this class into your mod and generate all required imports
 
 
-import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SoulIceProjectileEntity;
+import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SoulIceProjectileAttackEntity;
 import com.github.sculkhorde.core.SculkHorde;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 
-public class SoulIceProjectileModel extends DefaultedEntityGeoModel<SoulIceProjectileEntity> { {
+public class SoulIceProjectileModel extends DefaultedEntityGeoModel<SoulIceProjectileAttackEntity> { {
 
 }
 	public SoulIceProjectileModel() {
@@ -18,7 +18,7 @@ public class SoulIceProjectileModel extends DefaultedEntityGeoModel<SoulIceProje
 
 	// We want our model to render using the translucent render type
 	@Override
-	public RenderType getRenderType(SoulIceProjectileEntity animatable, ResourceLocation texture) {
+	public RenderType getRenderType(SoulIceProjectileAttackEntity animatable, ResourceLocation texture) {
 		return RenderType.entityTranslucent(getTextureResource(animatable));
 	}
 

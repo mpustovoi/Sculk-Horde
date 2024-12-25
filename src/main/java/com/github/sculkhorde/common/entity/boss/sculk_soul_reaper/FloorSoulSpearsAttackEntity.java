@@ -20,7 +20,7 @@ import software.bernie.geckolib.core.keyframe.event.CustomInstructionKeyframeEve
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
-public class FloorSoulSpearsEntity extends SpecialEffectEntity implements TraceableEntity, GeoEntity {
+public class FloorSoulSpearsAttackEntity extends SpecialEffectEntity implements TraceableEntity, GeoEntity {
 
     public static int LIFE_IN_TICKS = TickUnits.convertSecondsToTicks(2);
     public static int DAMAGE_DELAY_TICKS = TickUnits.convertSecondsToTicks(0.5F); // Had to eye ball this value
@@ -28,12 +28,12 @@ public class FloorSoulSpearsEntity extends SpecialEffectEntity implements Tracea
 
 
 
-    public FloorSoulSpearsEntity(EntityType<? extends FloorSoulSpearsEntity> entityType, Level level) {
+    public FloorSoulSpearsAttackEntity(EntityType<? extends FloorSoulSpearsAttackEntity> entityType, Level level) {
         super(entityType, level);
         triggerAnim("attack_controller", "underground");
     }
 
-    public FloorSoulSpearsEntity(LivingEntity owner, double x, double y, double z, int delay) {
+    public FloorSoulSpearsAttackEntity(LivingEntity owner, double x, double y, double z, int delay) {
         this(ModEntities.FLOOR_SOUL_SPEARS.get(), owner.level());
         this.setPos(x, y, z);
         this.lifeTicks -= delay;

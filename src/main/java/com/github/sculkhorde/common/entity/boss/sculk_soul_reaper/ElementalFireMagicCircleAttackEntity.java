@@ -1,34 +1,37 @@
 package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper;
 
+import com.github.sculkhorde.common.entity.boss.SpecialEffectEntity;
 import com.github.sculkhorde.core.ModEntities;
 import com.github.sculkhorde.util.EntityAlgorithms;
 import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
+import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
 
-public class ElementalIceMagicCircleEntity extends ElementalFireMagicCircleEntity {
+public class ElementalFireMagicCircleAttackEntity extends SpecialEffectEntity implements GeoEntity {
+    public static int LIFE_TIME = TickUnits.convertSecondsToTicks(5);
+    public int currentLifeTicks = 0;
 
+    protected float DAMAGE = 5F;
 
-    public ElementalIceMagicCircleEntity(EntityType<?> entityType, Level level) {
+    public ElementalFireMagicCircleAttackEntity(EntityType<?> entityType, Level level) {
         super(entityType, level);
     }
 
-    public ElementalIceMagicCircleEntity(Level level) {
-        this(ModEntities.ELEMENTAL_ICE_MAGIC_CIRCLE.get(), level);
+    public ElementalFireMagicCircleAttackEntity(Level level) {
+        this(ModEntities.ELEMENTAL_FIRE_MAGIC_CIRCLE.get(), level);
     }
 
-    public ElementalIceMagicCircleEntity(Level level, double x, double y, double z, float angle, LivingEntity owner) {
+    public ElementalFireMagicCircleAttackEntity(Level level, double x, double y, double z, float angle, LivingEntity owner) {
         this(level);
         setPos(x,y,z);
         this.setYRot(angle * (180F / (float)Math.PI));
@@ -37,6 +40,7 @@ public class ElementalIceMagicCircleEntity extends ElementalFireMagicCircleEntit
 
     @Override
     public void tick() {
+        super.tick();
 
         if(level().isClientSide()) { return; }
 
@@ -72,9 +76,7 @@ public class ElementalIceMagicCircleEntity extends ElementalFireMagicCircleEntit
             {
                 entity.hurt(damageSources().magic(), DAMAGE);
             }
-            entity.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, TickUnits.convertSecondsToTicks(10), 0));
-            entity.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, TickUnits.convertSecondsToTicks(10), 0));
-            entity.setTicksFrozen(TickUnits.convertSecondsToTicks(10));
+            entity.setSecondsOnFire(10);
         }
 
 

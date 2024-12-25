@@ -40,7 +40,24 @@ import java.util.function.Predicate;
 
 public class EntityAlgorithms {
 
+    public static void lookAt(Entity entity, Vec3 target)
+    {
+        double deltaX = target.x() - entity.getX();
+        double deltaY = target.y() - entity.getEyeY(); // Using eye height for better look-at
+        double deltaZ = target.z() - entity.getZ();
+        double horizontalDistance = Mth.sqrt((float) (deltaX * deltaX + deltaZ * deltaZ));
 
+        float yaw = (float) (Mth.atan2(deltaZ, deltaX) * (180 / Math.PI)) - 90;
+        float pitch = (float) (-(Mth.atan2(deltaY, horizontalDistance) * (180 / Math.PI)));
+
+        entity.setYRot(yaw);
+        entity.setXRot(pitch);
+    }
+
+    // You can also pass in an x, y, and z for easier use elsewhere
+    public static void lookAt(Entity entity, Entity target) {
+        lookAt(entity, target.position());
+    }
     public static void doSculkTypeDamageToEntity(LivingEntity aggressor, LivingEntity target, float totalDamage, float guaranteedDamage)
     {
         if(target.isInvulnerable())

@@ -17,18 +17,17 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.List;
 
-public class ElementalBreezeMagicCircleEntity extends ElementalFireMagicCircleEntity {
+public class ElementalPoisonMagicCircleAttackEntity extends ElementalFireMagicCircleAttackEntity {
 
-
-    public ElementalBreezeMagicCircleEntity(EntityType<?> entityType, Level level) {
+    public ElementalPoisonMagicCircleAttackEntity(EntityType<?> entityType, Level level) {
         super(entityType, level);
     }
 
-    public ElementalBreezeMagicCircleEntity(Level level) {
-        this(ModEntities.ELEMENTAL_BREEZE_MAGIC_CIRCLE.get(), level);
+    public ElementalPoisonMagicCircleAttackEntity(Level level) {
+        this(ModEntities.ELEMENTAL_POISON_MAGIC_CIRCLE.get(), level);
     }
 
-    public ElementalBreezeMagicCircleEntity(Level level, double x, double y, double z, float angle, LivingEntity owner) {
+    public ElementalPoisonMagicCircleAttackEntity(Level level, double x, double y, double z, float angle, LivingEntity owner) {
         this(level);
         setPos(x,y,z);
         this.setYRot(angle * (180F / (float)Math.PI));
@@ -58,11 +57,14 @@ public class ElementalBreezeMagicCircleEntity extends ElementalFireMagicCircleEn
 
             if(getOwner() != null)
             {
-                entity.hurt(damageSources().magic(), DAMAGE);
-                double damageResistance = entity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
-                double d1 = Math.max(0.0D, 1.0D - damageResistance);
-                entity.setDeltaMovement(entity.getDeltaMovement().add(0.0D, 0.6D * d1, 0.0D));
-                this.doEnchantDamageEffects(getOwner(), entity);
+                boolean didHurt = entity.hurt(damageSources().magic(), DAMAGE);
+                if(didHurt)
+                {
+                    double damageResistance = entity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
+                    double d1 = Math.max(0.0D, 1.0D - damageResistance);
+                    entity.setDeltaMovement(entity.getDeltaMovement().add(0.0D, 0.6D * d1, 0.0D));
+                    this.doEnchantDamageEffects(getOwner(), entity);
+                }
 
             }
             else

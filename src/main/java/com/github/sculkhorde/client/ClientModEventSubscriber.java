@@ -89,6 +89,7 @@ public class ClientModEventSubscriber {
         event.registerEntityRenderer(ModEntities.ELEMENTAL_POISON_MAGIC_CIRCLE.get(), ElementalPoisonMagicCircleRenderer::new);
         event.registerEntityRenderer(ModEntities.ELEMENTAL_ICE_MAGIC_CIRCLE.get(), ElementalIceMagicCircleRenderer::new);
         event.registerEntityRenderer(ModEntities.SOUL_SPEAR_SUMMONER.get(), SoulSpearSummonerRenderer::new);
+        event.registerEntityRenderer(ModEntities.ZOLTRAAK_ATTACK_ENTITY.get(), ZoltraakAttackRenderer::new);
     }
 
 

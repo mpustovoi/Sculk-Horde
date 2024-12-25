@@ -60,8 +60,8 @@ public abstract class AbstractProjectileEntity extends Projectile {
         float pitch = (float) -(Math.atan2(dy, Math.sqrt(dx * dx + dz * dz)) * (180 / Math.PI));
 
         // Set the entity's rotation
-        //this.setYRot(yaw);
-        //this.setXRot(pitch);
+        this.setYRot(yaw);
+        this.setXRot(pitch);
     }
 
     public void setDamage(float damage) {

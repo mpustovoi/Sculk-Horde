@@ -24,11 +24,11 @@ import java.util.List;
  * The following java files were created/edited for this entity.<br>
  * Edited {@link ModEntities}<br>
  * Edited {@link com.github.sculkhorde.client.ClientModEventSubscriber}<br>
- * Added {@link SoulSpearSummonerEntity}<br>
+ * Added {@link SoulSpearSummonerAttackEntity}<br>
  * Added {@link com.github.sculkhorde.client.model.enitity.ChaosTeleporationRiftModel}<br>
  * Added {@link com.github.sculkhorde.client.renderer.entity.ChaosTeleporationRiftRenderer}
  */
-public class SoulSpearSummonerEntity extends SpecialEffectEntity implements GeoEntity
+public class SoulSpearSummonerAttackEntity extends SpecialEffectEntity implements GeoEntity
 {
     protected static int LIFE_TIME = TickUnits.convertSecondsToTicks(20);
     protected int currentLifeTicks = 0;
@@ -40,12 +40,12 @@ public class SoulSpearSummonerEntity extends SpecialEffectEntity implements GeoE
 
     protected final int MAX_ATTACK_TARGETS = 3;
 
-    public SoulSpearSummonerEntity(EntityType<?> entityType, Level level)
+    public SoulSpearSummonerAttackEntity(EntityType<?> entityType, Level level)
     {
         super(entityType, level);
     }
 
-    public SoulSpearSummonerEntity(Level level, LivingEntity owner)
+    public SoulSpearSummonerAttackEntity(Level level, LivingEntity owner)
     {
         this(ModEntities.SOUL_SPEAR_SUMMONER.get(), level);
         setOwner(owner);
@@ -64,7 +64,7 @@ public class SoulSpearSummonerEntity extends SpecialEffectEntity implements GeoE
             return;
         }
 
-        AbstractProjectileEntity projectile =  new SoulSpearProjectileEntity(level(), getOwner(), 20F);
+        AbstractProjectileEntity projectile =  new SoulSpearProjectileAttackEntity(level(), getOwner(), 20F);
         projectile.setPos(position().add(0, getEyeHeight() - projectile.getBoundingBox().getYsize() * .5f, 0));
 
         double spawnPosX = getX();

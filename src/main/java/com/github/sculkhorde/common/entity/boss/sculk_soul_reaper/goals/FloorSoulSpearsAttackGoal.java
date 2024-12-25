@@ -1,6 +1,6 @@
 package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.goals;
 
-import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.FloorSoulSpearsEntity;
+import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.FloorSoulSpearsAttackEntity;
 import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SculkSoulReaperEntity;
 import com.github.sculkhorde.core.SculkHorde;
 import com.github.sculkhorde.util.BlockAlgorithms;
@@ -148,7 +148,7 @@ public class FloorSoulSpearsAttackGoal extends ReaperCastSpellGoal
             BlockPos current = queue.poll();
 
             // Spawn Floor Soul Spear
-            FloorSoulSpearsEntity entity = new FloorSoulSpearsEntity(mob, current.getX(), current.getY() + 1, current.getZ(), 0);
+            FloorSoulSpearsAttackEntity entity = new FloorSoulSpearsAttackEntity(mob, current.getX(), current.getY() + 1, current.getZ(), 0);
             mob.level().addFreshEntity(entity);
 
             if(debugMode)

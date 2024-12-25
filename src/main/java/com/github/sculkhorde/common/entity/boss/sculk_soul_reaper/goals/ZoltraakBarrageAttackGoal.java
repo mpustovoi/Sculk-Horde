@@ -1,6 +1,7 @@
 package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.goals;
 
 import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SculkSoulReaperEntity;
+import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.ZoltraakAttackEntity;
 import com.github.sculkhorde.util.EntityAlgorithms;
 import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.core.BlockPos;
@@ -139,7 +140,8 @@ public class ZoltraakBarrageAttackGoal extends ReaperCastSpellGoal
             return;
         }
 
-        SculkSoulReaperEntity.performTargetedZoltraakAttack(mob, getRandomBlockPosAboveEntity().getCenter(), mob.getTarget(), DAMAGE);
+        //SculkSoulReaperEntity.performTargetedZoltraakAttack(mob, getRandomBlockPosAboveEntity().getCenter(), mob.getTarget(), DAMAGE);
+        ZoltraakAttackEntity.castZoltraakOnEntity(mob, mob.getTarget(), getRandomBlockPosAboveEntity().getCenter());
 
         attackkIntervalCooldown = attackIntervalTicks;
     }

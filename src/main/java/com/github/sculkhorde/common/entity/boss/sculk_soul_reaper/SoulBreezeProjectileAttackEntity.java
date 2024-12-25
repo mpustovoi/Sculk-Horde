@@ -2,18 +2,16 @@ package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper;
 
 import com.github.sculkhorde.common.entity.projectile.AbstractProjectileEntity;
 import com.github.sculkhorde.core.ModEntities;
-import com.github.sculkhorde.util.ColorUtil;
 import com.github.sculkhorde.util.ParticleUtil;
-import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3f;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
@@ -22,22 +20,31 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.Optional;
 
-public class SoulPoisonProjectileEntity extends AbstractProjectileEntity implements GeoEntity {
-    public SoulPoisonProjectileEntity(EntityType<? extends Projectile> pEntityType, Level pLevel) {
+public class SoulBreezeProjectileAttackEntity extends AbstractProjectileEntity implements GeoEntity {
+    public SoulBreezeProjectileAttackEntity(EntityType<? extends Projectile> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         setNoGravity(true);
     }
 
-    public SoulPoisonProjectileEntity(Level level, LivingEntity shooter, float damage)
+    public SoulBreezeProjectileAttackEntity(Level level, LivingEntity shooter, float damage)
     {
-        this(ModEntities.SOUL_POISON_PROJECTILE.get(), level);
+        this(ModEntities.SOUL_BREEZE_PROJECTILE.get(), level);
         setOwner(shooter);
         setDamage(damage);
     }
 
     @Override
     protected void applyEffectToEntity(LivingEntity entity) {
-         entity.addEffect(new MobEffectInstance(MobEffects.POISON, TickUnits.convertSecondsToTicks(10), 0));
+
+        double knockbackResistance = entity.getAttributeValue(Attributes.KNOCKBACK_RESISTANCE);
+        Vec3 direction = entity.position().subtract(position()).normalize();
+        float knockbackStrength = 0.4F;
+
+
+        double d1 = Math.max(0.0D, 1.0D - knockbackResistance);
+        Vec3 knockback = direction.scale(knockbackStrength * d1);
+        entity.setDeltaMovement(entity.getDeltaMovement().add(knockback).add(0, 0.4F, 0));
+        this.doEnchantDamageEffects((LivingEntity) getOwner(), entity);
     }
 
     @Override
@@ -47,7 +54,8 @@ public class SoulPoisonProjectileEntity extends AbstractProjectileEntity impleme
         float spawnZ = (float) (getZ() + level().getRandom().nextFloat());
         Vector3f spawn = new Vector3f(spawnX, spawnY, spawnZ);
         Vector3f deltaMovement = new Vector3f(0, 0, 0);
-        ParticleUtil.spawnColoredDustParticle((ServerLevel) level(), ColorUtil.getRandomHexAcidColor(level().getRandom()), 0.8F, spawn, deltaMovement);
+        String breezeColor = "958DD3";
+        ParticleUtil.spawnColoredDustParticle((ServerLevel) level(), breezeColor, 0.8F, spawn, deltaMovement);
     }
 
     @Override

@@ -3,13 +3,13 @@ package com.github.sculkhorde.client.model.enitity;// Made with Blockbench 4.10.
 // Paste this class into your mod and generate all required imports
 
 
-import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SoulFlySwatterProjectileEntity;
+import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SoulFlySwatterProjectileAttackEntity;
 import com.github.sculkhorde.core.SculkHorde;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
 import software.bernie.geckolib.model.DefaultedEntityGeoModel;
 
-public class SoulFlySwatterProjectileModel extends DefaultedEntityGeoModel<SoulFlySwatterProjectileEntity> {
+public class SoulFlySwatterProjectileModel extends DefaultedEntityGeoModel<SoulFlySwatterProjectileAttackEntity> {
 	// This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
 	public SoulFlySwatterProjectileModel() {
 		super(new ResourceLocation(SculkHorde.MOD_ID, "soul_fly_swatter_projectile"));
@@ -17,7 +17,7 @@ public class SoulFlySwatterProjectileModel extends DefaultedEntityGeoModel<SoulF
 
 	// We want our model to render using the translucent render type
 	@Override
-	public RenderType getRenderType(SoulFlySwatterProjectileEntity animatable, ResourceLocation texture) {
+	public RenderType getRenderType(SoulFlySwatterProjectileAttackEntity animatable, ResourceLocation texture) {
 		return RenderType.entityTranslucent(getTextureResource(animatable));
 	}
 

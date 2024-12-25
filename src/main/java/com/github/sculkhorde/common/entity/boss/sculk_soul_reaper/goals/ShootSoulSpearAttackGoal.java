@@ -1,7 +1,7 @@
 package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.goals;
 
 import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SculkSoulReaperEntity;
-import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SoulSpearProjectileEntity;
+import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SoulSpearProjectileAttackEntity;
 import com.github.sculkhorde.common.entity.projectile.AbstractProjectileEntity;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
@@ -53,7 +53,7 @@ public class ShootSoulSpearAttackGoal extends ReaperCastSpellGoal
             return;
         }
 
-        AbstractProjectileEntity projectile =  new SoulSpearProjectileEntity(mob.level(), mob, 20F);
+        AbstractProjectileEntity projectile =  new SoulSpearProjectileAttackEntity(mob.level(), mob, 20F);
         projectile.setPos(mob.position().add(0, mob.getEyeHeight() - projectile.getBoundingBox().getYsize() * .5f, 0));
 
         double spawnPosX = mob.getX();

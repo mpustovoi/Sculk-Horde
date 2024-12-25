@@ -1,7 +1,7 @@
 package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.goals;
 
 import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SculkSoulReaperEntity;
-import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SoulSpearSummonerEntity;
+import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.SoulSpearSummonerAttackEntity;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
@@ -40,7 +40,7 @@ public class SummonSoulSpearSummonerGoal extends ReaperCastSpellGoal
     public void summonSoulSpearSummoner()
     {
 
-        SoulSpearSummonerEntity summonerEntity =  new SoulSpearSummonerEntity(mob.level(), mob);
+        SoulSpearSummonerAttackEntity summonerEntity =  new SoulSpearSummonerAttackEntity(mob.level(), mob);
         summonerEntity.setPos(mob.position().add(0, mob.getEyeHeight() + 5, 0));
 
         mob.playSound(SoundEvents.BLAZE_SHOOT, 1.0F, 1.0F / (mob.getRandom().nextFloat() * 0.4F + 0.8F));

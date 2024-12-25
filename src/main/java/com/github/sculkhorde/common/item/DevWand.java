@@ -1,5 +1,6 @@
 package com.github.sculkhorde.common.item;
 
+import com.github.sculkhorde.common.entity.boss.sculk_soul_reaper.ZoltraakAttackEntity;
 import com.github.sculkhorde.util.ParticleUtil;
 import com.github.sculkhorde.util.StructureUtil;
 import net.minecraft.network.chat.Component;
@@ -85,6 +86,7 @@ public class DevWand extends Item implements IForgeItem {
 		Vector3f result = rayTrace.getTo().toVector3f();
 
 		ParticleUtil.spawnBurrowedBurstParticles(serverLevel, result, 8, 0.3F);
+		ZoltraakAttackEntity.castZoltraakOnEntity(playerIn, playerIn, rayTrace.getTo());
 
 		//LivingArmorEntity entity = new LivingArmorEntity(ModEntities.LIVING_ARMOR.get(), worldIn);
 		//entity.teleportTo(playerIn.blockPosition().getX(), playerIn.blockPosition().getY(), playerIn.blockPosition().getZ());

@@ -1,16 +1,16 @@
 package com.github.sculkhorde.common.entity.boss.sculk_soul_reaper;
 
+import com.github.sculkhorde.common.effect.DenseEffect;
 import com.github.sculkhorde.common.entity.projectile.AbstractProjectileEntity;
 import com.github.sculkhorde.core.ModEntities;
-import com.github.sculkhorde.util.ParticleUtil;
-import net.minecraft.server.level.ServerLevel;
+import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.level.Level;
-import org.joml.Vector3f;
+import net.minecraft.world.phys.BlockHitResult;
 import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
@@ -18,31 +18,38 @@ import software.bernie.geckolib.util.GeckoLibUtil;
 
 import java.util.Optional;
 
-public class SoulFireProjectileEntity extends AbstractProjectileEntity implements GeoEntity {
-    public SoulFireProjectileEntity(EntityType<? extends Projectile> pEntityType, Level pLevel) {
+public class SoulFlySwatterProjectileAttackEntity extends AbstractProjectileEntity implements GeoEntity {
+    public SoulFlySwatterProjectileAttackEntity(EntityType<? extends Projectile> pEntityType, Level pLevel) {
         super(pEntityType, pLevel);
         setNoGravity(true);
     }
 
-    public SoulFireProjectileEntity(Level level, LivingEntity shooter, float damage)
+    public SoulFlySwatterProjectileAttackEntity(Level level, LivingEntity shooter, float damage)
     {
-        this(ModEntities.SOUL_FIRE_PROJECTILE.get(), level);
+        this(ModEntities.SOUL_FLY_SWATTER_PROJECTILE.get(), level);
         setOwner(shooter);
         setDamage(damage);
     }
 
     @Override
+    protected void onHitBlock(BlockHitResult hitResult) {
+    }
+
+    @Override
     protected void applyEffectToEntity(LivingEntity entity) {
-        entity.setSecondsOnFire(10);
+        entity.push(0, -10, 0);
+
+        if(getOwner() != null && getOwner() instanceof LivingEntity e)
+        {
+            e.doHurtTarget(entity);
+            DenseEffect.applyToEntity((LivingEntity) getOwner(), e, TickUnits.convertSecondsToTicks(20));
+        }
+
     }
 
     @Override
     public void trailParticles() {
-        float spawnX = (float) (getX() + level().getRandom().nextFloat());
-        float spawnY = (float) (getY() + level().getRandom().nextFloat());
-        float spawnZ = (float) (getZ() + level().getRandom().nextFloat());
-        Vector3f spawn = new Vector3f(spawnX, spawnY, spawnZ);
-        ParticleUtil.spawnFlameParticle((ServerLevel) level(), spawn, new Vector3f(0,0,0));
+
     }
 
     @Override
@@ -52,7 +59,7 @@ public class SoulFireProjectileEntity extends AbstractProjectileEntity implement
 
     @Override
     public float getSpeed() {
-        return 1.75F;
+        return 3F;
     }
 
     @Override
@@ -60,12 +67,13 @@ public class SoulFireProjectileEntity extends AbstractProjectileEntity implement
         return Optional.of(SoundEvents.FIREWORK_ROCKET_BLAST);
     }
 
+
+    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     @Override
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
 
     }
 
-    private final AnimatableInstanceCache cache = GeckoLibUtil.createInstanceCache(this);
     @Override
     public AnimatableInstanceCache getAnimatableInstanceCache() {
         return cache;
