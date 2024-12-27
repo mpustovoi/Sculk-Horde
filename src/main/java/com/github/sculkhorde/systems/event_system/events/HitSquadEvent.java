@@ -206,7 +206,7 @@ public class HitSquadEvent extends Event {
             return;
         }
 
-        EntityChunkLoaderHelper.getEntityChunkLoaderHelper().createChunkLoadRequestSquareForEntityIfAbsent(reaper,5, 3, TickUnits.convertMinutesToTicks(1));
+        EntityChunkLoaderHelper.getEntityChunkLoaderHelper().createChunkLoadRequestSquareForEntityIfAbsent(reaper,3, 3, TickUnits.convertMinutesToTicks(1));
 
     }
 
@@ -246,7 +246,7 @@ public class HitSquadEvent extends Event {
             return;
         }
 
-        EntityChunkLoaderHelper.getEntityChunkLoaderHelper().createChunkLoadRequestSquareForEntityIfAbsent(reaper,5, 3, TickUnits.convertMinutesToTicks(1));
+        EntityChunkLoaderHelper.getEntityChunkLoaderHelper().createChunkLoadRequestSquareForEntityIfAbsent(reaper,3, 3, TickUnits.convertMinutesToTicks(1));
 
     }
 
