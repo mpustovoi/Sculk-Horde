@@ -3,11 +3,16 @@ package com.github.sculkhorde.common.block;
 import com.github.sculkhorde.common.blockentity.SculkMassBlockEntity;
 import com.github.sculkhorde.core.ModBlockEntities;
 import com.github.sculkhorde.core.SculkHorde;
+import com.github.sculkhorde.util.BlockAlgorithms;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityTicker;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -17,14 +22,9 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
-import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.Level;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraftforge.common.extensions.IForgeBlock;
 
 import javax.annotation.Nullable;
@@ -128,16 +128,27 @@ public class SculkMassBlock extends BaseEntityBlock implements IForgeBlock, Simp
 
         SculkMassBlockEntity thisTile;
 
-        world.setBlockAndUpdate(placementPos, this.defaultBlockState());
-        thisTile = getTileEntity(world, placementPos);
-
-        if(!(thisTile instanceof SculkMassBlockEntity)) { return; }
-
         //Calcualate the total mass collected
         int totalMassPreTax = (int) (victimHealth * HEALTH_ABSORB_MULTIPLIER);
         int totalMassTax = (int) (totalMassPreTax * SCULK_HOARD_MASS_TAX);
         int totalRemainingMass = totalMassPreTax - totalMassTax;
         thisTile.setStoredSculkMass(totalRemainingMass);
+
+
+        // If we cannot place it here
+        if(!BlockAlgorithms.isWeakBlock(world.getBlockState(placementPos)))
+        {
+            if(SculkHorde.savedData != null) {SculkHorde.savedData.addSculkAccumulatedMass(totalMassPreTax);}
+            if(SculkHorde.statisticsData != null) {SculkHorde.statisticsData.addTotalMassFromBurrowed(totalMassPreTax);}
+            return;
+        }
+
+        // If we can place it here
+
+        world.setBlockAndUpdate(placementPos, this.defaultBlockState());
+        thisTile = getTileEntity(world, placementPos);
+
+        if(!(thisTile instanceof SculkMassBlockEntity)) { return; }
 
         //Pay Mass Tax to the Sculk Hoard
         if(SculkHorde.savedData != null) {SculkHorde.savedData.addSculkAccumulatedMass(totalMassTax);}

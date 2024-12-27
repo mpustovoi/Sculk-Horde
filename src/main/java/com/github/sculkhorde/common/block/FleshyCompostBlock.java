@@ -1,10 +1,10 @@
 package com.github.sculkhorde.common.block;
 
 import com.github.sculkhorde.common.blockentity.FleshyCompostBlockEntity;
-import com.github.sculkhorde.common.blockentity.SculkMassBlockEntity;
 import com.github.sculkhorde.core.ModBlockEntities;
 import com.github.sculkhorde.core.ModBlocks;
 import com.github.sculkhorde.core.SculkHorde;
+import com.github.sculkhorde.util.BlockAlgorithms;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.entity.LivingEntity;
@@ -110,7 +110,7 @@ public class FleshyCompostBlock extends BaseEntityBlock implements IForgeBlock, 
     {
         BlockPos placementPos = originPos.above();
 
-        if(world.getBlockState(placementPos).isAir() || world.getBlockState(placementPos).canBeReplaced(Fluids.WATER))
+        if(BlockAlgorithms.isWeakBlock(world.getBlockState(placementPos)))
         {
             world.setBlockAndUpdate(placementPos, this.defaultBlockState());
             if(world.getBlockEntity(placementPos) instanceof FleshyCompostBlockEntity blockEntity)

@@ -22,6 +22,11 @@ import java.util.function.Predicate;
 
 public class BlockAlgorithms {
 
+    public static boolean isWeakBlock(BlockState blockState)
+    {
+        return blockState.canBeReplaced() || blockState.canBeReplaced(Fluids.WATER);
+    }
+
     public static boolean isWaterLoggable(BlockState state)
     {
         return state.getProperties().contains(BlockStateProperties.WATERLOGGED);
