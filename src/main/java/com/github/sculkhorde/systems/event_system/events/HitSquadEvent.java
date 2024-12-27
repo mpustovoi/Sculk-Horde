@@ -213,17 +213,20 @@ public class HitSquadEvent extends Event {
         if(player.distanceTo(reaper) > 70)
         {
             setState(State.PURSUIT);
+            return;
         }
 
         if(player.isDeadOrDying())
         {
             setState(State.SUCCESS);
+            return;
         }
 
         if(reaper.isDeadOrDying())
         {
             setState(State.FAILURE);
             SculkHorde.LOGGER.info("HitSquadEvent | EVENT FAILURE: Player " + player.getScoreboardName() + " killed the Soul Reaper.");
+            return;
         }
 
         if(player.distanceTo(reaper) > MAX_DISTANCE_FROM_PLAYER + 50)
@@ -231,6 +234,8 @@ public class HitSquadEvent extends Event {
             setState(State.FAILURE);
             PlayerProfileHandler.getOrCreatePlayerProfile(player).setTimeOfLastHit(0);
             SculkHorde.LOGGER.info("HitSquadEvent | EVENT FAILURE: Player " + player.getScoreboardName() + " moved too far away from Soul Reaper.");
+            reaper.discard();
+            return;
         }
     }
 
