@@ -6,7 +6,9 @@ import com.github.sculkhorde.core.SculkHorde;
 import com.github.sculkhorde.systems.HitSquadSpawnFinder;
 import com.github.sculkhorde.systems.event_system.Event;
 import com.github.sculkhorde.util.BlockAlgorithms;
+import com.github.sculkhorde.util.ChunkLoading.EntityChunkLoaderHelper;
 import com.github.sculkhorde.util.PlayerProfileHandler;
+import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
@@ -179,18 +181,21 @@ public class HitSquadEvent extends Event {
         if(player.distanceTo(reaper) <= 64)
         {
             setState(State.ENGAGING);
+            return;
         }
 
         if(player.isDeadOrDying())
         {
             setState(State.SUCCESS);
             SculkHorde.LOGGER.info("HitSquadEvent | EVENT SUCCESS: Player " + player.getScoreboardName() + " died.");
+            return;
         }
 
         if(reaper.isDeadOrDying())
         {
             setState(State.FAILURE);
             SculkHorde.LOGGER.info("HitSquadEvent | EVENT FAILURE: Player " + player.getScoreboardName() + " killed the Soul Reaper.");
+            return;
         }
 
         if(player.distanceTo(reaper) > MAX_DISTANCE_FROM_PLAYER + 50)
@@ -198,7 +203,10 @@ public class HitSquadEvent extends Event {
             setState(State.FAILURE);
             PlayerProfileHandler.getOrCreatePlayerProfile(player).setTimeOfLastHit(0);
             SculkHorde.LOGGER.info("HitSquadEvent | EVENT FAILURE: Player " + player.getScoreboardName() + " moved too far away from Soul Reaper.");
+            return;
         }
+
+        EntityChunkLoaderHelper.getEntityChunkLoaderHelper().createChunkLoadRequestSquareForEntityIfAbsent(reaper,5, 3, TickUnits.convertMinutesToTicks(1));
 
     }
 
@@ -237,6 +245,9 @@ public class HitSquadEvent extends Event {
             reaper.discard();
             return;
         }
+
+        EntityChunkLoaderHelper.getEntityChunkLoaderHelper().createChunkLoadRequestSquareForEntityIfAbsent(reaper,5, 3, TickUnits.convertMinutesToTicks(1));
+
     }
 
     protected void successTick()
