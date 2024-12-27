@@ -132,7 +132,7 @@ public class SculkMassBlock extends BaseEntityBlock implements IForgeBlock, Simp
         int totalMassPreTax = (int) (victimHealth * HEALTH_ABSORB_MULTIPLIER);
         int totalMassTax = (int) (totalMassPreTax * SCULK_HOARD_MASS_TAX);
         int totalRemainingMass = totalMassPreTax - totalMassTax;
-        thisTile.setStoredSculkMass(totalRemainingMass);
+
 
 
         // If we cannot place it here
@@ -150,7 +150,9 @@ public class SculkMassBlock extends BaseEntityBlock implements IForgeBlock, Simp
 
         if(!(thisTile instanceof SculkMassBlockEntity)) { return; }
 
+
         //Pay Mass Tax to the Sculk Hoard
+        thisTile.setStoredSculkMass(totalRemainingMass);
         if(SculkHorde.savedData != null) {SculkHorde.savedData.addSculkAccumulatedMass(totalMassTax);}
         if(SculkHorde.statisticsData != null) {SculkHorde.statisticsData.addTotalMassFromBurrowed(totalMassTax);}
     }
