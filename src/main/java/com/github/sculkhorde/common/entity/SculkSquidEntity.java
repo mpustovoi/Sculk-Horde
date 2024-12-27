@@ -422,23 +422,21 @@ public class SculkSquidEntity extends WaterAnimal implements GeoEntity, ISculkSm
         public AttackInfectAndBlindGoal()
         {
             super(SculkSquidEntity.this, 1.0D, false, 10);
+        }
 
-            // THis is such a terrible way of doing this. The purpose of this is to execute this when the actuall attack happens.
-            codeToRunOnAttack = (Entity target) -> {
-                if(target instanceof LivingEntity livingTarget)
-                {
-                    if(livingTarget.getHealth() < livingTarget.getMaxHealth()/2)
-                    {
-                        EntityAlgorithms.applyEffectToTarget(livingTarget, ModMobEffects.SCULK_INFECTION.get(), TickUnits.convertSecondsToTicks(10), 0);
-                    }
+        @Override
+        public void onTargetHurt(LivingEntity target) {
 
-                    if(this.mob instanceof SculkSquidEntity squid)
-                    {
-                        EntityAlgorithms.applyEffectToTarget(livingTarget, MobEffects.BLINDNESS, TickUnits.convertSecondsToTicks(3), 0);
-                        squid.spawnInk();
-                    }
-                }
-            };
+            if(target.getHealth() < target.getMaxHealth()/2)
+            {
+                EntityAlgorithms.applyEffectToTarget(target, ModMobEffects.SCULK_INFECTION.get(), TickUnits.convertSecondsToTicks(10), 0);
+            }
+
+            if(this.mob instanceof SculkSquidEntity squid)
+            {
+                EntityAlgorithms.applyEffectToTarget(target, MobEffects.BLINDNESS, TickUnits.convertSecondsToTicks(3), 0);
+                squid.spawnInk();
+            }
         }
 
         @Override
@@ -495,7 +493,6 @@ public class SculkSquidEntity extends WaterAnimal implements GeoEntity, ISculkSm
             }
             else
             {
-                delayedHurtScheduler.attackExecution = codeToRunOnAttack;
                 delayedHurtScheduler.trigger(attackReach);
             }
 

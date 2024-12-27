@@ -1,6 +1,7 @@
 package com.github.sculkhorde.common.entity;
 
 import com.github.sculkhorde.common.entity.goal.*;
+import com.github.sculkhorde.util.EntityAlgorithms;
 import com.github.sculkhorde.util.SquadHandler;
 import com.github.sculkhorde.util.TargetParameters;
 import com.github.sculkhorde.util.TickUnits;
@@ -115,7 +116,7 @@ public class SculkSalmonEntity extends Salmon implements GeoEntity, ISculkSmartE
 
         this.goalSelector.addGoal(0, new DespawnAfterTime(this, TickUnits.convertMinutesToTicks(2)));
         this.goalSelector.addGoal(0, new DespawnWhenIdle(this, TickUnits.convertMinutesToTicks(1)));
-        this.goalSelector.addGoal(1, new SculkSalmonInfectGoal(this, 1.0D, true));
+        this.goalSelector.addGoal(1, new InfectGoal());
 
         Goal[] targetSelectorPayload = targetSelectorPayload();
         for(int priority = 0; priority < targetSelectorPayload.length; priority++)
@@ -202,6 +203,62 @@ public class SculkSalmonEntity extends Salmon implements GeoEntity, ISculkSmartE
 
     public boolean dampensVibrations() {
         return true;
+    }
+
+    class InfectGoal extends CustomMeleeAttackGoal
+    {
+
+        public InfectGoal()
+        {
+            super(SculkSalmonEntity.this, 1.0D, false, 10);
+        }
+
+        @Override
+        public boolean canUse()
+        {
+            boolean canWeUse = ((ISculkSmartEntity)this.mob).getTargetParameters().isEntityValidTarget(this.mob.getTarget(), true);
+            // If the mob is already targeting something valid, don't bother
+            return canWeUse;
+        }
+
+        @Override
+        public boolean canContinueToUse()
+        {
+            return canUse();
+        }
+
+        protected double getAttackReachSqr(LivingEntity pAttackTarget)
+        {
+            float f = SculkSalmonEntity.this.getBbWidth() - 0.1F;
+            return (double)(f * 2.0F * f * 2.0F + pAttackTarget.getBbWidth());
+        }
+
+        @Override
+        protected int getAttackInterval() {
+            return TickUnits.convertSecondsToTicks(2);
+        }
+
+        @Override
+        public void onTargetHurt(LivingEntity target) {
+            float targetMobRemainingHealth = target.getHealth() / target.getMaxHealth();
+            if(targetMobRemainingHealth <= 0.5 && !target.hasEffect(SculkMiteEntity.INFECT_EFFECT))
+            {
+                EntityAlgorithms.applyEffectToTarget(target, SculkMiteEntity.INFECT_EFFECT, SculkMiteEntity.INFECT_DURATION, SculkMiteEntity.INFECT_LEVEL);
+
+                //Kill The Bastard
+                /**
+                 *  Note:
+                 *  Never call thisMob.die(). This is not meant to be used, but is a public method for whatever reason.
+                 */
+                //thisMob.die(DamageSource.GENERIC);
+                mob.hurt(mob.damageSources().generic(), mob.getHealth());
+            }
+        }
+
+        @Override
+        protected void triggerAnimation() {
+            //((SculkRavagerEntity)mob).triggerAnim("attack_controller", "attack_animation");
+        }
     }
 
 }

@@ -651,13 +651,14 @@ public class EntityAlgorithms {
 
         private double attackReach = 0.0;
 
-        public CustomMeleeAttackGoal.AttackExecution attackExecution;
+        CustomMeleeAttackGoal parentAttackGoal;
 
-        public DelayedHurtScheduler(Mob damageDealer, int delayInTicks)
+        public DelayedHurtScheduler(CustomMeleeAttackGoal customMeleeAttackGoal, Mob damageDealer, int delayInTicks)
         {
             this.damageDealer = damageDealer;
             this.delayInTicks = delayInTicks;
             this.ticksRemaining = delayInTicks;
+            this.parentAttackGoal = customMeleeAttackGoal;
         }
 
         private ISculkSmartEntity getDamageDealerAsISculkSmartEntity()
@@ -712,14 +713,10 @@ public class EntityAlgorithms {
 
             getDamageDealerAsMob().swing(InteractionHand.MAIN_HAND);
             getDamageDealerAsMob().doHurtTarget(getDamageDealerAsMob().getTarget());
-            if(attackExecution != null) { attackExecution.execute(target.get()); }
+            parentAttackGoal.onTargetHurt(getDamageDealerAsMob().getTarget());
             return true;
         }
 
-        public void additionalExecutionOnAttack(LivingEntity targetMob)
-        {
-
-        }
 
         public void trigger(double attackReach)
         {

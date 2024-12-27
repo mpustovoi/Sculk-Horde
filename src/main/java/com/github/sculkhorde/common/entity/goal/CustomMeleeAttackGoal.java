@@ -1,7 +1,6 @@
 package com.github.sculkhorde.common.entity.goal;
 
 import com.github.sculkhorde.util.EntityAlgorithms;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntitySelector;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
@@ -29,7 +28,6 @@ public class CustomMeleeAttackGoal extends Goal{
     protected int ATTACK_ANIMATION_DELAY_TICKS;
 
     protected EntityAlgorithms.DelayedHurtScheduler delayedHurtScheduler;
-    public AttackExecution codeToRunOnAttack;
 
     public CustomMeleeAttackGoal(PathfinderMob mob, double speedMod, boolean followTargetIfNotSeen, int attackAnimationDelayTicksIn) {
         this.mob = mob;
@@ -37,7 +35,7 @@ public class CustomMeleeAttackGoal extends Goal{
         this.followingTargetEvenIfNotSeen = followTargetIfNotSeen;
         this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
         ATTACK_ANIMATION_DELAY_TICKS = attackAnimationDelayTicksIn;
-        delayedHurtScheduler = new EntityAlgorithms.DelayedHurtScheduler(mob, ATTACK_ANIMATION_DELAY_TICKS);
+        delayedHurtScheduler = new EntityAlgorithms.DelayedHurtScheduler(this, mob, ATTACK_ANIMATION_DELAY_TICKS);
     }
 
     protected float getMinimumDistanceToTarget()
@@ -217,7 +215,6 @@ public class CustomMeleeAttackGoal extends Goal{
             return;
         }
         triggerAnimation();
-        delayedHurtScheduler.attackExecution = codeToRunOnAttack;
         delayedHurtScheduler.trigger(attackReach);
 
         resetAttackCooldown();
@@ -243,8 +240,9 @@ public class CustomMeleeAttackGoal extends Goal{
         return (double)(this.mob.getBbWidth() * 2.0F * this.mob.getBbWidth() * 2.0F + p_25556_.getBbWidth());
     }
 
-    @FunctionalInterface
-    public interface AttackExecution {
-        void execute(Entity target);
+    public void onTargetHurt(LivingEntity target)
+    {
+
     }
+
 }
