@@ -1,8 +1,9 @@
 package com.github.sculkhorde.common.entity;
 
 import com.github.sculkhorde.common.entity.goal.*;
-import com.github.sculkhorde.core.ModMobEffects;
 import com.github.sculkhorde.core.ModConfig;
+import com.github.sculkhorde.core.ModMobEffects;
+import com.github.sculkhorde.core.ModSounds;
 import com.github.sculkhorde.util.SquadHandler;
 import com.github.sculkhorde.util.TargetParameters;
 import com.github.sculkhorde.util.TickUnits;
@@ -32,8 +33,6 @@ import software.bernie.geckolib.animatable.GeoEntity;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.util.GeckoLibUtil;
-
-import java.util.concurrent.TimeUnit;
 
 public class SculkMiteEntity extends Monster implements GeoEntity, ISculkSmartEntity {
 
@@ -109,15 +108,15 @@ public class SculkMiteEntity extends Monster implements GeoEntity, ISculkSmartEn
     }
 
     protected SoundEvent getAmbientSound() {
-        return SoundEvents.SILVERFISH_AMBIENT;
+        return ModSounds.SCULK_MITE_IDLE.get();
     }
 
     protected SoundEvent getHurtSound(DamageSource pDamageSource) {
-        return SoundEvents.SILVERFISH_HURT;
+        return ModSounds.SCULK_MITE_HURT.get();
     }
 
     protected SoundEvent getDeathSound() {
-        return SoundEvents.SILVERFISH_DEATH;
+        return ModSounds.SCULK_MITE_DEATH.get();
     }
 
     protected void playStepSound(BlockPos pPos, BlockState pBlock) {

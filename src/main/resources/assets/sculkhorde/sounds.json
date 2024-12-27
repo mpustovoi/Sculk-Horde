@@ -173,5 +173,28 @@
     "sounds": [
       "sculkhorde:zoltraak"
     ]
+  },
+  "sculk_mite_death": {
+    "subtitle": "sounds.sculkhorde.sculk_mite_death",
+    "sounds": [
+      "sculkhorde:sculk_mite_death1",
+      "sculkhorde:sculk_mite_death2",
+      "sculkhorde:sculk_mite_death3"
+    ]
+  },
+  "sculk_mite_hurt": {
+    "subtitle": "sounds.sculkhorde.sculk_mite_hurt",
+    "sounds": [
+      "sculkhorde:sculk_mite_hurt1",
+      "sculkhorde:sculk_mite_hurt2"
+    ]
+  },
+  "sculk_mite_idle": {
+    "subtitle": "sounds.sculkhorde.sculk_mite_idle",
+    "sounds": [
+      "sculkhorde:sculk_mite_idle1",
+      "sculkhorde:sculk_mite_idle2",
+      "sculkhorde:sculk_mite_idle3"
+    ]
   }
 }

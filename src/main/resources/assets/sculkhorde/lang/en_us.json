@@ -311,8 +311,12 @@
   "item.sculkhorde.tome_of_spore": "Tome of Spore",
   "item.sculkhorde.tome_of_sacrifice": "Tome of Sacrifice",
   "item.sculkhorde.graveminds_symbiote": "Gravemind's Symbiote",
+
   "sounds.sculkhorde.burrowed_burst": "A Mite bursts out of the body a creature.",
-  
+  "sounds.sculkhorde.sculk_mite_idle": "Sculk Mite Squeaks",
+  "sounds.sculkhorde.sculk_mite_hurt": "Sculk Mite Hurts",
+  "sounds.sculkhorde.sculk_mite_death": "Sculk Mite Dies",
+
   "entity.sculkhorde.sculk_soul_reaper": "Sculk Soul Reaper",
   "block.sculkhorde.soulite_core_block": "Soulite Core Block",
   "block.sculkhorde.soulite_block": "Soulite Block",
@@ -334,5 +338,4 @@
   "item.sculkhorde.diasculk": "Diasculk",
   "tooltip.sculkhorde.diasculk.functionality": "WIP",
   "tooltip.sculkhorde.diasculk.lore": "WIP"
-
 }
