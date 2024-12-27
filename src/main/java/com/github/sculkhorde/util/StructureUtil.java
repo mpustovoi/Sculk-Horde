@@ -448,7 +448,7 @@ public class StructureUtil {
             //SculkHorde.LOGGER.debug("StructureUtil | Offset: " + originOffset.toShortString());
             //SculkHorde.LOGGER.debug("StructureUtil | New Pos: " + placePosition.toShortString());
 
-            if(doNotPlaceBlocksHereList.contains(placePosition))
+            if(doNotPlaceBlocksHereList.contains(placePosition) || BlockAlgorithms.cantBeDestroyedByStructures(world.getLevel(), placePosition))
             {
                 currentIndex += 1;
                 return;

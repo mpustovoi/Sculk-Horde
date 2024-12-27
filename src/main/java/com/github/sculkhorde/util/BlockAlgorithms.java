@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.FluidTags;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
@@ -22,9 +23,86 @@ import java.util.function.Predicate;
 
 public class BlockAlgorithms {
 
+    public static boolean cantBeDestroyedByStructures(Level level, BlockPos pos)
+    {
+        return !isDestroyableByStructures(level, pos);
+    }
+    public static boolean isDestroyableByStructures(Level level, BlockPos pos)
+    {
+        BlockState blockState = level.getBlockState(pos);
+
+        // Explicity Deny
+        if(isImmuneToWither(blockState) || isIndestructable(level, pos) || blockState.hasBlockEntity())
+        {
+            return false;
+        }
+
+        return isWeakBlock(blockState) || hasFastDestroySpeed(level, pos) || isMineableWithIronTools(blockState) || isInfestedBlock(blockState);
+    }
+
+    public static boolean isInfestedBlock(BlockState blockState)
+    {
+        return blockState.is(ModBlocks.BlockTags.INFESTED_BLOCK);
+    }
+
+    public static boolean isImmuneToWither(BlockState blockState)
+    {
+        return blockState.is(BlockTags.WITHER_IMMUNE);
+    }
+
+    public static boolean isIndestructable(Level level, BlockPos pos)
+    {
+        BlockState blockState = level.getBlockState(pos);
+        return blockState.getDestroySpeed(level, pos) < 0;
+    }
+
     public static boolean isWeakBlock(BlockState blockState)
     {
-        return blockState.canBeReplaced() || blockState.canBeReplaced(Fluids.WATER);
+        return isReplaceable(blockState) || isAir(blockState);
+    }
+
+    public static boolean isAir(BlockState blockState)
+    {
+        return blockState.isAir();
+    }
+    public static boolean doesNotNeedToolForDrops(BlockState blockState)
+    {
+        return !blockState.requiresCorrectToolForDrops();
+    }
+    public static boolean hasFastDestroySpeed(Level level, BlockPos pos)
+    {
+        BlockState blockState = level.getBlockState(pos);
+        return blockState.getDestroySpeed(level, pos) <= 3.0F && blockState.getDestroySpeed(level, pos) >= 0;
+    }
+    public static boolean isMineableWithDiamondTools(BlockState blockState)
+    {
+        return blockState.is(BlockTags.NEEDS_DIAMOND_TOOL) || isMineableWithIronTools(blockState);
+    }
+    public static boolean requiresDiamondTools(BlockState blockState)
+    {
+        return blockState.is(BlockTags.NEEDS_DIAMOND_TOOL);
+    }
+    public static boolean isMineableWithIronTools(BlockState blockState)
+    {
+        return blockState.is(BlockTags.NEEDS_IRON_TOOL) || isMineableWithStoneTools(blockState);
+    }
+    public static boolean requiresIronTools(BlockState blockState)
+    {
+        return blockState.is(BlockTags.NEEDS_IRON_TOOL);
+    }
+    public static boolean isMineableWithStoneTools(BlockState blockState)
+    {
+        return blockState.is(BlockTags.NEEDS_STONE_TOOL) || doesNotNeedToolForDrops(blockState);
+    }
+
+    public static boolean isReplaceable(BlockState blockState)
+    {
+        return isReplaceableByWater(blockState) || blockState.canBeReplaced();
+    }
+
+    public static boolean isReplaceableByWater(BlockState blockState)
+    {
+        return blockState.canBeReplaced(Fluids.WATER);
     }
 
     public static boolean isWaterLoggable(BlockState state)

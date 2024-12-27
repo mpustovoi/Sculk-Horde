@@ -1,6 +1,7 @@
 package com.github.sculkhorde.common.structures.procedural;
 
 import com.github.sculkhorde.core.ModBlocks;
+import com.github.sculkhorde.util.BlockAlgorithms;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -63,7 +64,7 @@ public class PlannedBlock
      */
     public boolean canBePlaced()
     {
-        return this.VALID_BLOCKS_TO_REPLACE.test(world.getBlockState(targetPos));
+        return BlockAlgorithms.isDestroyableByStructures(world, targetPos);
     }
 
     /**
