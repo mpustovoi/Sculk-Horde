@@ -4,9 +4,12 @@ import com.github.sculkhorde.client.model.enitity.SculkRavagerModel;
 import com.github.sculkhorde.client.renderer.entity.SculkRavagerRenderer;
 import com.github.sculkhorde.common.entity.goal.*;
 import com.github.sculkhorde.core.ModEntities;
+import com.github.sculkhorde.core.ModSounds;
 import com.github.sculkhorde.util.SquadHandler;
 import com.github.sculkhorde.util.TargetParameters;
 import com.github.sculkhorde.util.TickUnits;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -24,6 +27,8 @@ import software.bernie.geckolib.core.animation.AnimationController;
 import software.bernie.geckolib.core.animation.RawAnimation;
 import software.bernie.geckolib.core.object.PlayState;
 import software.bernie.geckolib.util.GeckoLibUtil;
+
+import javax.annotation.Nullable;
 
 /**
  * In order to create a mob, the following java files were created/edited.<br>
@@ -261,5 +266,19 @@ public class SculkRavagerEntity extends Ravager implements GeoEntity, ISculkSmar
 
     public boolean dampensVibrations() {
         return true;
+    }
+
+    // #### SOUNDS ####
+    @Nullable
+    protected SoundEvent getAmbientSound() {
+        return ModSounds.SCULK_RAVAGER_AMBIENT.get();
+    }
+
+    protected SoundEvent getHurtSound(DamageSource p_33359_) {
+        return ModSounds.SCULK_RAVAGER_HURT.get();
+    }
+
+    protected SoundEvent getDeathSound() {
+        return ModSounds.SCULK_RAVAGER_DEATH.get();
     }
 }

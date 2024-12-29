@@ -196,5 +196,38 @@
       "sculkhorde:sculk_mite_idle2",
       "sculkhorde:sculk_mite_idle3"
     ]
+  },
+  "sculk_ravager_ambient": {
+    "subtitle": "sounds.sculkhorde.sculk_ravager_ambient",
+    "sounds": [
+      "sculkhorde:sculk_ravager_ambient1",
+      "sculkhorde:sculk_ravager_ambient2",
+      "sculkhorde:sculk_ravager_ambient3"
+    ]
+  },
+  "sculk_ravager_hurt": {
+    "subtitle": "sounds.sculkhorde.sculk_ravager_hurt",
+    "sounds": [
+      "sculkhorde:sculk_ravager_hurt"
+    ]
+  },
+  "sculk_ravager_death": {
+    "subtitle": "sounds.sculkhorde.sculk_ravager_death",
+    "sounds": [
+      "sculkhorde:sculk_ravager_hurt"
+    ]
+  },
+  "sculk_ravager_screech": {
+    "subtitle": "sounds.sculkhorde.sculk_ravager_screech",
+    "sounds": [
+      "sculkhorde:sculk_ravager_screech1",
+      "sculkhorde:sculk_ravager_screech2"
+    ]
+  },
+  "sculk_ravager_bite": {
+    "subtitle": "sounds.sculkhorde.sculk_ravager_bite",
+    "sounds": [
+      "sculkhorde:sculk_ravager_bite"
+    ]
   }
 }

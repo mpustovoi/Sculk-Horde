@@ -45,6 +45,12 @@ public class ModSounds {
     public static final RegistryObject<SoundEvent> SCULK_MITE_HURT = registerSoundEvent("sculk_mite_hurt");
     public static final RegistryObject<SoundEvent> SCULK_MITE_DEATH = registerSoundEvent("sculk_mite_death");
 
+    public static final RegistryObject<SoundEvent> SCULK_RAVAGER_AMBIENT = registerSoundEvent("sculk_ravager_ambient");
+    public static final RegistryObject<SoundEvent> SCULK_RAVAGER_HURT = registerSoundEvent("sculk_ravager_hurt");
+    public static final RegistryObject<SoundEvent> SCULK_RAVAGER_DEATH = registerSoundEvent("sculk_ravager_death");
+    public static final RegistryObject<SoundEvent> SCULK_RAVAGER_BITE = registerSoundEvent("sculk_ravager_bite");
+    public static final RegistryObject<SoundEvent> SCULK_RAVAGER_SCREECH = registerSoundEvent("sculk_ravager_screech");
+
 
     private static RegistryObject<SoundEvent> registerSoundEvent(String name) {
         ResourceLocation id = new ResourceLocation(SculkHorde.MOD_ID, name);

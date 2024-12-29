@@ -317,6 +317,13 @@
   "sounds.sculkhorde.sculk_mite_hurt": "Sculk Mite Hurts",
   "sounds.sculkhorde.sculk_mite_death": "Sculk Mite Dies",
 
+  "sounds.sculkhorde.sculk_ravager_ambient": "Sculk Ravager Groans",
+  "sounds.sculkhorde.sculk_ravager_hurt": "Sculk Ravager Hurts",
+  "sounds.sculkhorde.sculk_ravager_death": "Sculk Ravager Dies",
+  "sounds.sculkhorde.sculk_ravager_screech": "Sculk Ravager Screeches",
+  "sounds.sculkhorde.sculk_ravager_bite": "Sculk Ravager Chomps",
+
+
   "entity.sculkhorde.sculk_soul_reaper": "Sculk Soul Reaper",
   "block.sculkhorde.soulite_core_block": "Soulite Core Block",
   "block.sculkhorde.soulite_block": "Soulite Block",
