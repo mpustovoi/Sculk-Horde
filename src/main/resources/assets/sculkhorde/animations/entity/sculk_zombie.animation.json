@@ -395,6 +395,7 @@
 		},
 		"attack": {
 			"animation_length": 0.6,
+			"override_previous_animation": true,
 			"bones": {
 				"torso": {
 					"rotation": {

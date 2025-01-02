@@ -6,7 +6,7 @@ import com.github.sculkhorde.common.entity.infection.CursorSurfaceInfectorEntity
 import com.github.sculkhorde.core.*;
 import com.github.sculkhorde.util.EntityAlgorithms;
 import com.github.sculkhorde.util.SquadHandler;
-import com.github.sculkhorde.util.TargetParameters;
+import com.github.sculkhorde.common.entity.components.TargetParameters;
 import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.syncher.EntityDataAccessor;

@@ -6,7 +6,7 @@ import com.github.sculkhorde.common.entity.goal.*;
 import com.github.sculkhorde.core.ModEntities;
 import com.github.sculkhorde.core.ModSounds;
 import com.github.sculkhorde.util.SquadHandler;
-import com.github.sculkhorde.util.TargetParameters;
+import com.github.sculkhorde.common.entity.components.TargetParameters;
 import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.damagesource.DamageSource;
@@ -216,6 +216,7 @@ public class SculkRavagerEntity extends Ravager implements GeoEntity, ISculkSmar
     public void registerControllers(AnimatableManager.ControllerRegistrar controllers) {
         controllers.add(DefaultAnimations.genericWalkIdleController(this).transitionLength(5));
         controllers.add(ATTACK_ANIMATION_CONTROLLER);
+        controllers.add(DefaultAnimations.genericLivingController(this));
     }
 
     @Override

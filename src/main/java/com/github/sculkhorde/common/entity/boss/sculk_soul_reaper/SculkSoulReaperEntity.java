@@ -12,7 +12,7 @@ import com.github.sculkhorde.common.entity.goal.TargetAttacker;
 import com.github.sculkhorde.core.ModEntities;
 import com.github.sculkhorde.core.ModMobEffects;
 import com.github.sculkhorde.util.SquadHandler;
-import com.github.sculkhorde.util.TargetParameters;
+import com.github.sculkhorde.common.entity.components.TargetParameters;
 import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.ParticleTypes;

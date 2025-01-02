@@ -7,7 +7,7 @@ import com.github.sculkhorde.core.ModEntities;
 import com.github.sculkhorde.core.ModMobEffects;
 import com.github.sculkhorde.util.EntityAlgorithms;
 import com.github.sculkhorde.util.SquadHandler;
-import com.github.sculkhorde.util.TargetParameters;
+import com.github.sculkhorde.common.entity.components.TargetParameters;
 import com.github.sculkhorde.util.TickUnits;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -19,6 +19,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.pathfinder.BlockPathTypes;
 import net.minecraft.world.phys.AABB;
 import software.bernie.geckolib.animatable.GeoEntity;
+import software.bernie.geckolib.constant.DefaultAnimations;
 import software.bernie.geckolib.core.animatable.instance.AnimatableInstanceCache;
 import software.bernie.geckolib.core.animation.AnimatableManager;
 import software.bernie.geckolib.core.animation.AnimationController;
@@ -175,7 +176,8 @@ public class SculkCreeperEntity extends Creeper implements ISculkSmartEntity, Ge
         controllers.add(
                 new AnimationController<>(this, "walk_cycle", 5, this::poseWalkCycle),
                 new AnimationController<>(this, "attack_cycle", 5, this::poseAttackCycle),
-                new AnimationController<>(this, "blob_idle", 5, this::poseBlobIdleCycle)
+                new AnimationController<>(this, "blob_idle", 5, this::poseBlobIdleCycle),
+                DefaultAnimations.genericLivingController(this)
         );
     }
 
