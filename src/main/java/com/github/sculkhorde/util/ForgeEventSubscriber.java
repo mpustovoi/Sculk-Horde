@@ -79,6 +79,15 @@ public class ForgeEventSubscriber {
                 BlockEntityChunkLoaderHelper.getChunkLoaderHelper().createChunkLoadRequestSquare(((ServerLevel)event.getLevel()), BlockPos.ZERO, 5, 0, TickUnits.convertMinutesToTicks(10));
             }
 
+            if(ModConfig.SERVER.purification_speed_multiplier.get() <= 0)
+            {
+                ModConfig.SERVER.purification_speed_multiplier.set(1.0);
+            }
+
+            if(ModConfig.SERVER.infection_speed_multiplier.get() <= 0)
+            {
+                ModConfig.SERVER.infection_speed_multiplier.set(1.0);
+            }
 
         }
     }
