@@ -164,7 +164,7 @@
 				}
 			}
 		},
-		"animation.sculk_hatcher.Tendrils": {
+		"misc.living": {
 			"loop": true,
 			"animation_length": 0.96,
 			"bones": {
@@ -243,5 +243,6 @@
 				}
 			}
 		}
-	}
+	},
+	"geckolib_format_version": 2
 }
